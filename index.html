@@ -54,6 +54,164 @@
           More stuff goes here.
         </section>
 
+        <section>
+          <section>
+            <h2>Understanding the web</h2>
+          </section>
+          <section>
+            PHP 4 model image
+          </section>
+          <section>
+            Request/Response model image
+          </section>
+          <section>
+            Request/Response HttpKernel model image
+          </section>
+          <section>
+            <pre><code class="php">interface HttpKernelInterface {
+  const MASTER_REQUEST = 1;
+  const SUB_REQUEST = 2;
+
+  /**
+   * Handles a Request to convert it to a Response.
+   *
+   * @param Request $request A Request instance
+   * @param integer $type    The type of the request
+   * @param Boolean $catch Whether to catch exceptions or not
+   *
+   * @return Response A Response instance
+   */
+  public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true);
+}
+            </code></pre>
+          </section>
+          <section>
+            HttpKernel flow image
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\Response;
+
+class MyControllers {
+
+  public function hello() {
+    return new Response('&lt;html>&lt;body>Hello World&lt;/body>&lt;/html>');
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+class MyControllers {
+
+  public function hello() {
+    return new Response('&lt;html>&lt;body>Hello World&lt;/body>&lt;/html>');
+  }
+
+  public function helloJson() {
+    $data['Hello'] = 'World';
+    return new JsonResponse($data);
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+class MyControllers {
+
+  public function helloStream() {
+    $response = new StreamedResponse();
+    $response->setCallback(function () {
+      echo 'Hello World';
+      flush();
+      sleep(2);
+      echo 'Hello Universe';
+      flush();
+    });
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\Response;
+
+class MyControllers {
+
+  public function helloEmpty() {
+    $this->doSomething();
+
+    $response = new Response();
+    $response->setStatusCode(204);
+    return $response;
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\Response;
+
+class MyControllers {
+
+  public function helloCsv() {
+    foreach ($some_data as $record) {
+      $lines[] = implode(', ', $record);
+    }
+
+    $response = new Response(implode("\n", $lines));
+    $response->headers->set('Content-Type', 'text/csv');
+    return $response;
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+use Symfony\Component\HttpFoundation\Response;
+
+class MyControllers {
+
+  public function helloCoffee() {
+    if ($this->isTeapot()) {
+      $response = new Response("Don't put coffee in me", 418);
+      return $response;
+    }
+
+    // ...
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+class MyControllers {
+
+  public function helloString() {
+    return "The view event will turn this into a response.";
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">
+class MyControllers {
+
+  public function helloDrupal() {
+    return array(
+      '#theme' => 'a_drupal_render_array',
+      '#description' => 'Those still exist.',
+    );
+  }
+}
+</code></pre>
+          </section>
+        </section>
 
 
 
