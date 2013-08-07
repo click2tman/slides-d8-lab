@@ -76,10 +76,6 @@
         </section>
 
         <section>
-          <h1>PHP marches on</h1>
-        </section>
-
-        <section>
           <h1>Playing nice with others</h1>
           <ul>
             <li>Namespacing</li>
@@ -94,6 +90,7 @@
         <section>
           <h1>Namespacing</h1>
           <ul>
+            <li>PSR-0
             <li>A fully-qualified namespace and class must have the following structure:<br />
             <code>\&lt;Vendor Name&gt;\(&lt;Namespace&gt;)*\&lt;Class Name&gt;</code></li>
             <li>Allows standard autoloading</li>
@@ -212,11 +209,57 @@ class DomainServerBlock extends BlockBase {
 
         <section>
           <h1>YAML*</h1>
-          <small>* Yes, this isn't a PHP thing</small>
+          <p><small>* Yes, this isn't a PHP thing</small></p>
+          <ul>
+            <li>Generic syntax for complex data</li>
+            <li>Portable</li>
+            <li>Core of the CMI</li>
+          </ul>
         </section>
 
         <section>
-          <h1>Composer</h1>
+          <h2>module.info.yml</h2>
+          <pre><code>
+name: Domain
+description: 'Creates domain records within a Drupal installation.'
+type: module
+package: Domain
+version: VERSION
+core: 8.x
+dependencies:
+  - options
+  - entity_reference
+configure: admin/structure/domain
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>module.routing.yml</h2>
+          <pre><code>
+domain_admin:
+  pattern: 'admin/structure/domain'
+  defaults:
+    _content: '\Drupal\domain\Controller\DomainController::adminOverview'
+  requirements:
+    _permission: 'administer domains'
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>views.view.module.view_name.yml</h2>
+          <pre><code>
+base_field: domain_id
+base_table: domain
+core: 8.x
+description: ''
+status: '1'
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+
+          </code></pre>
         </section>
 
         <section>
