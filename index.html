@@ -126,8 +126,7 @@ use Guzzle\Http\Exception\HttpException
         </section>
 
         <section>
-          <pre><code>
-/**
+          <pre><code>/**
  * @file
  * Definition of Drupal\domain\DomainInterface.
  */
@@ -257,8 +256,35 @@ display:
     display_plugin: default
     id: default
     display_title: Master
-
           </code></pre>
+        </section>
+
+        <section>
+          <h1>Lots of changes</h1>
+        </section>
+
+        <section>
+          <pre><code>
+mymodule/
+  mymodule.info.yml
+  mymodule.module
+  mymodule.routing.yml
+    lib/
+      Drupal/
+        Controller/
+          MyModuleController.php
+        Plugin/
+          Action/
+            MyModuleCreateRainbows.php
+            MyModuleMakeItStop.php
+          Block/
+            MyModuleHelloWorldBlock.php
+            MyModuleGoodbyeCruelWorldBlock.php
+          </code></pre>
+        </section>
+
+        <section>
+          <h2 style="color: #a31; font-size: 256px;">Don't Panic</h2>
         </section>
 
         <!-- // KEN'S INTRODUCTORY SLIDES -->
