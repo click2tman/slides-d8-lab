@@ -37,6 +37,198 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
 
+
+        <!-- KEN'S INTRODUCTORY SLIDES -->
+
+        <section>
+          <h1>Welcome</h1>
+        </section>
+
+        <section>
+          <h1>Outline</h1>
+        </section>
+
+        <section>
+          <h1>Process</h1>
+        </section>
+
+        <section>
+          <h1>Drupal 7</h1>
+          <h2>PHP 4 application</h2>
+        </section>
+
+        <section>
+          <h1>Drupal 8</h1>
+          <h2>PHP 5.4* application</h2>
+          <small>* maybe</small>
+        </section>
+
+        <section>
+          <h1>What does that mean?</h1>
+        </section>
+
+        <section>
+          <h1>The end of<br />"Not Invented Here"</h1>
+        </section>
+
+        <section>
+          <h1>We have<br />catching up to do</h1>
+        </section>
+
+        <section>
+          <h1>PHP marches on</h1>
+        </section>
+
+        <section>
+          <h1>Playing nice with others</h1>
+          <ul>
+            <li>Namespacing</li>
+            <li>Interfaces</li>
+            <li>Annotations</li>
+            <li>Plugins</li>
+            <li>YAML</li>
+            <li>Composer</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Namespacing</h1>
+          <ul>
+            <li>A fully-qualified namespace and class must have the following structure:<br />
+            <code>\&lt;Vendor Name&gt;\(&lt;Namespace&gt;)*\&lt;Class Name&gt;</code></li>
+            <li>Allows standard autoloading</li>
+            <li>See <a href="https://github.com/php-fig/fig-standards">https://github.com/php-fig/fig-standards</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <pre><code>
+/**
+ * @file
+ * Definition of Drupal\domain\Plugin\Core\Entity\Domain.
+ */
+namespace Drupal\domain\Plugin\Core\Entity;
+
+use Drupal\domain\DomainInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\Annotation\EntityType;
+use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Annotation\Translation;
+use Guzzle\Http\Exception\HttpException
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>Interfaces</h1>
+          <ul>
+            <li>Separate design from implementation</li>
+            <li>Allow objects to be mocked (testable)</li>
+            <li>Allow implementations to be swapped</li>
+            <li>Separate your library code from your Drupal code</li>
+          </ul>
+        </section>
+
+        <section>
+          <pre><code>
+/**
+ * @file
+ * Definition of Drupal\domain\DomainInterface.
+ */
+
+namespace Drupal\domain;
+use Drupal\Core\Entity\ContentEntityInterface;
+
+interface DomainInterface extends ContentEntityInterface {
+
+  public function validate();
+  public function checkResponse();
+  public function isActive();
+  public function isDefault();
+
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>Annotations</h1>
+          <ul>
+            <li>Docblocks as class definitions</li>
+            <li>Self-documenting</li>
+            <li>Replaces custom <code>hook_*_info()</code></li>
+          </ul>
+        </section>
+
+        <section>
+          <pre><code>
+namespace Drupal\domain\Plugin\Block;
+use Drupal\block\BlockBase;
+use Drupal\Component\Annotation\Plugin;
+use Drupal\Core\Annotation\Translation;
+
+/**
+ * Provides a server information block for a domain request.
+ *
+ * @Plugin(
+ *   id = "domain_server_block",
+ *   admin_label = @Translation("Domain server information"),
+ *   module = "domain"
+ * )
+ */
+class DomainServerBlock extends BlockBase {
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>Plugins</h1>
+          <ul>
+            <li>Generic term for a code model</li>
+            <li>Separation of concerns</li>
+            <li>Autoloading</li>
+            <li>Encourages libraries</li>
+            <li>See Views module in Drupal 7</li>
+          </ul>
+        </section>
+
+        <section>
+          <pre><code>
+class DomainServerBlock extends BlockBase {
+  /**
+   * Overrides \Drupal\block\BlockBase::access().
+   */
+  public function access() {
+    return user_access('administer domains');
+  }
+
+  /**
+   * Build the output.
+   */
+  public function build() {
+    return 'foo';
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>YAML*</h1>
+          <small>* Yes, this isn't a PHP thing</small>
+        </section>
+
+        <section>
+          <h1>Composer</h1>
+        </section>
+
+        <section>
+          <section>
+            Slide
+          </section>
+          <section>
+            Second slide
+          </section>
+        </section>
+        <!-- // KEN'S INTRODUCTORY SLIDES -->
+
         <section>
           Title slide.
         </section>
