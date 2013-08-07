@@ -57,8 +57,8 @@ body {
 }
 
 ::selection {
-	background: #344041;
-	color: #DBE8EC;
+	background: #FF5E99;
+	color: #fff;
 	text-shadow: none;
 }
 
@@ -179,19 +179,19 @@ body {
 		opacity: 0.5;
 	}
 
-.reveal .slides section .fragment.highlight-orange,
+.reveal .slides section .fragment.highlight-red,
 .reveal .slides section .fragment.highlight-green,
 .reveal .slides section .fragment.highlight-blue {
 	opacity: 1;
 }
-	.reveal .slides section .fragment.highlight-orange.visible {
-		color: #fb6500
+	.reveal .slides section .fragment.highlight-red.visible {
+		color: #ff2c2d
 	}
 	.reveal .slides section .fragment.highlight-green.visible {
-		color: #9fc855;
+		color: #17ff2e;
 	}
 	.reveal .slides section .fragment.highlight-blue.visible {
-		color: #11a9a1;
+		color: #1b91ff;
 	}
 
 
@@ -275,10 +275,11 @@ body {
 	position: relative;
 	width: 70%;
 	margin: 5px auto;
-	padding: 30px;
+	padding: 5px;
 
 	font-style: italic;
-	background: rgba(219, 232, 236, 0.5);
+	background: rgba(255, 255, 255, 0.05);
+	box-shadow: 0px 0px 2px rgba(0,0,0,0.2);
 }
 	.reveal blockquote p:first-child,
 	.reveal blockquote p:last-child {
@@ -302,6 +303,7 @@ body {
 
 	word-wrap: break-word;
 
+	box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
 }
 .reveal code {
 	font-family: monospace;
@@ -385,7 +387,7 @@ body {
 		top: 42px;
 
 		border-right-width: 22px;
-		border-right-color: #dbe8ec;
+		border-right-color: #eee;
 	}
 		.reveal .controls div.navigate-left.fragmented {
 			opacity: 0.3;
@@ -396,7 +398,7 @@ body {
 		top: 42px;
 
 		border-left-width: 22px;
-		border-left-color: #dbe8ec;
+		border-left-color: #eee;
 	}
 		.reveal .controls div.navigate-right.fragmented {
 			opacity: 0.3;
@@ -406,7 +408,7 @@ body {
 		left: 42px;
 
 		border-bottom-width: 22px;
-		border-bottom-color: #dbe8ec;
+		border-bottom-color: #eee;
 	}
 		.reveal .controls div.navigate-up.fragmented {
 			opacity: 0.3;
@@ -417,7 +419,7 @@ body {
 		top: 74px;
 
 		border-top-width: 22px;
-		border-top-color: #dbe8ec;
+		border-top-color: #eee;
 	}
 		.reveal .controls div.navigate-down.fragmented {
 			opacity: 0.3;
@@ -466,7 +468,6 @@ body {
 	display: inline-block;
 	line-height: 1.2;
 	overflow: hidden;
-	color: #344041;
 
 	vertical-align: top;
 
@@ -1603,17 +1604,4 @@ body {
 	visibility: hidden;
 }
 
-
-/* Logo */
-
-.reveal .logo {
-	position: absolute;
-	top: 92%;
-	left: 5%;
-	float: left;
-	max-width: 150px;
-	z-index: 1000;
-
-
-}
 

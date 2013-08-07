@@ -14,11 +14,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="css/reveal.css">
-    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="css/palantir-reveal.css">
+    <link rel="stylesheet" href="css/theme/palantir.css" id="theme">
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="lib/css/palantir-zenburn.css">
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -55,6 +55,38 @@
           More stuff goes here.
         </section>
 
+        <section class="long_code">
+          <h2>Long Code</h2>
+          <pre> <code>
+  class AggregatorController implements ControllerInterface {
+      protected $entityManager;
+      protected $database;
+
+  public static function create(ContainerInterface $container) {
+      return new static(
+      $container->get('plugin.manager.entity'),
+      $container->get('database')
+      );
+    }
+
+  public function __construct(EntityManager $entity_manager, Connection $database) {
+    $this->entityManager = $entity_manager;
+    $this->database = $database;
+  }
+
+  public function feedAdd() {
+    $feed = $this->entityManager
+      ->getStorageController('aggregator_feed')
+      ->create(array(
+        'refresh' => 3600,
+        'block' => 5,
+      ));
+    // ...
+  }
+}
+          </code>
+          </pre>
+        </section>
 
 
 
@@ -353,7 +385,7 @@ function linkify( selector ) {
         </section>
 
       </div>
-      
+
       <aside class="logo">
       <img src="img/logo.png">
       </aside>
