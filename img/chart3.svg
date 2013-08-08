@@ -3,18 +3,18 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="558px" height="155px" viewBox="0 0 558 155" enable-background="new 0 0 558 155" xml:space="preserve">
-<path fill="#E1EBEF" d="M109.5,55h63c7.452,0,13.5,8.064,13.5,18c0,9.936-6.048,18-13.5,18h-63C102.048,91,96,82.936,96,73
-	C96,63.064,102.048,55,109.5,55"/>
-<text transform="matrix(1 0 0 1 114.9185 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Request</text>
-<path fill="#E1EBEF" d="M379.5,55h63c7.452,0,13.5,8.064,13.5,18c0,9.936-6.048,18-13.5,18h-63c-7.452,0-13.5-8.064-13.5-18
-	C366,63.064,372.048,55,379.5,55"/>
-<text transform="matrix(1 0 0 1 379.9199 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Response</text>
-<path fill="#E1EBEF" d="M235.5,55H321v36h-85.5V55z M235.5,55"/>
-<text transform="matrix(1 0 0 1 244.5327 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">HttpKernel</text>
-<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="186.5" y1="73.5" x2="226.1" y2="73.5"/>
-<path fill="#E1EBEF" d="M234.1,73.5l-8-3v6L234.1,73.5z M234.1,73.5"/>
-<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M234.1,73.5l-8-3v6L234.1,73.5z M234.1,73.5"/>
-<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="321.5" y1="73.5" x2="356.6" y2="73.5"/>
-<path fill="#E1EBEF" d="M364.6,73.5l-8-3v6L364.6,73.5z M364.6,73.5"/>
-<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M364.6,73.5l-8-3v6L364.6,73.5z M364.6,73.5"/>
+<path fill="#E1EBEF" d="M82.225,50.7h78.05C169.507,50.7,177,60.69,177,73c0,12.309-7.493,22.3-16.725,22.3h-78.05
+	C72.993,95.3,65.5,85.309,65.5,73C65.5,60.69,72.993,50.7,82.225,50.7"/>
+<path fill="#E1EBEF" d="M408.324,50.7h78.051c9.232,0,16.725,9.99,16.725,22.3c0,12.309-7.492,22.3-16.725,22.3h-78.051
+	c-9.232,0-16.725-9.991-16.725-22.3C391.6,60.69,399.092,50.7,408.324,50.7"/>
+<text transform="matrix(1 0 0 1 96.9185 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Request</text>
+<text transform="matrix(1 0 0 1 416.9199 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Response</text>
+<path fill="#E1EBEF" d="M225.1,47.126H348v51.748H225.1V47.126z"/>
+<text transform="matrix(1 0 0 1 253.5327 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">HttpKernel</text>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="177.5" y1="73.5" x2="217.1" y2="73.5"/>
+<path fill="#E1EBEF" d="M225.1,73.5l-8-3v6L225.1,73.5z"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M225.1,73.5l-8-3v6L225.1,73.5z"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="348.5" y1="73.5" x2="383.6" y2="73.5"/>
+<path fill="#E1EBEF" d="M391.6,73.5l-8-3v6L391.6,73.5z"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M391.6,73.5l-8-3v6L391.6,73.5z"/>
 </svg>
