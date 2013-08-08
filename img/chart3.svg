@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="558px" height="155px" viewBox="0 0 558 155" enable-background="new 0 0 558 155" xml:space="preserve">
+<path fill="#E1EBEF" d="M109.5,55h63c7.452,0,13.5,8.064,13.5,18c0,9.936-6.048,18-13.5,18h-63C102.048,91,96,82.936,96,73
+	C96,63.064,102.048,55,109.5,55"/>
+<text transform="matrix(1 0 0 1 114.9185 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Request</text>
+<path fill="#E1EBEF" d="M379.5,55h63c7.452,0,13.5,8.064,13.5,18c0,9.936-6.048,18-13.5,18h-63c-7.452,0-13.5-8.064-13.5-18
+	C366,63.064,372.048,55,379.5,55"/>
+<text transform="matrix(1 0 0 1 379.9199 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Response</text>
+<path fill="#E1EBEF" d="M235.5,55H321v36h-85.5V55z M235.5,55"/>
+<text transform="matrix(1 0 0 1 244.5327 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">HttpKernel</text>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="186.5" y1="73.5" x2="226.1" y2="73.5"/>
+<path fill="#E1EBEF" d="M234.1,73.5l-8-3v6L234.1,73.5z M234.1,73.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M234.1,73.5l-8-3v6L234.1,73.5z M234.1,73.5"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="321.5" y1="73.5" x2="356.6" y2="73.5"/>
+<path fill="#E1EBEF" d="M364.6,73.5l-8-3v6L364.6,73.5z M364.6,73.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M364.6,73.5l-8-3v6L364.6,73.5z M364.6,73.5"/>
+</svg>

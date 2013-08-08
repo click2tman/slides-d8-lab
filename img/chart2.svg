@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="757px" height="407px" viewBox="0 0 757 407" enable-background="new 0 0 757 407" xml:space="preserve">
+<path fill="#E1EBEF" d="M29.5,107h63c7.452,0,13.5,8.064,13.5,18s-6.048,18-13.5,18h-63c-7.452,0-13.5-8.064-13.5-18
+	S22.048,107,29.5,107"/>
+<text transform="matrix(1 0 0 1 34.9185 129.5)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Request</text>
+<path fill="#E1EBEF" d="M625.125,260h71.75c8.487,0,15.375,9.185,15.375,20.5s-6.888,20.5-15.375,20.5h-71.75
+	c-8.487,0-15.375-9.185-15.375-20.5S616.638,260,625.125,260"/>
+<text transform="matrix(1 0 0 1 631.041 284.5)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Response</text>
+<path fill="#E1EBEF" d="M349,107h81v36h-81V107z M349,107"/>
+<text transform="matrix(1 0 0 1 357.7695 129.5)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Controller</text>
+<path fill="#E1EBEF" d="M124,107h90l-18,36h-54L124,107z M124,107"/>
+<text transform="matrix(1 0 0 1 144.8994 121.7891)"><tspan x="0" y="0" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">request</tspan><tspan x="6.349" y="14" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">event</tspan></text>
+<path fill="#E1EBEF" d="M232,107h90l-18,36h-54L232,107z M232,107"/>
+<text transform="matrix(1 0 0 1 246.5854 121.7891)"><tspan x="0" y="0" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">controller</tspan><tspan x="12.663" y="14" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">event</tspan></text>
+<path fill="#E1EBEF" d="M607.25,28h107.5l-21.5,43h-64.5L607.25,28z M607.25,28"/>
+<text transform="matrix(1 0 0 1 646.877 44.7734)"><tspan x="0" y="0" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">view</tspan><tspan x="-3.129" y="14" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">event</tspan></text>
+<path fill="#E1EBEF" d="M608.5,188h105l-21,42h-63L608.5,188z M608.5,188"/>
+<text transform="matrix(1 0 0 1 631.251 204.6504)"><tspan x="0" y="0" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">response</tspan><tspan x="11.347" y="14" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">event</tspan></text>
+<path fill="#E1EBEF" d="M607.25,332h107.5l-21.5,43h-64.5L607.25,332z M607.25,332"/>
+<text transform="matrix(1 0 0 1 630.8359 350.1953)"><tspan x="0" y="0" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">terminate</tspan><tspan x="12.838" y="14" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">event</tspan></text>
+<path fill="#E1EBEF" d="M522.55,88.481L589.5,125l-66.95,36.518L455.6,125L522.55,88.481z M522.55,88.481"/>
+<text transform="matrix(1 0 0 1 481.3691 128.5)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">is Response?</text>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="106.5" y1="125.5" x2="123.6" y2="125.5"/>
+<path fill="#E1EBEF" d="M131.6,125.5l-8-3v6L131.6,125.5z M131.6,125.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M131.6,125.5l-8-3v6L131.6,125.5z M131.6,125.5"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="205.5" y1="125.5" x2="231.6" y2="125.5"/>
+<path fill="#E1EBEF" d="M239.6,125.5l-8-3v6L239.6,125.5z M239.6,125.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M239.6,125.5l-8-3v6L239.6,125.5z M239.6,125.5"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="430.5" y1="125.5" x2="447.6" y2="125.5"/>
+<path fill="#E1EBEF" d="M455.6,125.5l-8-3v6L455.6,125.5z M455.6,125.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M455.6,125.5l-8-3v6L455.6,125.5z M455.6,125.5"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="589.5" y1="125.5" x2="653.58" y2="77.44"/>
+<path fill="#E1EBEF" d="M659.98,72.64l-8.2,2.4l3.6,4.8L659.98,72.64z M659.98,72.64"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M659.98,72.64l-8.2,2.4l3.6,4.8L659.98,72.64z M659.98,72.64"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="589.5" y1="125.5" x2="654.05" y2="181.981"/>
+<path fill="#E1EBEF" d="M660.07,187.249l-4.045-7.526l-3.951,4.515L660.07,187.249z M660.07,187.249"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M660.07,187.249l-4.045-7.526l-3.951,4.515L660.07,187.249z
+	 M660.07,187.249"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="661.5" y1="71.5" x2="661.5" y2="178.6"/>
+<path fill="#E1EBEF" d="M661.5,186.6l3-8h-6L661.5,186.6z M661.5,186.6"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M661.5,186.6l3-8h-6L661.5,186.6z M661.5,186.6"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="661.5" y1="224.5" x2="661.5" y2="250.6"/>
+<path fill="#E1EBEF" d="M661.5,258.6l3-8h-6L661.5,258.6z M661.5,258.6"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M661.5,258.6l3-8h-6L661.5,258.6z M661.5,258.6"/>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="313.5" y1="125.5" x2="339.6" y2="125.5"/>
+<path fill="#E1EBEF" d="M347.6,125.5l-8-3v6L347.6,125.5z M347.6,125.5"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M347.6,125.5l-8-3v6L347.6,125.5z M347.6,125.5"/>
+<path fill="#DBE8EC" d="M610.275,144.304h29v24h-29V144.304z M610.275,144.304"/>
+<text transform="matrix(1 0 0 1 613.0508 160.8047)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Yes</text>
+<path fill="#DBE8EC" d="M608.872,88.346h26v24h-26V88.346z M608.872,88.346"/>
+<text transform="matrix(1 0 0 1 612.4121 104.8516)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">No</text>
+<line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="4,4" x1="661.5" y1="296.5" x2="661.5" y2="322.6"/>
+<path fill="#E1EBEF" d="M661.5,330.6l3-8h-6L661.5,330.6z M661.5,330.6"/>
+<path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M661.5,330.6l3-8h-6L661.5,330.6z M661.5,330.6"/>
+</svg>
