@@ -455,43 +455,79 @@ class MyControllers {
           </section>
 
 
-
-        <!-- Sample stuff from reveal.js below here. Delete soon. -->
-
-
-
-        <!-- needs class renamed to a dash instead of underscore -->
-          <section class="long_code">
-            <h2>Long Code</h2>
-           <pre> <code class="php">
-  class AggregatorController implements ControllerInterface {
-      protected $entityManager;
-      protected $database;
-
-  public static function create(ContainerInterface $container) {
-      return new static(
-      $container->get('plugin.manager.entity'),
-      $container->get('database')
-      );
-    }
-
-  public function __construct(EntityManager $entity_manager, Connection $database) {
-    $this->entityManager = $entity_manager;
-    $this->database = $database;
-  }
-
-  public function feedAdd() {
-    $feed = $this->entityManager
-      ->getStorageController('aggregator_feed')
-      ->create(array(
-        'refresh' => 3600,
-        'block' => 5,
-      ));
-    // ...
-  }
-}</code></pre>
-          </section>
         </section>
+
+<!-- Robin's Slides -->
+<section>
+  <section>
+    <h2>Plugins</h2>
+    <aside class="notes">
+        (hit 's' on your keyboard to see me.)
+        What is a plugin?
+    </aside>
+  </section>
+  <section>
+    <h2>Plugins are...</h2>
+    <p class="fragment roll-in">a narrow set of functionality</p>
+    <hr/>
+    <h2>Plugin Systems (or Frameworks)</h2>
+    <p class="fragment roll-in">allows customization and extension of the original system
+    <p class="fragment roll-in">examples:</p>
+    <p class="fragment roll-in">graphics software: processing image files</p>
+    <p class="fragment roll-in">web browsers:  playing video and java apps</p>
+    <p class="fragment roll-in">In Drupal 7?
+    <p class="fragment roll-in">ctools plugins</p>
+    <p class="fragment roll-in">Others?</p>
+    <aside class="notes">
+    in general plugins provide a narrow set of functionality<br/>
+    a plugin framework or system allows customization and extension of the original system
+    examples outside of drupal<br/>
+    graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
+    web browsers use plugins for playing video and java apps<br/>
+    in d7 we have most notably ctools plugins<br/>
+    who knows of any other plugin “systems” in D7? jquery plugins? others?<br/>
+    </aside>
+  </section>
+  <section>
+    <aside class="notes">
+     <h2>Drupal 8 One plugin system to rule them all!</h2>
+    <p>in d8, we have a new universal plugin system available via core.
+      This system has three base elements:</p>
+    <ol>
+      <li>plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.</li>
+      <li>plugin discovery - finds plugins in the code base to apply</li>
+      <li>plugin factory - instantiates specific plugins as needed</li>
+    </ol>
+    <p>(maybe) other components that could be useful:
+      plugin derivatives, discovery decorators and plugin mappers.</p>
+    </aside>
+    <h2>Drupal 8 One plugin system to rule them all!</h2>
+    <p>a new universal plugin system available via core.</p>
+    <ol>
+      <li>plugin types</li>
+      <li>plugin discovery</li>
+      <li>plugin factory</li>
+    </ol>
+
+    </section>
+  <section>
+    new slide (maybe)
+plugin types replace old hooks especially info hooks.  see hook_block_info, hook_bloc_save, hook_block_view, these are enacpsulated in one plugin so no more switch statements like you used to do in hook_block_view  hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.
+
+  </section>
+</section>
+<section>
+  <h2>markup notes</h2>
+  <p class="fragment roll-in" data-fragment-index="3">roll-in</p>
+  <p class="fragment highlight-red"  data-fragment-index="4">highlight-red</p>
+  <p class="fragment highlight-green"  data-fragment-index="1">highlight-green</p>
+  <p class="fragment highlight-blue"  data-fragment-index="2">highlight-blue</p>
+  <aside class="notes">in general<br/>
+  in d7
+  </aside>
+</section>
+
+<!-- Robin's Slides End -->
 
       </div>
 
