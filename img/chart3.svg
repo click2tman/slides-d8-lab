@@ -7,10 +7,10 @@
 	C72.993,95.3,65.5,85.309,65.5,73C65.5,60.69,72.993,50.7,82.225,50.7"/>
 <path fill="#E1EBEF" d="M408.324,50.7h78.051c9.232,0,16.725,9.99,16.725,22.3c0,12.309-7.492,22.3-16.725,22.3h-78.051
 	c-9.232,0-16.725-9.991-16.725-22.3C391.6,60.69,399.092,50.7,408.324,50.7"/>
-<text transform="matrix(1 0 0 1 96.9185 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Request</text>
-<text transform="matrix(1 0 0 1 416.9199 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">Response</text>
+<text transform="matrix(1 0 0 1 96.9185 77.5078)" fill="#435152" font-family="Proxima Nova" font-weight="bold" font-size="14">Request</text>
+<text transform="matrix(1 0 0 1 416.9199 77.5078)" fill="#435152" font-family="Proxima Nova" font-weight="bold" font-size="14">Response</text>
 <path fill="#E1EBEF" d="M225.1,47.126H348v51.748H225.1V47.126z"/>
-<text transform="matrix(1 0 0 1 253.5327 77.5078)" fill="#435152" font-family="'ProximaNova-Bold'" font-size="14">HttpKernel</text>
+<text transform="matrix(1 0 0 1 253.5327 77.5078)" fill="#435152" font-family="Proxima Nova" font-weight="bold" font-size="14">HttpKernel</text>
 <line fill="none" stroke="#E1EBEF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="177.5" y1="73.5" x2="217.1" y2="73.5"/>
 <path fill="#E1EBEF" d="M225.1,73.5l-8-3v6L225.1,73.5z"/>
 <path fill="none" stroke="#E1EBEF" stroke-miterlimit="10" d="M225.1,73.5l-8-3v6L225.1,73.5z"/>
