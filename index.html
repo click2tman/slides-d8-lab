@@ -378,6 +378,23 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
+            <pre><code class="php">use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+class MyControllers {
+
+  public function helloFile() {
+    $response new BinaryFileResponse('hello_world.png');
+
+    // Do this in settings.php if you know you're on nginx or
+    // have the Apache module enabled.
+    $response::trustXSendfileTypeHeader();
+
+    return $response;
+  }
+}
+</code></pre>
+          </section>
+          <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 
 class MyControllers {
