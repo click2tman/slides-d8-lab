@@ -4,6 +4,9 @@ Zenburn style from voldmar.ru (c) Vladimir Epifanov <voldmar@voldmar.ru>
 based on dark.css by Ivan Sagalaev
 
 */
+pre .long_code {
+  min-width: 1000px;
+ }
 
 pre code {
   display: block; padding: 0.5em;
