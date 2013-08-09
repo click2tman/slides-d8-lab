@@ -556,12 +556,6 @@ body {
 	-ms-touch-action: none;
 }
 
-.reveal .slides .long_code {
-	min-width: 1350px;
-	left: -14%;
- }
-
-
 .reveal .slides {
 	position: absolute;
 	width: 100%;
