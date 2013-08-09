@@ -36,23 +36,246 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
 
-        <section>
-          Title slide.
-        </section>
 
+        <!-- KEN'S INTRODUCTORY SLIDES -->
         <section>
           <section>
-            Drupal 7: PHP 4
-            Drupal 8: PHP 5.3
+            <h1>Welcome</h1>
           </section>
-          <section>
-            Drupal has been ported to a new language!
-          </section>
-        </section>
 
-        <section>
-          More stuff goes here.
+          <section>
+            <h1>Outline</h1>
+          </section>
+
+          <section>
+            <h1>Process</h1>
+          </section>
+
+          <section>
+            <h1>Drupal 7</h1>
+            <h2>PHP 4 application</h2>
+          </section>
+
+          <section>
+            <h1>Drupal 8</h1>
+            <h2>PHP 5.4* application</h2>
+            <small>* maybe</small>
+          </section>
+
+          <section>
+            <h1>What does that mean?</h1>
+          </section>
+
+          <section>
+            <h1>The end of<br />"Not Invented Here"</h1>
+          </section>
+
+          <section>
+            <h1>We have<br />catching up to do</h1>
+          </section>
+
+          <section>
+            <h1>Playing nice with others</h1>
+            <ul>
+              <li>Namespacing</li>
+              <li>Interfaces</li>
+              <li>Annotations</li>
+              <li>Plugins</li>
+              <li>YAML</li>
+            </ul>
+          </section>
+
+          <section>
+            <h1>Namespacing</h1>
+            <ul>
+              <li>PSR-0
+              <li>A fully-qualified namespace and class must have the following structure:<br />
+              <code>\&lt;Vendor Name&gt;\(&lt;Namespace&gt;)*\&lt;Class Name&gt;</code></li>
+              <li>Allows standard autoloading</li>
+              <li>See <a href="https://github.com/php-fig/fig-standards">https://github.com/php-fig/fig-standards</a></li>
+            </ul>
+          </section>
+
+          <section>
+            <pre><code class="php">/**
+ * @file
+ * Definition of Drupal\domain\Plugin\Core\Entity\Domain.
+ */
+
+namespace Drupal\domain\Plugin\Core\Entity;
+
+use Drupal\domain\DomainInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\Annotation\EntityType;
+use Drupal\Core\Entity\EntityStorageControllerInterface;
+use Drupal\Core\Annotation\Translation;
+use Guzzle\Http\Exception\HttpException</code></pre>
+          </section>
+
+          <section>
+            <h1>Interfaces</h1>
+            <ul>
+              <li>Separate design from implementation</li>
+              <li>Allow objects to be mocked (testable)</li>
+              <li>Allow implementations to be swapped</li>
+              <li>Separate your library code from your Drupal code</li>
+            </ul>
+          </section>
+
+          <section>
+            <pre><code class="php">/**
+ * @file
+ * Definition of Drupal\domain\DomainInterface.
+ */
+
+namespace Drupal\domain;
+use Drupal\Core\Entity\ContentEntityInterface;
+
+interface DomainInterface extends ContentEntityInterface {
+
+  public function validate();
+  public function checkResponse();
+  public function isActive();
+  public function isDefault();
+
+}</code></pre>
+          </section>
+
+          <section>
+            <h1>Annotations</h1>
+            <ul>
+              <li>Docblocks as class definitions</li>
+              <li>Self-documenting</li>
+              <li>Replaces custom <code>hook_*_info()</code></li>
+            </ul>
+          </section>
+
+          <section>
+            <pre><code class="php">namespace Drupal\domain\Plugin\Block;
+use Drupal\block\BlockBase;
+use Drupal\Component\Annotation\Plugin;
+use Drupal\Core\Annotation\Translation;
+
+/**
+ * Provides a server information block for a domain request.
+ *
+ * @Plugin(
+ *   id = "domain_server_block",
+ *   admin_label = @Translation("Domain server information"),
+ *   module = "domain"
+ * )
+ */
+class DomainServerBlock extends BlockBase {
+
+}</code></pre>
+          </section>
+
+          <section>
+            <h1>Plugins</h1>
+            <ul>
+              <li>Generic term for a code model</li>
+              <li>Separation of concerns</li>
+              <li>Autoloading</li>
+              <li>Encourages libraries</li>
+              <li>See Views module in Drupal 7</li>
+            </ul>
+          </section>
+
+          <section>
+            <pre><code class="php">class DomainServerBlock extends BlockBase {
+  /**
+   * Overrides \Drupal\block\BlockBase::access().
+   */
+  public function access() {
+    return user_access('administer domains');
+  }
+
+  /**
+   * Build the output.
+   */
+  public function build() {
+    return 'foo';
+  }
+}</code></pre>
+          </section>
+
+          <section>
+            <h1>YAML*</h1>
+            <p><small>* Yes, this isn't a PHP thing</small></p>
+            <ul>
+              <li>Generic syntax for complex data</li>
+              <li>Portable</li>
+              <li>Core of the CMI</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>module.info.yml</h2>
+           <pre><code class="yaml">name: Domain
+description: 'Creates domain records within a Drupal installation.'
+type: module
+package: Domain
+version: VERSION
+core: 8.x
+dependencies:
+  - options
+  - entity_reference
+configure: admin/structure/domain</code></pre>
+          </section>
+
+          <section>
+          <h2>module.routing.yml</h2>
+          <pre><code class="yaml">domain_admin:
+  pattern: 'admin/structure/domain'
+  defaults:
+    _content: '\Drupal\domain\Controller\DomainController::adminOverview'
+  requirements:
+    _permission: 'administer domains'</code></pre>
+          </section>
+
+          <section>
+            <h2>views.view.module.view_name.yml</h2>
+            <pre><code class="yaml">base_field: domain_id
+base_table: domain
+core: 8.x
+description: ''
+status: '1'
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master</code></pre>
+          </section>
+
+          <section>
+            <h1>Lots of changes</h1>
+          </section>
+
+          <section>
+           <pre><code>mymodule/
+  mymodule.info.yml
+  mymodule.module
+  mymodule.routing.yml
+    lib/
+      Drupal/
+        Controller/
+          MyModuleController.php
+        Plugin/
+          Action/
+            MyModuleCreateRainbows.php
+            MyModuleMakeItStop.php
+          Block/
+            MyModuleHelloWorldBlock.php
+            MyModuleGoodbyeCruelWorldBlock.php</code></pre>
+          </section>
+
+          <section>
+            <h2 style="color: #a31; font-size: 256px;">Don't Panic</h2>
+          </section>
+
         </section>
+        <!-- // KEN'S INTRODUCTORY SLIDES -->
 
         <section>
           <section>
@@ -232,6 +455,7 @@ class MyControllers {
           </section>
 
 
+<<<<<<< HEAD
 
         <!-- Sample stuff from reveal.js below here. Delete soon. -->
 
@@ -268,7 +492,81 @@ class MyControllers {
   }
 }</code></pre>
           </section>
+=======
+>>>>>>> master
         </section>
+
+<!-- Robin's Slides -->
+<section>
+  <section>
+    <h2>Plugins</h2>
+    <aside class="notes">
+        (hit 's' on your keyboard to see me.)
+        What is a plugin?
+    </aside>
+  </section>
+  <section>
+    <h2>Plugins are...</h2>
+    <p class="fragment roll-in">a narrow set of functionality</p>
+    <hr/>
+    <h2>Plugin Systems (or Frameworks)</h2>
+    <p class="fragment roll-in">allows customization and extension of the original system
+    <p class="fragment roll-in">examples:</p>
+    <p class="fragment roll-in">graphics software: processing image files</p>
+    <p class="fragment roll-in">web browsers:  playing video and java apps</p>
+    <p class="fragment roll-in">In Drupal 7?
+    <p class="fragment roll-in">ctools plugins</p>
+    <p class="fragment roll-in">Others?</p>
+    <aside class="notes">
+    in general plugins provide a narrow set of functionality<br/>
+    a plugin framework or system allows customization and extension of the original system
+    examples outside of drupal<br/>
+    graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
+    web browsers use plugins for playing video and java apps<br/>
+    in d7 we have most notably ctools plugins<br/>
+    who knows of any other plugin “systems” in D7? jquery plugins? others?<br/>
+    </aside>
+  </section>
+  <section>
+    <aside class="notes">
+     <h2>Drupal 8 One plugin system to rule them all!</h2>
+    <p>in d8, we have a new universal plugin system available via core.
+      This system has three base elements:</p>
+    <ol>
+      <li>plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.</li>
+      <li>plugin discovery - finds plugins in the code base to apply</li>
+      <li>plugin factory - instantiates specific plugins as needed</li>
+    </ol>
+    <p>(maybe) other components that could be useful:
+      plugin derivatives, discovery decorators and plugin mappers.</p>
+    </aside>
+    <h2>Drupal 8 One plugin system to rule them all!</h2>
+    <p>a new universal plugin system available via core.</p>
+    <ol>
+      <li>plugin types</li>
+      <li>plugin discovery</li>
+      <li>plugin factory</li>
+    </ol>
+
+    </section>
+  <section>
+    new slide (maybe)
+plugin types replace old hooks especially info hooks.  see hook_block_info, hook_bloc_save, hook_block_view, these are enacpsulated in one plugin so no more switch statements like you used to do in hook_block_view  hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.
+
+  </section>
+</section>
+<section>
+  <h2>markup notes</h2>
+  <p class="fragment roll-in" data-fragment-index="3">roll-in</p>
+  <p class="fragment highlight-red"  data-fragment-index="4">highlight-red</p>
+  <p class="fragment highlight-green"  data-fragment-index="1">highlight-green</p>
+  <p class="fragment highlight-blue"  data-fragment-index="2">highlight-blue</p>
+  <aside class="notes">in general<br/>
+  in d7
+  </aside>
+</section>
+
+<!-- Robin's Slides End -->
 
       </div>
 

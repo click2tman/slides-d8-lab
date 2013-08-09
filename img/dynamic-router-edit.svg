@@ -138,29 +138,29 @@
 	</metadata>
 <rect x="10" y="20" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 18.8066 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">DynamicRouter</text>
+	<text transform="matrix(1 0 0 1 18.8066 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">DynamicRouter</text>
 </g>
 <rect x="10" y="469" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 18.8066 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">DynamicRouter</text>
+	<text transform="matrix(1 0 0 1 18.8066 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">DynamicRouter</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M83.461,59v410"/>
 <rect x="176.922" y="20" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 186.481 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">NestedMatcher</text>
+	<text transform="matrix(1 0 0 1 186.481 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">NestedMatcher</text>
 </g>
 <rect x="176.922" y="469" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 186.481 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">NestedMatcher</text>
+	<text transform="matrix(1 0 0 1 186.481 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">NestedMatcher</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M250.383,59v410"/>
 <rect x="343.844" y="20" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 356.8447 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteProvider</text>
+	<text transform="matrix(1 0 0 1 356.8447 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteProvider</text>
 </g>
 <rect x="343.844" y="469" fill="#DBE8EC" width="146.922" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 356.8447 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteProvider</text>
+	<text transform="matrix(1 0 0 1 356.8447 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteProvider</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M417.305,59v126.5"/>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M417.305,210v20.75"/>
@@ -170,38 +170,38 @@
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M574.622,444v27.5"/>
 <rect x="510.766" y="20" fill="#DBE8EC" width="127.703" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 527.7368 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteFilter</text>
+	<text transform="matrix(1 0 0 1 527.7368 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteFilter</text>
 </g>
 <rect x="510.766" y="469" fill="#DBE8EC" width="127.703" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 527.7368 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteFilter</text>
+	<text transform="matrix(1 0 0 1 527.7368 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteFilter</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M574.617,59v287.5"/>
 <rect x="658.469" y="20" fill="#DBE8EC" width="118.094" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 670.5537 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">UrlMatcher</text>
+	<text transform="matrix(1 0 0 1 670.5537 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">UrlMatcher</text>
 </g>
 <rect x="658.469" y="469" fill="#DBE8EC" width="118.094" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 670.5537 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">UrlMatcher</text>
+	<text transform="matrix(1 0 0 1 670.5537 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">UrlMatcher</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M717.516,59v410"/>
 <rect x="796.562" y="20" fill="#DBE8EC" width="156.529" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 806.0557 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteEnhancers</text>
+	<text transform="matrix(1 0 0 1 806.0557 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteEnhancers</text>
 </g>
 <rect x="796.562" y="469" fill="#DBE8EC" width="156.529" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 806.0557 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">RouteEnhancers</text>
+	<text transform="matrix(1 0 0 1 806.0557 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">RouteEnhancers</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M874.828,59v410"/>
 <rect x="973.094" y="20" fill="#DBE8EC" width="127.703" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 984.3311 45)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">ChainRouter</text>
+	<text transform="matrix(1 0 0 1 984.3311 45)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">ChainRouter</text>
 </g>
 <rect x="973.094" y="469" fill="#DBE8EC" width="127.703" height="39"/>
 <g>
-	<text transform="matrix(1 0 0 1 984.3311 494)" fill="#344041" font-family="'ProximaNova-Bold'" font-size="17">ChainRouter</text>
+	<text transform="matrix(1 0 0 1 984.3311 494)" fill="#344041" font-family="Proxima Nova" font-weight="bold" font-size="17">ChainRouter</text>
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M1036.945,59v410"/>
 <g>
