@@ -57,8 +57,8 @@ body {
 }
 
 ::selection {
-	background: #FF5E99;
-	color: #fff;
+	background: #344041;
+	color: #DBE8EC;
 	text-shadow: none;
 }
 
@@ -179,19 +179,19 @@ body {
 		opacity: 0.5;
 	}
 
-.reveal .slides section .fragment.highlight-red,
+.reveal .slides section .fragment.highlight-orange,
 .reveal .slides section .fragment.highlight-green,
 .reveal .slides section .fragment.highlight-blue {
 	opacity: 1;
 }
-	.reveal .slides section .fragment.highlight-red.visible {
-		color: #ff2c2d
+	.reveal .slides section .fragment.highlight-orange.visible {
+		color: #fb6500
 	}
 	.reveal .slides section .fragment.highlight-green.visible {
-		color: #17ff2e;
+		color: #9fc855;
 	}
 	.reveal .slides section .fragment.highlight-blue.visible {
-		color: #1b91ff;
+		color: #11a9a1;
 	}
 
 
@@ -275,11 +275,10 @@ body {
 	position: relative;
 	width: 70%;
 	margin: 5px auto;
-	padding: 5px;
+	padding: 30px;
 
 	font-style: italic;
-	background: rgba(255, 255, 255, 0.05);
-	box-shadow: 0px 0px 2px rgba(0,0,0,0.2);
+	background: rgba(219, 232, 236, 0.5);
 }
 	.reveal blockquote p:first-child,
 	.reveal blockquote p:last-child {
@@ -303,16 +302,16 @@ body {
 
 	word-wrap: break-word;
 
-	box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
 }
 .reveal code {
 	font-family: monospace;
 }
 .reveal pre code {
 	padding: 5px;
-	overflow: auto;
-	max-height: 400px;
+	overflow: none;
+	min-height: 400px;
 	word-wrap: normal;
+	width: 90%;
 }
 
 .reveal table th,
@@ -387,7 +386,7 @@ body {
 		top: 42px;
 
 		border-right-width: 22px;
-		border-right-color: #eee;
+		border-right-color: #dbe8ec;
 	}
 		.reveal .controls div.navigate-left.fragmented {
 			opacity: 0.3;
@@ -398,7 +397,7 @@ body {
 		top: 42px;
 
 		border-left-width: 22px;
-		border-left-color: #eee;
+		border-left-color: #dbe8ec;
 	}
 		.reveal .controls div.navigate-right.fragmented {
 			opacity: 0.3;
@@ -408,7 +407,7 @@ body {
 		left: 42px;
 
 		border-bottom-width: 22px;
-		border-bottom-color: #eee;
+		border-bottom-color: #dbe8ec;
 	}
 		.reveal .controls div.navigate-up.fragmented {
 			opacity: 0.3;
@@ -419,7 +418,7 @@ body {
 		top: 74px;
 
 		border-top-width: 22px;
-		border-top-color: #eee;
+		border-top-color: #dbe8ec;
 	}
 		.reveal .controls div.navigate-down.fragmented {
 			opacity: 0.3;
@@ -468,6 +467,7 @@ body {
 	display: inline-block;
 	line-height: 1.2;
 	overflow: hidden;
+	color: #344041;
 
 	vertical-align: top;
 
@@ -555,6 +555,12 @@ body {
 
 	-ms-touch-action: none;
 }
+
+.reveal .slides .long_code {
+	min-width: 1350px;
+	left: -65%;
+ }
+
 
 .reveal .slides {
 	position: absolute;
@@ -1605,3 +1611,21 @@ body {
 }
 
 
+/* Logo */
+
+.reveal .logo {
+	position: absolute;
+	top: 92%;
+	left: 5%;
+	float: left;
+	max-width: 150px;
+	z-index: 1000;
+
+
+}
+
+/*  Graphic  */
+
+.graphic {
+	min-width: 800px;
+}
