@@ -56,12 +56,12 @@
             <h1>Goals</h1>
             <h3>SWBAT*</h3>
             <ul>
-              <li>Trace the path of a Drupal request and response</li>
-              <li>Create routes and controllers for requests</li>
-              <li>Define common module plugins</li>
-              <li>Store default module settings</li>
-              <li>Create forms and pages</li>
-              <li>Create tests with SimpleTest and PHPUnit</li>
+              <li class="fragment">Trace the path of a Drupal request and response</li>
+              <li class="fragment">Create routes and controllers for requests</li>
+              <li class="fragment">Define common module plugins</li>
+              <li class="fragment">Store default module settings</li>
+              <li class="fragment">Create forms and pages</li>
+              <li class="fragment">Create tests with SimpleTest and PHPUnit</li>
             </ul>
           </section>
 
@@ -72,9 +72,10 @@
           <section>
             <h1>Process</h1>
             <ul>
-              <li>Introduction to concepts</li>
-              <li>Examples in code</li>
-              <li>Practical activity</li>
+              <li class="fragment">Introduction to concepts</li>
+              <li class="fragment">Examples in code</li>
+              <li class="fragment">Practical activity</li>
+              <li class="fragment">Peer review</li>
             </ul>
           </section>
 
@@ -84,6 +85,9 @@
         </section>
 
         <section>
+          <section>
+            <h1>Understanding Drupal 8</h1>
+          </section>
           <section>
             <h1>Drupal 7</h1>
             <h2>PHP 4 application</h2>
@@ -97,35 +101,29 @@
 
           <section>
             <h1>What does that mean?</h1>
-          </section>
-
-          <section>
-            <h1>The end of<br />"Not Invented Here"</h1>
-          </section>
-
-          <section>
-            <h1>We have<br />catching up to do</h1>
+            <p class="fragment">The end of "Not Invented Here"</p>
+            <p class="fragment">We have catching up to do</p>
           </section>
 
           <section>
             <h1>Playing nice with others</h1>
             <ul>
-              <li>Namespacing</li>
-              <li>Interfaces</li>
-              <li>Annotations</li>
-              <li>Plugins</li>
-              <li>YAML</li>
+              <li class="fragment">Namespacing</li>
+              <li class="fragment">Interfaces</li>
+              <li class="fragment">Annotations</li>
+              <li class="fragment">Plugins</li>
+              <li class="fragment">YAML</li>
             </ul>
           </section>
 
           <section>
             <h1>Namespacing</h1>
             <ul>
-              <li>PSR-0
-              <li>A fully-qualified namespace and class must have the following structure:<br />
+              <li class="fragment">PSR-0
+              <li class="fragment">A fully-qualified namespace and class must have the following structure:<br />
               <code>\&lt;Vendor Name&gt;\(&lt;Namespace&gt;)*\&lt;Class Name&gt;</code></li>
-              <li>Allows standard autoloading</li>
-              <li>See <a href="https://github.com/php-fig/fig-standards">https://github.com/php-fig/fig-standards</a></li>
+              <li class="fragment">Allows standard autoloading</li>
+              <li class="fragment">See <a href="https://github.com/php-fig/fig-standards">https://github.com/php-fig/fig-standards</a></li>
             </ul>
           </section>
 
@@ -149,10 +147,10 @@ use Guzzle\Http\Exception\HttpException</code></pre>
           <section>
             <h1>Interfaces</h1>
             <ul>
-              <li>Separate design from implementation</li>
-              <li>Allow objects to be mocked (testable)</li>
-              <li>Allow implementations to be swapped</li>
-              <li>Separate your library code from your Drupal code</li>
+              <li class="fragment">Separate design from implementation</li>
+              <li class="fragment">Allow objects to be mocked (testable)</li>
+              <li class="fragment">Allow implementations to be swapped</li>
+              <li class="fragment">Separate your library code from your Drupal code</li>
             </ul>
           </section>
 
@@ -178,9 +176,9 @@ interface DomainInterface extends ContentEntityInterface {
           <section>
             <h1>Annotations</h1>
             <ul>
-              <li>Docblocks as class definitions</li>
-              <li>Self-documenting</li>
-              <li>Replaces custom <code>hook_*_info()</code></li>
+              <li class="fragment">Docblocks as class definitions</li>
+              <li class="fragment">Self-documenting</li>
+              <li class="fragment">Replaces custom <code>hook_*_info()</code></li>
             </ul>
           </section>
 
@@ -207,11 +205,11 @@ class DomainServerBlock extends BlockBase {
           <section>
             <h1>Plugins</h1>
             <ul>
-              <li>Generic term for a code model</li>
-              <li>Separation of concerns</li>
-              <li>Autoloading</li>
-              <li>Encourages libraries</li>
-              <li>See Views module in Drupal 7</li>
+              <li class="fragment">Generic term for a code model</li>
+              <li class="fragment">Separation of concerns</li>
+              <li class="fragment">Autoloading</li>
+              <li class="fragment">Encourages libraries</li>
+              <li class="fragment">See Views module in Drupal 7</li>
             </ul>
           </section>
 
@@ -238,9 +236,9 @@ class DomainServerBlock extends BlockBase {
             <h1>YAML*</h1>
             <p><small>* Yes, this isn't a PHP thing</small></p>
             <ul>
-              <li>Generic syntax for complex data</li>
-              <li>Portable</li>
-              <li>Core of the CMI</li>
+              <li class="fragment">Generic syntax for complex data</li>
+              <li class="fragment">Portable</li>
+              <li class="fragment">Core of the CMI</li>
             </ul>
           </section>
 
@@ -260,7 +258,7 @@ configure: admin/structure/domain</code></pre>
 
           <section>
           <h2>module.routing.yml</h2>
-          <pre><code class="yaml">domain_admin:
+          <pre><code class="yaml long_code">domain_admin:
   pattern: 'admin/structure/domain'
   defaults:
     _content: '\Drupal\domain\Controller\DomainController::adminOverview'
@@ -269,7 +267,7 @@ configure: admin/structure/domain</code></pre>
           </section>
 
           <section>
-            <h2>views.view.module.view_name.yml</h2>
+            <h2>views.view.module.<br />view_name.yml</h2>
             <pre><code class="yaml">base_field: domain_id
 base_table: domain
 core: 8.x
@@ -287,7 +285,8 @@ display:
           </section>
 
           <section>
-           <pre><code>mymodule/
+           <pre><code>
+mymodule/
   mymodule.info.yml
   mymodule.module
   mymodule.routing.yml
@@ -298,7 +297,7 @@ display:
         Plugin/
           Action/
             MyModuleCreateRainbows.php
-            MyModuleMakeItStop.php
+            MyModuleGetPuppies.php
           Block/
             MyModuleHelloWorldBlock.php
             MyModuleGoodbyeCruelWorldBlock.php</code></pre>
@@ -313,7 +312,7 @@ display:
 
         <section>
           <section>
-            <h2>Understanding the web</h2>
+            <h1>Understanding the web</h1>
           </section>
           <section>
             <h3>PHP 4 architecture</h3>
