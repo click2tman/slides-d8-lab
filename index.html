@@ -41,6 +41,28 @@
         <section>
           <section>
             <h1>Welcome</h1>
+            <h2>Palantir.net</h2>
+            <h2>Drupal 8 Development</h2>
+          </section>
+
+          <section>
+            <h1>Trainers</h1>
+            <h2>Robin Barre</h2>
+            <h2>Larry Garfield</h2>
+            <h2>Ken Rickard</h2>
+          </section>
+
+          <section>
+            <h1>Goals</h1>
+            <h3>SWBAT*</h3>
+            <ul>
+              <li>Trace the path of a Drupal request and response</li>
+              <li>Create routes and controllers for requests</li>
+              <li>Define common module plugins</li>
+              <li>Store default module settings</li>
+              <li>Create forms and pages</li>
+              <li>Create tests with SimpleTest and PHPUnit</li>
+            </ul>
           </section>
 
           <section>
@@ -49,6 +71,11 @@
 
           <section>
             <h1>Process</h1>
+            <ul>
+              <li>Introduction to concepts</li>
+              <li>Examples in code</li>
+              <li>Practical activity</li>
+            </ul>
           </section>
 
           <section>
@@ -194,7 +221,8 @@ class DomainServerBlock extends BlockBase {
    * Overrides \Drupal\block\BlockBase::access().
    */
   public function access() {
-    return user_access('administer domains');
+    Drupal::request()->attributes->get('_account')
+      ->hasPermission('name of permission');
   }
 
   /**
