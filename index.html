@@ -696,6 +696,276 @@ public function settings() {
           </section>
         </section>
         <!-- Robin's Plugins Slides End -->
+
+        <!-- Ken's testing slides -->
+        <section>
+          <section>
+          <h1>Testing</h1>
+          </section>
+          <section>
+            <h2>Why test?</h2>
+            <ul>
+              <li class="fragment">Ensure functionality</li>
+              <li class="fragment">Code planning and refactoring</li>
+              <li class="fragment">Continuous integration</li>
+              <li class="fragment">Get better sleep!</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Test methods</h2>
+            <ul>
+              <li class="fragment">Drupal 7: SimpleTest</li>
+              <li class="fragment">Drupal 8: SimpleTest</li>
+              <li class="fragment">Drupal 8: PHPUnit</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Test standards</h2>
+            <ul>
+              <li class="fragment">Unit testing
+                <ul>
+                  <li class="fragment">Does the code behave as expected?</li>
+                  <li class="fragment">Does the code work in isolation?</li>
+                  <li class="fragment">Does the code do too much?</li>
+                  <li class="fragment">PHP Unit</li>
+                </ul>
+              </li>
+              <li class="fragment">Integration testing
+                <ul>
+                  <li class="fragment">Is the output as expected?</li>
+                  <li class="fragment">Does it play well with others?</li>
+                  <li class="fragment">What does it do in the browser?</li>
+                  <li class="fragment">SimpleTest</li>
+                </ul>
+              </li>
+            </ul>
+
+          </section>
+          <section>
+            <h2>Test cases</h2>
+            <pre><code class="php">
+class HelloBlock extends BlockBase {
+
+  ...
+
+  public function build() {
+    return array(
+      '#theme' => 'drupalgotchi_hello_block',
+      '#person' => $this->configuration['person'],
+    );
+  }
+
+}
+            </code></pre>
+          </section>
+          <section>
+            <h3>Simpletest: HelloBlock.php</h3>
+            <pre><code>
+/**
+ * @file
+ * Contains \Drupal\drupalgotchi\Tests\HelloBlockTest.
+ */
+
+namespace Drupal\drupalgotchi\Tests;
+
+use Drupal\drupalgotchi\Plugin\Block\HelloBlock;
+use Drupal\simpletest\WebTestBase;
+
+/**
+ * Tests the Drupalgotchi Hello block.
+ */
+class HelloBlockTest extends WebTestBase {
+
+  public static $modules = array('drupalgotchi', 'block');
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Drupalgotchi hello block',
+      'description' => 'Interface test for the hello block',
+      'group' => 'Drupalgotchi',
+    );
+  }
+
+}
+            </code></pre>
+          </section>
+          <section>
+            <h3>Simpletest: HelloBlock.php</h3>
+            <pre><code class="php long_code">
+
+  public function testHelloBlock() {
+    // Go to the home page.
+    $this->drupalGet('');
+
+    // Block text should not be present.
+    $this->assertNoText('Drupalgotchi Hello', 'Block title not found.');
+    $this->assertNoText('Hello there World!', 'Block text not found.');
+
+    // Place the block.
+    $settings = array('label' => 'Drupalgotchi Hello');
+    $this->drupalPlaceBlock('drupalgotchi_hello', $settings);
+
+    // Go to the home page.
+    $this->drupalGet('');
+
+    // Block text should be present.
+    $this->assertText('Drupalgotchi Hello', 'Block title found.');
+    $this->assertText('Hello there World!', 'Block text found.');
+
+  }
+
+            </code></pre>
+          </section>
+          <section>
+            <h3>PHPUnit: HelloBlock.php</h3>
+            <pre><code class="php long_code">
+/**
+ * @file
+ * Contains \Drupal\drupalgotchi\Tests\Plugin\Block\HelloBlockTest.
+ */
+
+namespace Drupal\drupalgotchi\Tests\Plugin\Block;
+
+use Drupal\Tests\UnitTestCase;
+use Drupal\drupalgotchi\Plugin\Block\HelloBlock;
+
+/**
+ * Tests the Drupalgotchi hello block.
+ */
+class HelloBlockTest extends UnitTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Drupalgotchi hello block plugin',
+      'description' => 'Tests the Drupalgotchi hello block',
+      'group' => 'Drupalgotchi',
+    );
+  }
+            </code></pre>
+          </section>
+          <section>
+            <h3>PHPUnit: HelloBlock.php</h3>
+            <pre><code class="php long_code">
+  protected function setUp() {
+    parent::setUp();
+    // Autoloading is not working for contrib. Load our class to test.
+    // See https://drupal.org/node/2025883
+    include_once DRUPAL_ROOT . '/modules/drupalgotchi/lib/Drupal/drupalgotchi
+      /Plugin/Block/HelloBlock.php';
+  }
+
+  public function testBlock() {
+    $config = array();
+    $plugin = array('module' => 'drupalgotchi', 'id' => 'drupalgotchi_hello');
+    $block_plugin = new HelloBlock($config, 'drupalgotchi_hello', $plugin);
+
+    $build = $block_plugin->build();
+    $this->assertEquals('drupalgotchi_hello_block', $build['#theme']);
+    $this->assertEquals('World', $build['#person']);
+  }
+            </code></pre>
+          </section>
+          <section>
+            <h2>Difference in approach</h2>
+          </section>
+          <section>
+            <h3>Simpletest: SetDrupalgotchi.php</h3>
+          </section>
+          <section>
+            <h3>PHPUnit: SetDrupalgotchi.php</h3>
+          </section>
+          <section>
+            <h2>Difference in approach</h2>
+          </section>
+          <section>
+            <h2>Your Turn!</h2>
+            <ul>
+              <li class="fragment">SimpleTest: DrupalgotchiBlock.php</li>
+              <li class="fragment">PHPUnit: DrupalgotchiBlock.php</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Hints</h2>
+            <pre><code>
+drupalgotchi/
+  lib/
+    Drupal/
+      drupalgotchi/
+        Tests/
+          DrupalgotchiBlockTest.php
+
+drupalgotchi/
+  tests/
+    Drupal/
+      drupalgotchi/
+        Tests/
+          Block/
+            DrupalgotchiBlockTest.php
+            </code></pre>
+          </section>
+          <section>
+            <h3>Hints</h3>
+            <pre><code class="php">/**
+ * @file
+ * Contains \Drupal\drupalgotchi\Tests\DrupalgotchiBlockTest.
+ */
+
+namespace Drupal\drupalgotchi\Tests;
+
+use Drupal\drupalgotchi\Plugin\Block\DrupalgotchiBlock;
+use Drupal\simpletest\WebTestBase;
+
+/**
+ * Tests the Drupalgotchi block.
+ */
+class DrupalgotchiBlockTest extends WebTestBase {
+
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = array('drupalgotchi', 'block');
+
+  public function setup();
+  public function testDrupalgotchiBlock();
+
+}
+
+            </code></pre>
+          </section>
+          <section>
+            <h3>Hints</h3>
+            <pre><code class="php">/**
+ * @file
+ * Contains \Drupal\drupalgotchi\Tests\Plugin\Block\DrupalgotchiBlockTest.
+ */
+
+namespace Drupal\drupalgotchi\Tests;
+
+use Drupal\drupalgotchi\Plugin\Block\DrupalgotchiBlock;
+use Drupal\Tests\UnitTestCase;
+
+/**
+ * Tests the Drupalgotchi block.
+ */
+class DrupalgotchiBlockTest extends UnitTestCase {
+
+  public function setup();
+  public function testDrupalgotchiBlock();
+
+}
+
+            </code></pre>
+          </section>
+          <section>
+            <h2>Resources</h2>
+          </section>
+          <section>
+            <h2>PHPUnit tips</h2>
+          </section>
+        </section>
+        <!-- Ken's testing slides end -->
       </div><!-- end div for slides -->
 
       <aside class="logo">
