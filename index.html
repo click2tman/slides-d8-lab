@@ -52,14 +52,20 @@
           </section>
 
           <section>
+            <h1>Demo time!</h1>
+          </section>
+        </section>
+
+        <section>
+          <section>
             <h1>Drupal 7</h1>
             <h2>PHP 4 application</h2>
           </section>
 
           <section>
             <h1>Drupal 8</h1>
-            <h2>PHP 5.4* application</h2>
-            <small>* maybe</small>
+            <h2>PHP 5.3 application</h2>
+            <p class="fragment">We ported Drupal to a new language</p>
           </section>
 
           <section>
@@ -295,7 +301,7 @@ display:
             <img src="img/chart3.svg" class="graphic"/>
           </section>
           <section>
-            <pre><code class="php">interface HttpKernelInterface {
+            <pre><code class="long_code php">interface HttpKernelInterface {
   const MASTER_REQUEST = 1;
   const SUB_REQUEST = 2;
 
@@ -329,10 +335,10 @@ display:
         <section>
           <section>
             <h2>Controllers</h2>
+            <p class="fragment roll-in">(The concept formerly known as page callbacks and now represented by a PHP callable...)</p>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\Response;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 
 class MyControllers {
 
@@ -343,8 +349,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\Response;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MyControllers {
@@ -361,8 +366,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\StreamedResponse;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class MyControllers {
 
@@ -380,8 +384,24 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\Response;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+class MyControllers {
+
+  public function helloFile() {
+    $response new BinaryFileResponse('hello_world.png');
+
+    // Do this in settings.php if you know you're on nginx or
+    // have the Apache module enabled.
+    $response::trustXSendfileTypeHeader();
+
+    return $response;
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 
 class MyControllers {
 
@@ -396,8 +416,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\Response;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 
 class MyControllers {
 
@@ -414,8 +433,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-use Symfony\Component\HttpFoundation\Response;
+            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
 
 class MyControllers {
 
@@ -431,8 +449,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-class MyControllers {
+            <pre><code class="php">class MyControllers {
 
   public function helloString() {
     return "The view event will turn this into a response.";
@@ -441,8 +458,7 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-            <pre><code class="php">
-class MyControllers {
+            <pre><code class="php">class MyControllers {
 
   public function helloDrupal() {
     return array(
@@ -453,11 +469,14 @@ class MyControllers {
 }
 </code></pre>
           </section>
+          <section>
+            <h1>Your turn!</h1>
+          </section>
 
 
         </section>
 
-<!-- Robin's Slides -->
+<!-- Robin's Plugins Slides -->
 <section>
   <section>
     <h2>Plugins</h2>
@@ -512,24 +531,16 @@ class MyControllers {
     </section>
   <section>
     new slide (maybe)
-plugin types replace old hooks especially info hooks.  see hook_block_info, hook_bloc_save, hook_block_view, these are enacpsulated in one plugin so no more switch statements like you used to do in hook_block_view  hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.
+plugin types replace old hooks especially info hooks.<br/>
+see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
+no more switch statements like you used to do in hook_block_view  <br/>
+hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.<br/>
 
   </section>
 </section>
-<section>
-  <h2>markup notes</h2>
-  <p class="fragment roll-in" data-fragment-index="3">roll-in</p>
-  <p class="fragment highlight-red"  data-fragment-index="4">highlight-red</p>
-  <p class="fragment highlight-green"  data-fragment-index="1">highlight-green</p>
-  <p class="fragment highlight-blue"  data-fragment-index="2">highlight-blue</p>
-  <aside class="notes">in general<br/>
-  in d7
-  </aside>
-</section>
+<!-- Robin's Plugins Slides End -->
 
-<!-- Robin's Slides End -->
-
-      </div>
+      </div><!-- end div for slides -->
 
       <aside class="logo">
       <img src="img/logo.png">
