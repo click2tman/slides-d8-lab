@@ -504,69 +504,198 @@ class MyControllers {
         </section>
 
 <!-- Robin's Plugins Slides -->
-<section>
-  <section>
-    <h2>Plugins</h2>
-    <aside class="notes">
-        (hit 's' on your keyboard to see me.)
-        What is a plugin?
-    </aside>
-  </section>
-  <section>
-    <h2>Plugins are...</h2>
-    <p class="fragment roll-in">a narrow set of functionality</p>
-    <hr/>
-    <h2>Plugin Systems (or Frameworks)</h2>
-    <p class="fragment roll-in">allows customization and extension of the original system
-    <p class="fragment roll-in">examples:</p>
-    <p class="fragment roll-in">graphics software: processing image files</p>
-    <p class="fragment roll-in">web browsers:  playing video and java apps</p>
-    <p class="fragment roll-in">In Drupal 7?
-    <p class="fragment roll-in">ctools plugins</p>
-    <p class="fragment roll-in">Others?</p>
-    <aside class="notes">
-    in general plugins provide a narrow set of functionality<br/>
-    a plugin framework or system allows customization and extension of the original system
-    examples outside of drupal<br/>
-    graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
-    web browsers use plugins for playing video and java apps<br/>
-    in d7 we have most notably ctools plugins<br/>
-    who knows of any other plugin “systems” in D7? jquery plugins? others?<br/>
-    </aside>
-  </section>
-  <section>
-    <aside class="notes">
-     <h2>Drupal 8 One plugin system to rule them all!</h2>
-    <p>in d8, we have a new universal plugin system available via core.
-      This system has three base elements:</p>
-    <ol>
-      <li>plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.</li>
-      <li>plugin discovery - finds plugins in the code base to apply</li>
-      <li>plugin factory - instantiates specific plugins as needed</li>
-    </ol>
-    <p>(maybe) other components that could be useful:
-      plugin derivatives, discovery decorators and plugin mappers.</p>
-    </aside>
-    <h2>Drupal 8 One plugin system to rule them all!</h2>
-    <p>a new universal plugin system available via core.</p>
-    <ol>
-      <li>plugin types</li>
-      <li>plugin discovery</li>
-      <li>plugin factory</li>
-    </ol>
+        <section>
+          <section>
+            <h2>Plugins</h2>
+            <aside class="notes">
+                (hit 's' on your keyboard to see me.)
+                What is a plugin?
+            </aside>
+          </section>
+          <section>
+            <h2>Plugins are...</h2>
+            <p class="fragment roll-in">a narrow set of functionality</p>
+            <hr/>
+            <h2>Plugin Systems (or Frameworks)</h2>
+            <p class="fragment roll-in">allows customization and extension of the original system
+            <p class="fragment roll-in">examples:</p>
+            <p class="fragment roll-in">graphics software: processing image files</p>
+            <p class="fragment roll-in">web browsers:  playing video and java apps</p>
+            <p class="fragment roll-in">In Drupal 7?
+            <p class="fragment roll-in">ctools plugins</p>
+            <p class="fragment roll-in">Others?</p>
+            <aside class="notes">
+            in general plugins provide a narrow set of functionality<br/>
+            a plugin framework or system allows customization and extension of the original system
+            examples outside of drupal<br/>
+            graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
+            web browsers use plugins for playing video and java apps<br/>
+            in d7 we have most notably ctools plugins<br/>
+            who knows of any other plugin “systems” in D7? jquery plugins? others?<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>One plugin system<br/>to rule them all!</h2>
+            <p>a new universal plugin system supports:</p>
+            <ol>
+              <li>plugin types</li>
+              <li>plugin discovery</li>
+              <li>plugin factory</li>
+            </ol>
+            <aside class="notes">
+            <h2>Drupal 8 One plugin system to rule them all!</h2>
+              <p>in d8, we have a new universal plugin system available via core.
+                This system has three base elements:</p>
+              <ol>
+                <li>plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.</li>
+                <li>plugin discovery - finds plugins in the code base to apply</li>
+                <li>plugin factory - instantiates specific plugins as needed</li>
+              </ol>
+              <p>(maybe) other components that could be useful:
+              plugin derivatives, discovery decorators and plugin mappers.</p>
+            </aside>
+          </section>
+          <section>
+            <h2>Plugin Types</h2>
+            <p>Blocks, Actions, views, [field]Formatters.</p>
+            <p>Constraints, Resource Plugins, Conditions</p>
+            <p>Example of a block plugin</p>
+            <pre><code class="php fragment rollin">
+class HelloBlock extends BlockBase {
 
-    </section>
-  <section>
-    new slide (maybe)
-plugin types replace old hooks especially info hooks.<br/>
-see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
-no more switch statements like you used to do in hook_block_view  <br/>
-hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.<br/>
+  public function settings() {...}
+  public function blockForm($form, &$form_state) {...}
+  public function blockSubmit($form, &$form_state) {...}
+}
+            </code></pre>
 
-  </section>
-</section>
-<!-- Robin's Plugins Slides End -->
+            <aside class="notes">
+        plugin types<br/>
+        Some examples:  blocks, actions, views (field)Formatters.  Sound familiar?<br/>
+        There are new types too:<br/>
+        e.g. constraints, resource plugins, conditions<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>What is Plugin &quot;Discovery&quot;?</h2>
+            <p>find plugins, metadata</p>
+            <p>parse plugin metadata</p>
+            <p>use annotated class discovery<p>
+            <pre><code class="php fragment rollin">
+modulename/
+  lib/
+    Drupal/
+      modulename/
+        Plugin/
+          plugintype/
+            pluginname.php
+---
 
+action/
+  lib/
+    Drupal/
+      action/
+        Plugin/
+          Action/
+            EmailAction.php
+            </code></pre>
+            <aside class="notes">
+              designed to replace info hooks
+              finds plugins, finds metadata and parses it
+              takes returned metadata and
+              Three types of discovery
+              discovery - uses module_invoke_all (don�t use this, support for legacy code)
+              static discovery - mostly used for tests, not intelligent
+              annotated class discovery - use this one
+              plugins are all located in the same place no matter if it's a core module or contrib
+            </aside>
+          </section>
+          <section>
+            <h2>Metadata</h2>
+            <p>Annotations provide the metadata</p>
+            <p>There are different types:  EntityType, ActionType
+            <pre><code class="php">
+use Drupal\Component\Annotation\Plugin; /* required */
+
+/**
+* @Plugin(
+*   ...
+* )
+*/
+            </code></pre>
+            <p>Appears just above your plugin class</p>
+            <p>key-value data structures with nesting support</p>
+            <p>what key-value pairs?</p>
+            <ul>
+              <li>Not well documented</li>
+              <li>Depends on the pluginbase e.g. BlockBase uses admin_label as the default value for the block's title</li>
+            </ul>
+            <p>
+            <pre><code class="php fragment rollin">
+/**
+* Provides a Drupalgotchi hello block.
+*
+* @Plugin(
+*  id = "drupalgotchi_hello",
+*  admin_label = @Translation("Hello World"),
+*  module = "drupalgotchi"
+* )
+*/
+            </code></pre>
+          </section>
+          <section>
+            <h2>Annotation Tips</h2>
+            <p>id = machine_name</p>
+            <p>Always use double quotes</p>
+            <p>Strings must use quotes</p>
+            <p>Numbers and Booleans must NOT use quotes</p>
+            <p>Nested lists use {}</p>
+            <p>no trailing commas!</p>
+            <p>Doctrine:  http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</p>
+            <aside class="notes">
+              annotations are inherently key-value data structures, with support for nesting.<br/>
+              Single quotes throw an exception.<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Drupal 7 to Drupal 8</h2>
+            <p>plugin types replace D7 hooks (info hooks)</p>
+            <p><strike>switch statement in hook_block_view</strike></p>
+            <p>Each block is its own class in D8</p>
+            <p>hook_block_view is now BlockBase::blockBuild</p>
+            <aside class="notes">
+              plugin types replace old hooks especially info hooks.<br/>
+              see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
+              no more switch statements like you used to do in hook_block_view  <br/>
+              hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Now you try!</h2>
+            <p>HelloBlock.php</p>
+            <p>pull in settings</p>
+            <pre class="fragment rollin">
+public function settings() {
+    return array(
+      'person' => 'World',
+    );
+  }
+            </pre>
+            <p>alter the block form</p>
+            <pre class="fragment rollin">
+  public function blockSubmit($form, &$form_state) {
+    $this->configuration['person'] = $form_state['values']['person'];
+  }
+            </pre>
+            <p>alter submit so that the custom configuration is saved</p>
+            <pre class="fragment rollin">
+  public function blockSubmit($form, &$form_state) {
+    $this->configuration['person'] = $form_state['values']['person'];
+  }
+            </pre>
+          </section>
+        </section>
+        <!-- Robin's Plugins Slides End -->
       </div><!-- end div for slides -->
 
       <aside class="logo">
