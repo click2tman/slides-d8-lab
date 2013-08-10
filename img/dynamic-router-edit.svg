@@ -205,38 +205,38 @@
 </g>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M1036.945,59v410"/>
 <g>
-	<text transform="matrix(1 0 0 1 124.2979 87.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">match( )</text>
+	<text transform="matrix(1 0 0 1 124.2979 87.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">match( )</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 258.8188 122.75)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">match by path</text>
+	<text transform="matrix(1 0 0 1 258.8188 122.75)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">match by path</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 255.7739 162.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="22">RouteCollection</text>
+	<text transform="matrix(1 0 0 1 255.7739 162.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="22">RouteCollection</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 279.563 204.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">filter($collection, $request)</text>
+	<text transform="matrix(1 0 0 1 279.563 204.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">filter($collection, $request)</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 335.4238 245.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">RouteCollection</text>
+	<text transform="matrix(1 0 0 1 335.4238 245.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">RouteCollection</text>
 </g>
 <g>
-	<text transform="matrix(1 0 0 1 456.7461 282.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">match( )</text>
+	<text transform="matrix(1 0 0 1 456.7461 282.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">match( )</text>
 </g>
 <path marker-end="url(#raphael-marker-endblock55)" fill="#DBE8EC" d="M712.508,499"/>
 <g>
-	<text transform="matrix(1 0 0 1 448.3457 321.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">attributes</text>
+	<text transform="matrix(1 0 0 1 448.3457 321.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">attributes</text>
 </g>
 <path marker-end="url(#raphael-marker-endblock55)" fill="#DBE8EC" d="M255.391,460"/>
 <g>
-	<text transform="matrix(1 0 0 1 396.5708 361.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">enhance(attributes)</text>
+	<text transform="matrix(1 0 0 1 396.5708 361.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">enhance(attributes)</text>
 </g>
 <path marker-end="url(#raphael-marker-endblock55)" fill="#DBE8EC" d="M869.826,421"/>
 <g>
-	<text transform="matrix(1 0 0 1 448.3457 399.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">attributes</text>
+	<text transform="matrix(1 0 0 1 448.3457 399.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">attributes</text>
 </g>
 <path marker-end="url(#raphael-marker-endblock55)" fill="#DBE8EC" d="M88.463,382"/>
 <g>
-	<text transform="matrix(1 0 0 1 525.2993 438.5)" fill="#DBE8EC" font-family="'ProximaNova-Semibold'" font-size="23">attributes</text>
+	<text transform="matrix(1 0 0 1 525.2993 438.5)" fill="#DBE8EC" font-family="Proxima Nova" font-weight="600" font-size="23">attributes</text>
 </g>
 <path marker-end="url(#raphael-marker-endblock55)" fill="#DBE8EC" d="M1031.943,343"/>
 <path fill="none" stroke="#DBE8EC" stroke-width="2" d="M250.774,98H83.462"/>
@@ -244,7 +244,7 @@
 <g>
 	<g>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="417.31" y1="176" x2="413.31" y2="176"/>
-		
+
 			<line fill="none" stroke="#DBE8EC" stroke-width="2" stroke-dasharray="8.0908,8.0908" x1="405.219" y1="176" x2="263.629" y2="176"/>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="259.583" y1="176" x2="255.583" y2="176"/>
 	</g>
@@ -253,7 +253,7 @@
 <g>
 	<g>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="574.227" y1="254" x2="570.227" y2="254"/>
-		
+
 			<line fill="none" stroke="#DBE8EC" stroke-width="2" stroke-dasharray="8.0885,8.0885" x1="562.138" y1="254" x2="258.819" y2="254"/>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="254.774" y1="254" x2="250.774" y2="254"/>
 	</g>
@@ -262,7 +262,7 @@
 <g>
 	<g>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="717.508" y1="332" x2="713.508" y2="332"/>
-		
+
 			<line fill="none" stroke="#DBE8EC" stroke-width="2" stroke-dasharray="7.9636,7.9636" x1="705.544" y1="332" x2="263.565" y2="332"/>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="259.583" y1="332" x2="255.583" y2="332"/>
 	</g>
@@ -270,7 +270,7 @@
 <g>
 	<g>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="874.824" y1="410" x2="870.824" y2="410"/>
-		
+
 			<line fill="none" stroke="#DBE8EC" stroke-width="2" stroke-dasharray="7.9918,7.9918" x1="862.832" y1="410" x2="99.611" y2="410"/>
 		<line fill="none" stroke="#DBE8EC" stroke-width="2" x1="95.615" y1="410" x2="91.615" y2="410"/>
 	</g>
