@@ -89,24 +89,26 @@
             <h1>Understanding Drupal 8</h1>
           </section>
           <section>
-            <h1>Drupal 7</h1>
-            <h2>PHP 4 application</h2>
+            <h2>Drupal 7</h2>
+            <h3>PHP 4 application</h3>
           </section>
 
           <section>
-            <h1>Drupal 8</h1>
-            <h2>PHP 5.3 application</h2>
+            <h2>Drupal 8</h2>
+            <h3>PHP 5.3 application</h3>
             <p class="fragment">We ported Drupal to a new language</p>
           </section>
 
           <section>
-            <h1>What does that mean?</h1>
-            <p class="fragment">The end of "Not Invented Here"</p>
-            <p class="fragment">We have catching up to do</p>
+            <h2>What does that mean?</h2>
+            <ul>
+              <li class="fragment">The end of "Not Invented Here"</li>
+              <li class="fragment">We have catching up to do</li>
+            </ul>
           </section>
 
           <section>
-            <h1>Playing nice with others</h1>
+            <h2>Playing nice with others</h2>
             <ul>
               <li class="fragment">Namespacing</li>
               <li class="fragment">Interfaces</li>
@@ -117,7 +119,7 @@
           </section>
 
           <section>
-            <h1>Namespacing</h1>
+            <h2>Namespacing</h2>
             <ul>
               <li class="fragment">PSR-0
               <li class="fragment">A fully-qualified namespace and class must have the following structure:<br />
@@ -145,7 +147,7 @@ use Guzzle\Http\Exception\HttpException</code></pre>
           </section>
 
           <section>
-            <h1>Interfaces</h1>
+            <h2>Interfaces</h2>
             <ul>
               <li class="fragment">Separate design from implementation</li>
               <li class="fragment">Allow objects to be mocked (testable)</li>
@@ -174,7 +176,7 @@ interface DomainInterface extends ContentEntityInterface {
           </section>
 
           <section>
-            <h1>Annotations</h1>
+            <h2>Annotations</h2>
             <ul>
               <li class="fragment">Docblocks as class definitions</li>
               <li class="fragment">Self-documenting</li>
@@ -203,7 +205,7 @@ class DomainServerBlock extends BlockBase {
           </section>
 
           <section>
-            <h1>Plugins</h1>
+            <h2>Plugins</h2>
             <ul>
               <li class="fragment">Generic term for a code model</li>
               <li class="fragment">Separation of concerns</li>
@@ -220,7 +222,7 @@ class DomainServerBlock extends BlockBase {
    */
   public function access() {
     Drupal::request()->attributes->get('_account')
-      ->hasPermission('name of permission');
+      ->hasPermission('access content');
   }
 
   /**
@@ -233,7 +235,7 @@ class DomainServerBlock extends BlockBase {
           </section>
 
           <section>
-            <h1>YAML*</h1>
+            <h2>YAML*</h2>
             <p><small>* Yes, this isn't a PHP thing</small></p>
             <ul>
               <li class="fragment">Generic syntax for complex data</li>
@@ -277,7 +279,17 @@ display:
   default:
     display_plugin: default
     id: default
-    display_title: Master</code></pre>
+    display_title: Master
+    position: ''
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'administer domains'
+      cache:
+        type: none
+      query:
+        type: views_query</code></pre>
           </section>
 
           <section>
@@ -285,7 +297,8 @@ display:
           </section>
 
           <section>
-           <pre><code>
+            <h2>Module structure</h2>
+            <pre><code>
 mymodule/
   mymodule.info.yml
   mymodule.module
@@ -707,7 +720,7 @@ public function settings() {
             <p>Create Admin Settings</p>
             <p>Here's how</p>
             <aside class="notes">
-              LetÕs get into it right away<br/>
+              Letï¿½s get into it right away<br/>
               i need config settings for my module...<br/>
               something an admin can maniuplate via the UI.<br/>
             </aside>
@@ -897,7 +910,7 @@ public function submitForm(array &$form, array &$form_state) {
             </ul>
           </section>
           <section>
-            <h2>Config:  ItÕs in the Files!</h2>
+            <h2>Config:  Itï¿½s in the Files!</h2>
             <p>elminated 50 tables from the drupal db</p>
             <p>writes directly to files not the db</p>
             <p>written in yml, not too hard to write/read and maps to arrays</p>
@@ -1008,19 +1021,19 @@ $config_directories['staging']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-Ac
               my slipper slope slide!<br/>
             Configuration Storage and Multiple Environments<br/>
 a directory is created in sites/default/files/config_[randomized_hash] <br/>
-hash ÒprotectsÓ the files (obfuscation)<br/>
+hash ï¿½protectsï¿½ the files (obfuscation)<br/>
 different per instance e.g. different for each person who installs<br/>
 best practice:  store outside of your web root<br/>
-active - whatÕs live on the site<br/>
-staging - config thatÕs new that you want to import into the site<br/>
+active - whatï¿½s live on the site<br/>
+staging - config thatï¿½s new that you want to import into the site<br/>
 deployment from source active dir to your destination staging dir<br/>
-set which is directory is ÒactiveÓ in settings.php<br/>
+set which is directory is ï¿½activeï¿½ in settings.php<br/>
 so you point to the opposite directories between the dev environment and production environments<br/>
-production ÒactiveÓ dir is staging<br/>
-dev ÒactiveÓ dir is active<br/>
+production ï¿½activeï¿½ dir is staging<br/>
+dev ï¿½activeï¿½ dir is active<br/>
 make changes to active dir on dev<br/>
 no rollback<br/>
-canÕt move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
+canï¿½t move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
             </aside>
           </section>
         </section>
@@ -1045,10 +1058,10 @@ returns term id e.g.
             </code></pre>
             <aside class="notes">
               entity API has been revamped in D8<br/>
-              All properties on an entity is a ÒfieldÓ not configurable otherwise treaed like other fields<br/>
+              All properties on an entity is a ï¿½fieldï¿½ not configurable otherwise treaed like other fields<br/>
               Accessing fields occurs the same way for all properties<br/>
               e.g. get first value in field_tags
-              can access primitives using ->get(ÔvalueÕ) or use $node->title[$delta]->value<br/>
+              can access primitives using ->get(ï¿½valueï¿½) or use $node->title[$delta]->value<br/>
               Review EntityInterface<br/>
               entityNG - for existing entities like node and comment (temporary)<br/>
               entity - one example:  MenuLink.php (plus MenuLinkInterface)<br/>
