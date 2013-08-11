@@ -1033,34 +1033,55 @@ can’t move the files as is, becuase you could clash with a change coming from a 
           <section>
             <h2>New and Improved Entity API</h2>
             <p>properties and fields are all &quot;fields&quot;</p>
-            <p>fields are handled the same way</p>
-            <ul>
-              <li>$node->title</li>
-              <li>$node->body</li>
-              <li>$node->field_custom</li>
-            </ul>
-            <p>Introspection:  you call a method to get the &quot;field&quot; definitions</p>
-            <p>Entity references lazy-load!</p>
+            <p>fields are handled the same way. </p>
+            <pre><code class="php">
+$node->get('field_tags')->value
+
+---
+
+returns term id e.g.
+
+1
+            </code></pre>
+            <aside class="notes">
+              entity API has been revamped in D8<br/>
+              All properties on an entity is a “field” not configurable otherwise treaed like other fields<br/>
+              Accessing fields occurs the same way for all properties<br/>
+              e.g. get first value in field_tags
+              can access primitives using ->get(‘value’) or use $node->title[$delta]->value<br/>
+              Review EntityInterface<br/>
+              entityNG - for existing entities like node and comment (temporary)<br/>
+              entity - one example:  MenuLink.php (plus MenuLinkInterface)<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Entity References:  Lazy load</h2>
             <p>Get the first item in the refence field:</p>
-            <pre>$entity->user_ref->entity->name->value</pre>
+            <pre><code class="php">
+$node->get('field_tags')->entity->name->value
+
+---
+
+returns term name e.g.
+
+drupal 8
+            </code></pre>
+            <aside class="notes">
+              Lazy load entity references<br/>
+                $entity->user_ref->entity->name->value<br/>
+                references the first value in the ref field<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Entities and Fields</h2>
+            <p>Introspection:  you call a method to get the &quot;field&quot; definitions</p>
             <p>Computed fields:  lookup or calculate value (instead of store)</p>
             <p>EntityInterface</p>
             <aside class="notes">
-
-entity API has been revamped in D8<br/>
-All properties on an entity is a “field” not configurable otherwise treaed like other fields<br/>
-Accessing fields occurs the same way for all properties<br/>
-	can access primitives using ->get(‘value’) or use $node->title[$delta]->value<br/>
-and $delta supports multi-value<br/>
-Introspection capabilities are built in the Entity and Property objects: call a method to get
-  the definitions of the contained properties.<br/>
-Lazy load entity references<br/>
-	$entity->user_ref->entity->name->value<br/>
-	references the first value in the ref field<br/>
-Computed fields:  ability to lookup or otherwise calculate a value rather than returning a stored value<br/>
-Review EntityInterface<br/>
-entityNG - for existing entities like node and comment (temporary)<br/>
-entity - one example:  MenuLink.php (plus MenuLinkInterface)<br/>
+              and $delta supports multi-value<br/>
+              Introspection capabilities are built in the Entity and Property objects: call a method to get
+                the definitions of the contained properties.<br/>
+              Computed fields:  ability to lookup or otherwise calculate a value rather than returning a stored value<br/>
             </aside>
           </section>
         </section>
