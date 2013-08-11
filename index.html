@@ -1086,6 +1086,35 @@ drupal 8
           </section>
         </section>
 <!-- Robin's Entity Slides End -->
+<!-- Robin's Theming Slides -->
+        <section>
+          <section>
+            <h2>Theming in D8</h2>
+          </section>
+          <section>
+            <h2>Theming Basics</h2>
+            <p>It's twig!</p>
+            <ul>
+              <li>{...} for printing a variable:  { variable_name }</li>
+              <li>drill down using '.':  { node.title }</li>
+              <li>comments:  {# comments #}</li>
+              <li>php code:  {% hide(content.field_example) %}</li>
+              <li>inheritance:  {<% block twig_block_name %}</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Theme Setup</h2>
+            <p>Custom themes go in themes/ directory (Drupal root)</p>
+            <p>Jen Lampton's twiggy:</p>
+            <p><a href="https://github.com/jenlampton/twiggy">https://github.com/jenlampton/twiggy</a></p>
+            <p>Enable, then Set default</p>
+            <aside class="notes">
+              Enable and Set as Default - was failing for me<br/>
+              Inheritance (infoblock):  show node.html.twig and node--article.html.twig<br/>
+            </aside>
+          </section>
+        </section>
+<!-- Robin's Theming Slides End -->
 <!-- Ken's testing slides -->
         <section>
           <section>
