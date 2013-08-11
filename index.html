@@ -696,7 +696,334 @@ public function settings() {
           </section>
         </section>
         <!-- Robin's Plugins Slides End -->
+        <!-- Robin's Forms -->
+        <section>
+          <section>
+            <h2>Forms</h2>
+          </section>
+          <section>
+            <h2>Forms</h2>
+            <p>Let's go!</p>
+            <p>Create Admin Settings</p>
+            <p>Here's how</p>
+            <aside class="notes">
+              Let’s get into it right away<br/>
+              i need config settings for my module...<br/>
+              something an admin can maniuplate via the UI.<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>What You Need for a Settings Form</h2>
+            <p>a route</p>
+            <p>config schema</p>
+            <p>default settings values</p>
+            <p>a form that extends SystemConfigFormBase</p>
+            <aside class="notes">
+            you need a route<br/>
+            you need a settings schema<br/>
+            you probably want default setting values<br/>
+            you need form that extends SystemConfigFormBase<br/>
+          </section>
+          <section>
+            <h2>Route to the form</h2>
+            <pre><code class="yml">
+drupalgotchi/drupalgotchi.routing.yml
 
+---
+
+drupalgotchi_settings:
+  pattern: '/admin/config/system/drupalgotchi'
+  defaults:
+    _form: '\Drupal\drupalgotchi\Form\SettingsForm'
+  requirements:
+    _permission: 'administer drupalgotchi'
+
+            </code></pre>
+          </section>
+          <section>
+            <h2>Configuration Schema</h2>
+            <pre><code class="php">
+drupalgotchi/config/schema/drupalgotchi.settings.yml
+
+---
+
+# Schema for the configuration files of the Action module.
+
+drupalgotchi.settings:
+  type: mapping
+  label: 'Drupalgotchi settings'
+  mapping:
+    name:
+      type: string
+      label: "The name of your site's persona"
+    needy:
+      type: integer
+      label: 'How needy your site is'
+            </code></pre>
+          </section>
+          <section>
+            <h2>Default Values for Settings</h2>
+            <p>same file name, different location</p>
+            <pre><code class="php">
+drupalgotchi/config/drupalgotchi.settings.yml
+
+---
+
+needy: 10
+name: ''
+
+            </code></pre>
+          </section>
+          <section>
+            <h2>Form extends SystemConfigFormBase</h2>
+            <p>Note how the __construct() uses ConfigFactory</p>
+            <pre><code class="php">
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
+
+---
+
+class SettingsForm extends SystemConfigFormBase {
+
+  protected $configFactory;
+
+  public function __construct(ConfigFactory $config_factory, ContextInterface $context) {
+    $this->configFactory = $config_factory;
+    $this->configFactory->enterContext($context);
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory')
+    );
+  }
+            </code></pre>
+            <aside class="notes">
+              ConfigFactory lets us have a schema and default values<br/>
+              create() comes from the ControllerInterface<br/>
+              create() is our factory method!  makes a new instance of this object?
+            </aside>
+          </section>
+          <section>
+            <h2>Form extends SystemConfigFormBase</h2>
+            <p> (continued)</p>
+            <pre><code class="php">
+public function getFormID() {
+  return 'drupalgotchi_settings';
+}
+
+public function buildForm(array $form, array &$form_state) {
+  $config = $this->configFactory->get('drupalgotchi.settings');
+
+  $form['name'] = array(
+    '#title' => t('Name'),
+    '#description' => t('What is your site animal\'s name?'),
+    '#type' => 'textfield',
+    '#default_value' => $config->get('name'),
+  );
+
+  $form['needy'] = array(
+    '#title' => t('Neediness'),
+    '#description' => t('How needy the site is for attention. Range is from 1-10.'),
+    '#type' => 'range',
+    '#step' => 1,
+    '#min' => 1,
+    '#max' => 10,
+    '#default_value' => $config->get('needy'),
+  );
+
+  return parent::buildForm($form, $form_state);
+}
+
+public function submitForm(array &$form, array &$form_state) {
+  parent::submitForm($form, $form_state);
+  $config = $this->configFactory->get('drupalgotchi.settings');
+
+  $config->set('name', $form_state['values']['name']);
+  $config->set('needy', $form_state['values']['needy']);
+
+  $config->save();
+}
+
+            </code></pre>
+            <aside class="notes">
+              machine name in getFormID() - easy enough<br/>
+              buildForm (don't those args look familiar?!)<br/>
+              and look at that $form array...we can handle that!<br/>
+              now we see the power of the configFactory in submitForm<br/>
+              set the values and call save()<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>now, you try!</h2>
+          </section>
+          <section>
+            <h2>Forms and Config</h2>
+            <p>FormInterface</p>
+            <ul>
+              <li>build</li>
+              <li>validate</li>
+              <li>submit</li>
+            </ul>
+            <p>System settings use case</p>
+            <p>create() - gets schema and default values for settings</p>
+            <aside class="notes">
+              forms now rely in the FormInterface<br/>
+              build, validate, submit -
+              pretty straightforward and all in one place!  easy to read!<br/>
+              system settings have a special use case where the form can rely on module configuration<br/>
+              switch to netbeans and click through classes and interfaces
+              create method grabs your settings schema and default values
+            </aside>
+          </section>
+        </section>
+        <!-- Robin's Form Slides End -->
+        <!-- Robin's Config Slides -->
+        <section>
+          <section>
+            <h2>Configuration Management</h2>
+          </section>
+          <section>
+            <h2>Configuration Management (CMI)</h2>
+            <p>Configuration is everything users and editors do not write</p>
+            <p>It's translatable</p>
+            <p>Usual Suspects:</p>
+            <ul>
+              <li>views</li>
+              <li>image styles</li>
+              <li>perms</li>
+              <li>content types</li>
+              <li>settings</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Config:  It’s in the Files!</h2>
+            <p>elminated 50 tables from the drupal db</p>
+            <p>writes directly to files not the db</p>
+            <p>written in yml, not too hard to write/read and maps to arrays</p>
+            <pre><code class="php">
+base_field: nid
+base_table: node
+core: 8.x
+description: 'Find and manage content.'
+status: '1'
+display:
+  default:
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content overview'
+      cache:
+        type: none
+      query:
+        type: views_query
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: '0'
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: '1'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          items_per_page: '50'
+            </code></pre>
+            <aside class="notes">
+              what does this yml snippet look like to you?<br/>
+              new line characters denote end of value<br/>
+              indenting allows for more complex data structures<br/>
+              note the use of single quotes!  different from Annotations<br/>
+              more to add here!!! @todo
+            </aside>
+          </section>
+          <section>
+            <h2>Configuration Schema</h2>
+            <p>Defines the configuration structure for the yml files</p>
+            <p>the very first item in the yml file is its key or unique ID</p>
+            <p>mapping is in the...you guessed it <em>mapping:</em></p>
+            <p>'label' and 'text' are two built-in types which are translatable</p>
+            <p>Learn more:  <a href="https://drupal.org/node/1905070">https://drupal.org/node/1905070</a></p>
+            <pre><code class="php">
+drupalgotchi.settings:  # config ID
+  type: mapping
+  label: 'Drupalgotchi settings'
+  mapping:
+    name:
+      type: string
+      label: "The name of your site's persona"
+    needy:
+      type: integer
+      label: 'How needy your site is'
+            </code></pre>
+            <aside class="notes">
+              primary use case:  for translation<br/>
+              The built-in translatable types are 'label' for one-line text input and 'text' for multiline text input.<br/>
+              but also for forms<br/>
+              forms make the types more important in the mapping seciton<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Settings and Configuration</h2>
+            <p>Replaces the variable table</p>
+            <p>now each module's <em>status</em> is in yml!</p>
+            <p>System table is gone</p>
+            <p>Configuration and state</p>
+            <p>pluggable storage:  config could be in memcache</p>
+            <aside class="notes">
+              replaces variable table
+              enabled status of modules is in config
+              system table is gone
+              split between configruation and state
+              Larry will talk more about this?(or did he already?)
+              has pluggable storage
+              even cmi so if you want to put your config in memcache you can do that
+            </aside>
+          </section>
+          <section>
+            <h2>Configuration and Multiple Environments</h2>
+            <p>Storage></p>
+            <pre><code class="php">
+sites/default/files/config_[hash]
+
+e.g.
+
+config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/
+
+---
+config_[hash]/active/
+config_[hash/staging/
+
+---
+settings.php
+
+$config_directories['active']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/active';
+$config_directories['staging']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/staging';
+            </code></pre>
+            <aside class="notes">
+              my slipper slope slide!<br/>
+            Configuration Storage and Multiple Environments<br/>
+a directory is created in sites/default/files/config_[randomized_hash] <br/>
+hash “protects” the files (obfuscation)<br/>
+different per instance e.g. different for each person who installs<br/>
+best practice:  store outside of your web root<br/>
+active - what’s live on the site<br/>
+staging - config that’s new that you want to import into the site<br/>
+deployment from source active dir to your destination staging dir<br/>
+set which is directory is “active” in settings.php<br/>
+so you point to the opposite directories between the dev environment and production environments<br/>
+production “active” dir is staging<br/>
+dev “active” dir is active<br/>
+make changes to active dir on dev<br/>
+no rollback<br/>
+can’t move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
+            </aside>
+          </section>
+        </section>
+        <!-- Robin's Config Slides End -->
         <!-- Ken's testing slides -->
         <section>
           <section>
