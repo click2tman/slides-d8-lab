@@ -1268,16 +1268,85 @@ class HelloBlockTest extends UnitTestCase {
             </code></pre>
           </section>
           <section>
-            <h2>Difference in approach</h2>
+            <h2>Differences in approach</h2>
+              <ul>
+                <li class="fragment">SimpleTest requires the whole system</li>
+                <li class="fragment">PHPUNit only tests our class</li>
+                <li class="fragment">SimpleTest assesses the result</li>
+                <li class="fragment">PHPUnit introspects the behavior</li>
+                <li class="fragment">Simpletest declares dependencies</li>
+                <li class="fragment">PHPUnit injects dependencies</li>
+              </ul>
           </section>
           <section>
-            <h3>Simpletest: SetDrupalgotchi.php</h3>
+            <h2>Dependency injection<h2>
+              <p class="fragment"><small>In under two minutes</small></p>
+          </section>
+          <section>
+            <h3>SetDrupalgotchi.php</h3>
+            <pre><code class="php long_code">
+class SetDrupalgotchi extends ActionBase implements ContainerFactoryPluginInterface {
+
+  protected $state;
+
+  public function __construct(array $configuration, $plugin_id,
+    array $plugin_definition, KeyValueStoreInterface $state) {
+
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->state = $state;
+  }
+
+  public function execute($attention = 0) {
+    $this->state->set('drupalgotchi.attention', $attention);
+  }
+}           </code></pre>
           </section>
           <section>
             <h3>PHPUnit: SetDrupalgotchi.php</h3>
+            <pre><code class="php long_code">
+namespace Drupal\drupalgotchi\Tests\Plugin\Action;
+
+use Drupal\Tests\UnitTestCase;
+use Drupal\drupalgotchi\Plugin\Action\SetDrupalgotchi;
+
+class SetDrupalgotchiTest extends UnitTestCase {
+
+  protected $state;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Drupalgotchi action plugin',
+      'description' => 'Tests the set Drupalgotchi plugin',
+      'group' => 'Drupalgotchi',
+    );
+  }
+            </code></pre>
           </section>
           <section>
-            <h2>Difference in approach</h2>
+            <h3>PHPUnit: SetDrupalgotchi.php</h3>
+            <pre><code class="php long_code">
+  public function testSet() {
+
+    // Set a mock class for the state container.
+    // See http://phpunit.de/manual/current/en/test-doubles.html
+    $stub = $this
+      ->getMockBuilder('Drupal\Core\KeyValueStore\KeyValueStoreInterface')
+      ->getMock();
+    // Configure the stub to get the values passed by exexute().
+    $stub->expects($this->once())
+      ->method('set')
+      ->with($this->equalTo('drupalgotchi.attention', 10));
+
+    $config = array('name' => 'foo', 'needy' => 10);
+    $set = new SetDrupalgotchi($config, 'drupalgotchi_set_attention', array(), $stub);
+    // Ensure that our class does not explode.
+    $set->execute(10);
+
+  }
+            </code></pre>
+          </section>
+          <section>
+            <h2>Mocks</h2>
           </section>
           <section>
             <h2>Your Turn!</h2>
