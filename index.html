@@ -536,6 +536,16 @@ class MyControllers {
             </aside>
           </section>
           <section>
+            <h2>It's all listeners</h2>
+            <p>KernelEvents::REQUEST</p>
+            <aside class="notes">
+              <ul>
+                <li>Think of it as hook_request_alter(). Kinda.</li>
+                <li>"Stuff that happens before the controller."</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
             <h3>Routing</h3>
             <img src="img/routing.svg" />
           </section>
@@ -543,7 +553,82 @@ class MyControllers {
             <h3>Dynamic Router</h3>
             <img src="img/dynamic-router.svg" />
           </section>
+          <section>
+            <h2>Route Enhancers</h2>
+            <pre><code class="php">class ContentControllerEnhancer implements RouteEnhancerInterface {
+  protected $types = array(
+    'drupal_dialog' => 'controller.dialog:dialog',
+    'drupal_modal' => 'controller.dialog:modal',
+    'html' => 'controller.page:content',
+  );
 
+  public function enhance(array $defaults, Request $request) {
+    if (empty($defaults['_controller']) && !empty($defaults['_content'])) {
+      $type = $this->negotiation->getContentType($request);
+      if (isset($this->types[$type])) {
+        $defaults['_controller'] = $this->types[$type];
+      }
+    }
+    return $defaults;
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <h3>Access control</h3>
+            <p class="fragment">Authentication vs. Authorization</p>
+            <p class="fragment">(Yep, more listeners)</p>
+            <aside class="notes">
+              <ul>
+                <li>Authentication: Who are you?</li>
+                <li>Authorization: Are you allowed to do that?</li>
+                <li>Mostly you'll deal with Authorization.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Authentication</h3>
+            <p class="fragment">global $user is dead</p>
+            <p class="fragment">Long live<br /><code>$request->attributes->get('_account')</code></p>
+          </section>
+          <section>
+            <h3>Access control</h3>
+            <ul>
+              <li class="fragment">Multiple "checkers" per route</li>
+              <li class="fragment">Applies or not</li>
+              <li class="fragment">Allow, Deny, Kill</li>
+              <li class="fragment">Any vs. All</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Route with access</h2>
+            <pre><code class="yaml">comment_edit_page:
+  pattern: '/comment/{comment}/edit'
+  defaults:
+    _entity_form: 'comment.default'
+  options:
+    _access_mode: 'ANY'
+  requirements:
+    _entity_access: 'comment.update'
+    _permission: 'edit any comment'
+</code></pre>
+          </section>
+
+          <section>
+            <h2>Permission check</h2>
+            <pre><code class="long_code php">class PermissionAccessCheck implements StaticAccessCheckInterface {
+  public function appliesTo() {
+    return array('_permission');
+  }
+
+  public function access(Route $route, Request $request) {
+    $permission = $route->getRequirement('_permission');
+    $account = $request->attributes->get('_account');
+    return $account->hasPermission($permission) ? static::ALLOW : static::DENY;
+  }
+}
+</code></pre>
+          </section>
         </section>
 
 
