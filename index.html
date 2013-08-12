@@ -636,6 +636,122 @@ class MyControllers {
             <h2>Dependency Injection</h2>
             <h3 class="fragment roll-in">It's way less scary than it sounds</h3>
           </section>
+
+          <section>
+            <h3>Dependency</h3>
+            <p>An object on which your object depends</p>
+          </section>
+          <section>
+            <h3>Service</h3>
+            <p>A generally-stateless "global" object</p>
+            <aside class="notes">
+              <ul>
+                <li>Stateless in the sense that once configured, it's idempotent.</li>
+                <li>Globalness is not the object's job to enforce. It's the Container's job</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <pre><code class="php">
+class Status {
+  public function show() {
+    $status = db_query('SELECT status from {table}')->fetchOne();
+    return $status;
+  }
+}
+
+$status = new Status();
+print $status->show();
+</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>How do you test that? Depends on DB connection, can't control it.</li>
+                <li>Need the function, need the DB fully configured and prepped... ugh.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <pre><code class="php">
+class Status {
+  protected $db;
+
+  pubic function __construct(Database $db) {
+    $this->db = $db;
+  }
+
+  public function show() {
+    $status = $this->db->query('SELECT status from {table}')->fetchOne();
+    return $status;
+  }
+}
+
+$db = new Database();
+$status = new Status($db);
+print $status->show();
+</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Now I can fake the database!</li>
+                <li>How do I configure the database?</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <pre><code class="php">
+class Status {
+  protected $db;
+
+  pubic function __construct(Database $db) {
+    $this->db = $db;
+  }
+
+  public function show() {
+    $status = $this->db->query('SELECT status from {table}')->fetchOne();
+    return $status;
+  }
+}
+
+$db_settings = array(...);
+$db = new Database($db_settings);
+$status = new Status($db);
+print $status->show();
+</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Starting to get ugly...</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Dependency Injection "Container"</h3>
+            <p class="fragment">"Place where you wire that stuff up in advance"</p>
+            <p class="fragment">"Scariest possible name for an array of objects"</p>
+            <pre class="fragment"><code class="long_code php">
+$status = $container->get('status');
+print $status->show();
+
+</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Container sees that "status" means the Status class</li>
+                <li>Container sees Status service has a "dependency" on the DB</li>
+                <li>Container creates the DB</li>
+                <li>Container creates Status using the DB</li>
+                <li>Container returns Status</li>
+                <li>Neither Status or the DB are the wiser!</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Dependency Injection Container</h3>
+            <ul>
+              <li class="fragment">You'll <em>almost</em> never interact with it directly</li>
+              <li class="fragment">Configure via... YAML</li>
+              <li class="fragment"></li>
+              <li class="fragment"></li>
+            </ul>
+          </section>
+
         </section>
 
 <!-- Robin's Plugins Slides -->
