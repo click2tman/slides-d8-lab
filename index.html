@@ -1555,6 +1555,7 @@ class HelloBlockTest extends UnitTestCase {
           <section>
             <h2>Dependency injection</h2>
               <p class="fragment"><small>In under two minutes</small></p>
+              <p class="fragment">Remember: An object on which your object depends</p>
           </section>
           <section>
             <h3>SetDrupalgotchi.php</h3>
@@ -1575,6 +1576,27 @@ class SetDrupalgotchi extends ActionBase implements ContainerFactoryPluginInterf
   }
 }           </code></pre>
           </section>
+          <section>
+            <h3>SetDrupalgotchi.php</h3>
+            <pre><code class="php long_code">
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    array $plugin_definition,
+    KeyValueStoreInterface $state) {
+  }
+
+  ...
+
+  $state = new KeyValueStore();
+  $gotch = new SetDrupalgotchi(
+    $configuration,
+    $plugin_id,
+    $plugin_definition,
+    $state);
+            </code></pre>
+          </section>
+
           <section>
             <h3>PHPUnit: SetDrupalgotchi.php</h3>
             <pre><code class="php long_code">
@@ -1601,19 +1623,13 @@ class SetDrupalgotchiTest extends UnitTestCase {
             <pre><code class="php long_code">
   public function testSet() {
 
-    // Set a mock class for the state container.
-    // See http://phpunit.de/manual/current/en/test-doubles.html
-    $stub = $this
-      ->getMockBuilder('Drupal\Core\KeyValueStore\KeyValueStoreInterface')
-      ->getMock();
-    // Configure the stub to get the values passed by exexute().
-    $stub->expects($this->once())
-      ->method('set')
-      ->with($this->equalTo('drupalgotchi.attention', 10));
-
     $config = array('name' => 'foo', 'needy' => 10);
-    $set = new SetDrupalgotchi($config, 'drupalgotchi_set_attention', array(), $stub);
-    // Ensure that our class does not explode.
+    $set = new SetDrupalgotchi(
+      $config,
+      'drupalgotchi_set_attention',
+      array(),
+      $state);
+
     $set->execute(10);
 
   }
@@ -1621,6 +1637,119 @@ class SetDrupalgotchiTest extends UnitTestCase {
           </section>
           <section>
             <h2>Mocks</h2>
+            <ul>
+              <li class="fragment">Mock objects that your code is <strong style="color:#fff;">not testing</strong></li>
+              <li class="fragment">PHPUnit syntax and code support.</li>
+              <li class="fragment">Inject dependencies</li>
+              <li class="fragment">Define expected <strong style="color: #fff;">external</strong> behaviors</li>
+              <li class="fragment">See <a href="http://phpunit.de/manual/current/en/test-doubles.html">http://phpunit.de/manual/current/en/test-doubles.html</a></li>
+            </ul>
+          </section>
+          <section>
+            <h3>PHPUnit: SetDrupalgotchi.php</h3>
+            <pre><code class="php long_code">
+  public function testSet() {
+
+    // Set a mock class for the state container.
+    // See http://phpunit.de/manual/current/en/test-doubles.html
+    $state = $this
+      ->getMockBuilder('Drupal\Core\KeyValueStore\KeyValueStoreInterface')
+      ->getMock();
+    // Configure the stub to get the values passed by exexute().
+    $state->expects($this->once())
+      ->method('set')
+      ->with($this->equalTo('drupalgotchi.attention', 10));
+
+    $config = array('name' => 'foo', 'needy' => 10);
+    $set = new SetDrupalgotchi(
+      $config,
+      'drupalgotchi_set_attention',
+      array(),
+      $state);
+
+    $set->execute(10);
+
+  }
+            </code></pre>
+          </section>
+          <section>
+            <h2>Using Mocks</h2>
+            <ul>
+              <li class="fragment">Import your dependencies as mocks.</strong></li>
+              <li class="fragment">Set expectations for method calls.</li>
+              <li class="fragment"><code>disableOriginalConstructor()</code>
+                <uL>
+                  <li class="fragment">Will not call <code>__construct() on the mocked object.</code></li>
+                  <li class="fragment">Useful for reducing complexity.</li>
+                </ul>
+              </li>
+
+            </ul>
+          </section>
+          <section>
+            <h2>Mock pattern</h2>
+            <ul>
+              <li class="fragment"><code>$mock = $this->getMockBuilder('MyClass')</code>
+                <ul>
+                  <li class="fragment">->disableOriginalConstructor()</li>
+                  <li class="fragment"><code>->getMock()</code></li>
+                </ul>
+              </li>
+              <li class="fragment"><code>$mock->expects($this->CONDITION())</code></li>
+              <li class="fragment"><code>->method('myMethod')</code>
+                <ul>
+                  <li class="fragment"><code>->will($this->DOSOMETHING())</code></li>
+                  <li class="fragment"><code>->with($this->ASSERTION())</code></li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Common <code>will()</code> methods</h2>
+            <ul>
+              <li class="fragment"><code>will($this->returnValue('foo'))</code>
+                <uL>
+                  <li>Returns expected value from declared method.</li>
+                </ul>
+              </li>
+              <li class="fragment"><code>will($this->returnArgument(1))</code>
+                <uL>
+                  <li>Returns passed argument without change.</li>
+                </ul>
+              </li>
+              <li class="fragment"><code>will($this->returnSelf())</code>
+                <uL>
+                  <li>Returns the mocked object.</li>
+                </ul>
+              </li>
+              <li class="fragment"><code>will(returnCallback('str_rot13'))</code>
+                <uL>
+                  <li>Returns a value after processing through a callback function.</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Common <code>with()</code> methods</h2>
+            <ul>
+              <li class="fragment"><code>with($this->equalTo('foo'))</code>
+                <uL>
+                  <li>Checks method argument is 'foo'.</li>
+                </ul>
+              </li>
+              <li class="fragment"><code>with($this->equalTo('foo', 'bar'))</code>
+                <uL>
+                  <li>Checks method arguments are 'foo' and 'bar'.</li>
+                </ul>
+              </li>
+              <li class="fragment"><code>will($this->greaterThan(5))</code>
+                <uL>
+                  <li>Checks assertion against passed argument.</li>
+                </ul>
+              </li>
+              <li class="fragment">You can pass any PHPUnit assertion.</li>
+              <li class="fragment">You can assert against each argument for the method.</li>
+            </ul>
           </section>
           <section>
             <h2>Your Turn!</h2>
@@ -1702,12 +1831,6 @@ class DrupalgotchiBlockTest extends UnitTestCase {
 }
 
             </code></pre>
-          </section>
-          <section>
-            <h2>Resources</h2>
-          </section>
-          <section>
-            <h2>PHPUnit tips</h2>
           </section>
         </section>
 <!-- Ken's testing slides end -->
