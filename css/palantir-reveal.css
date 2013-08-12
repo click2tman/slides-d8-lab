@@ -309,7 +309,6 @@ body {
 .reveal pre code {
 	padding: 5px;
 	overflow: none;
-	min-height: 400px;
 	word-wrap: normal;
 	width: 90%;
 }

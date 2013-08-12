@@ -535,8 +535,8 @@ class MyControllers {
             <h1>Your turn!</h1>
             <aside class="notes">
               Your task is to write 3 simple controllers.
-              One returns the string "hello world", as a page.
-              One returns a complete HTML page with "Hello world" as the body.
+              One returns the string "hello world", as a Drupal page.
+              One returns a JSON string that says hello world.
               One accepts a name from the path and says "Hello $name", using
               a template.
           </section>
@@ -772,7 +772,7 @@ print $status->show();
           </section>
           <section>
             <h3>mymodule.services.yml</h3>
-             <pre class="fragment code_long"><code class="yaml">services:
+             <pre class="fragment long_code"><code class="yaml">services:
   router.dynamic:
     class: Symfony\Cmf\Component\Routing\DynamicRouter
     arguments: ['@router.request_context', '@router.matcher', '@url_generator']
@@ -1397,7 +1397,7 @@ class DrupalgotchiSubscriber implements EventSubscriberInterface {
           </section>
           <section>
             <h2>mymodule.services.yml</h2>
-            <pre><code class="yaml">services:
+            <pre class="long_code"><code class="yaml">services:
   drupalgotchi.subscriber:
     class: Drupal\drupalgotchi\EventSubscriber\DrupalgotchiSubscriber
     arguments: ['@config.factory', '@state', '@string_translation']
