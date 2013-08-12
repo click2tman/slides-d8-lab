@@ -519,6 +519,19 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
+          <h3>module.routing.yml</h3>
+          <pre><code class="yaml long_code">hello.world:
+  pattern: '/hello/world/{from}/{to}'
+  defaults:
+    _content: '\Drupal\mymodule\Controller\HelloController::helloWorld'
+  requirements:
+    _permission: 'access content'
+    from: \s+
+    to: \s+
+</code></pre>
+          </section>
+
+          <section>
             <h1>Your turn!</h1>
           </section>
         </section>
