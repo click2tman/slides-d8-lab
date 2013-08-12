@@ -5,11 +5,17 @@ based on dark.css by Ivan Sagalaev
 
 */
 
+
 pre code {
   display: block; padding: 0.5em;
   background: #3F3F3F;
   color: #DCDCDC;
 }
+
+pre.long_code {
+  min-width: 1200px;
+  margin-left: -2.5em;
+ }
 
 pre .keyword,
 pre .tag,
