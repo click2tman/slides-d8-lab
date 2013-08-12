@@ -505,6 +505,20 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
+            <code>/hello/world/{from}/{to}</code>
+            <pre><code class="php">class MyControllers {
+
+  public function helloDrupal($to, $from) {
+    return array(
+      '#theme' => 'love_letter',
+      '#from' => $from,
+      '#to' => $to,
+    );
+  }
+}
+</code></pre>
+          </section>
+          <section>
             <h1>Your turn!</h1>
           </section>
         </section>
