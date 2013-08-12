@@ -508,7 +508,7 @@ class MyControllers {
             <code>/hello/world/{from}/{to}</code>
             <pre><code class="php">class MyControllers {
 
-  public function helloDrupal($to, $from) {
+  public function helloDrupal($to, $from, Request $request) {
     return array(
       '#theme' => 'love_letter',
       '#from' => $from,
