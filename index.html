@@ -1824,7 +1824,7 @@ class SetDrupalgotchiTest extends UnitTestCase {
               <li class="fragment"><code>$mock = $this->getMockBuilder('MyClass')</code>
                 <ul>
                   <li class="fragment">->disableOriginalConstructor()</li>
-                  <li class="fragment"><code>->getMock()</code></li>
+                  <li class="fragment"><code>->getMock();</code></li>
                 </ul>
               </li>
               <li class="fragment"><code>$mock->expects($this->CONDITION())</code></li>
@@ -1874,7 +1874,7 @@ class SetDrupalgotchiTest extends UnitTestCase {
                   <li>Checks method arguments are 'foo' and 'bar'.</li>
                 </ul>
               </li>
-              <li class="fragment"><code>will($this->greaterThan(5))</code>
+              <li class="fragment"><code>with($this->greaterThan(5))</code>
                 <uL>
                   <li>Checks assertion against passed argument.</li>
                 </ul>
