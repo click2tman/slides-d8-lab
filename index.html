@@ -362,15 +362,6 @@ mymodule/
             <h3>HttpKernel pipeline</h3>
             <img src="img/chart4.svg" class="graphic"/>
           </section>
-          <section>
-            <h3>Routing</h3>
-            <img src="img/routing1-edit.svg" />
-          </section>
-          <section>
-            <h3>Dynamic Router</h3>
-            <img src="img/dynamic-router-edit.svg" />
-          </section>
-
         </section>
         <section>
           <section>
@@ -471,6 +462,11 @@ class MyControllers {
   }
 }
 </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Tip: Could we combine this with a StreamedResponse to send records on the fly? How?</li>
+              </ul>
+            </aside>
           </section>
           <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
@@ -512,9 +508,31 @@ class MyControllers {
           <section>
             <h1>Your turn!</h1>
           </section>
+        </section>
 
+        <section>
+          <section>
+            <h2>Routing</h2>
+            <p class="fragment">(You don't need to know every detail of this.)</p>
+            <aside class="notes">
+              <ul>
+                <li>This is mostly to show the thought process.</li>
+                <li>Lots of little pieces working together.</li>
+                <li>Swap them out individually.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Routing</h3>
+            <img src="img/routing1-edit.svg" />
+          </section>
+          <section>
+            <h3>Dynamic Router</h3>
+            <img src="img/dynamic-router-edit.svg" />
+          </section>
 
         </section>
+
 
 <!-- Robin's Plugins Slides -->
         <section>
