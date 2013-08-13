@@ -354,7 +354,7 @@ mymodule/
             <img src="img/architecture-httpkernelinterface.svg" class="graphic"/>
           </section>
           <section>
-            <pre><code class="long_code php">interface HttpKernelInterface {
+            <pre class="long_code"><code class="php">interface HttpKernelInterface {
   const MASTER_REQUEST = 1;
   const SUB_REQUEST = 2;
 
@@ -426,6 +426,9 @@ class MyControllers {
   }
 }
 </code></pre>
+            <aside class="notes">
+              Segue: The most common example is just returning a file off disk...
+            </aside>
           </section>
           <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -443,6 +446,10 @@ class MyControllers {
   }
 }
 </code></pre>
+            <aside class="notes">
+              Drupalers wrote that. :-)
+            </aside>
+
           </section>
           <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
@@ -649,7 +656,7 @@ class MyControllers {
 
           <section>
             <h2>Permission check</h2>
-            <pre><code class="long_code php">class PermissionAccessCheck implements StaticAccessCheckInterface {
+            <pre class="long_code"><code class="php">class PermissionAccessCheck implements StaticAccessCheckInterface {
   public function appliesTo() {
     return array('_permission');
   }
