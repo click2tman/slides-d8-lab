@@ -975,9 +975,6 @@ use Drupal\Component\Annotation\Plugin; /* required */
               <li>what key-value pairs? check the  annotation type class:</li>
             </ul>
             <p style="font-size:.5em"><code>core/lib/Drupal/core/Entity/Annotations/EntityType.php</code></p>
-            <ul>
-              <li>Plugins Depend on PluginBase e.g. BlockBase uses admin_label as the default value for the block's title</li>
-            </ul>
             <aside class="notes">
               a bit about annotations in general<br/>
           </section>
@@ -1027,7 +1024,20 @@ use Drupal\Component\Annotation\Plugin; /* required */
             <h4>Now you try!</h4>
             <ul>
               <li>HelloBlock.php</li>
+              <li>Set the metadata (in Annotations)</li>
+            <pre class="fragment"><code class="php">
+/**
+* Provides a hello block.
+*
+* @Plugin(
+*  id = "hellodrupal_hello",
+*  admin_label = @Translation("Hello World"),
+*  module = "hellodrupal"
+* )
+*/
+            </code></pre>
               <li>pull in settings</li>
+            </ul>
             <pre class="fragment"><code class="php">
 public function settings() {
   return array(
@@ -1035,20 +1045,24 @@ public function settings() {
   );
 }
             </code></pre>
-            <li>alter the block form</li>
-            <pre class="fragment"><code class="php">
-  public function blockForm($form, &$form_state) {
-    $form['person'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Person'),
-      '#maxlength' => 50,
-      '#default_value' => $this->configuration['person'],
-      '#required' => TRUE,
-    );
-    return $form;
-  }
-            </code></pre>
-            <li>alter submit to save</li></ul>
+          </section>
+          <section>
+            <h4>Now you try! HelloBlock.php</h4>
+            <ul>
+              <li>alter the block form</li>
+              <pre class="fragment"><code class="php">
+public function blockForm($form, &$form_state) {
+  $form['person'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Person'),
+    '#maxlength' => 50,
+    '#default_value' => $this->configuration['person'],
+    '#required' => TRUE,
+  );
+  return $form;
+}
+              </code></pre>
+              <li>alter submit to save</li></ul>
             <pre class="fragment"><code class="php">
 public function blockSubmit($form, &$form_state) {
   $this->configuration['person'] = $form_state['values']['person'];
@@ -1059,6 +1073,49 @@ public function blockSubmit($form, &$form_state) {
               place HelloBlock<br/>
               then back to this slide<br/>
             </aside>
+          </section>
+          <section>
+            <h4>now you try!  HelloBlock.php</h4>
+            <ul>
+              <li>create the render array</li>
+
+            <pre class="fragment"><code class="php">
+    return array(
+      '#theme' => 'hellodrupal_hello_block',
+      '#person' => $this->configuration['person'],
+    );
+  }
+            </code></pre>
+            <li>create the template file</li>
+
+            <pre class="fragment"><code class="php">
+hellodrupal/templates/hellodrupal-hello-block.html.twig
+
+---
+
+<p>
+{% trans %}
+  Hello there {{ person }}!
+{% endtrans %}
+</p>
+            </code></pre>
+            </ul>
+          </section>
+          <section>
+            <h4>Now you try! HelloBlock</h4>
+            <ul>
+            <li>notify the theme about your new template file</li>
+            <pre class="fragment"><code class="php">
+function hellodrupal_theme() {
+  return array(
+    'hellodrupal_hello_block' => array(
+      'variables' => array('person' => NULL),
+      'template' => 'hellodrupal-hello-block',
+    )
+  );
+}
+            </code></pre>
+</ul>
           </section>
         </section>
 <!-- Robin's Plugins Slides End -->
