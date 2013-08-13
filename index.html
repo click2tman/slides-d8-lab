@@ -819,17 +819,20 @@ public function createRouter() {
             </aside>
           </section>
           <section>
-            <h2>Plugins are...</h2>
-            <p class="fragment roll-in">a narrow set of functionality</p>
+            <h3>Plugins</h3>
+            <p>A narrow set of functionality</p>
             <hr/>
-            <h2>Plugin Systems (or Frameworks)</h2>
-            <p class="fragment roll-in">allows customization and extension of the original system
-            <p class="fragment roll-in">examples:</p>
-            <p class="fragment roll-in">graphics software: processing image files</p>
-            <p class="fragment roll-in">web browsers:  playing video and java apps</p>
-            <p class="fragment roll-in">In Drupal 7?
-            <p class="fragment roll-in">ctools plugins</p>
-            <p class="fragment roll-in">Others?</p>
+            <h3>Plugin Systems</h3>
+            <p>allows customization and extension of the original system</p>
+            <ul>
+              <li>e.g. graphics software: processing image files</li>
+            </ul>
+            <hr/>
+            <p>In Drupal 7?</p>
+            <ul>
+              <li>ctools plugins</li>
+              <li>others?</li>
+            </ul>
             <aside class="notes">
             in general plugins provide a narrow set of functionality<br/>
             a plugin framework or system allows customization and extension of the original system
@@ -837,7 +840,7 @@ public function createRouter() {
             graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
             web browsers use plugins for playing video and java apps<br/>
             in d7 we have most notably ctools plugins<br/>
-            who knows of any other plugin “systems” in D7? jquery plugins? others?<br/>
+            who knows of any other plugin ‚Äúsystems‚Äù in D7? jquery plugins? others?<br/>
             </aside>
           </section>
           <section>
@@ -848,6 +851,7 @@ public function createRouter() {
               <li>plugin discovery</li>
               <li>plugin factory</li>
             </ol>
+            <p>Managers define and manage</p>
             <aside class="notes">
             <h2>Drupal 8 One plugin system to rule them all!</h2>
               <p>in d8, we have a new universal plugin system available via core.
@@ -857,6 +861,7 @@ public function createRouter() {
                 <li>plugin discovery - finds plugins in the code base to apply</li>
                 <li>plugin factory - instantiates specific plugins as needed</li>
               </ol>
+              each type of plugin has a manager that takes care of all three of these things
               <p>(maybe) other components that could be useful:
               plugin derivatives, discovery decorators and plugin mappers.</p>
             </aside>
@@ -919,7 +924,7 @@ action/
           <section>
             <h2>Metadata</h2>
             <p>Annotations provide the metadata</p>
-            <p>There are different types:  EntityType, ActionType
+            <p>Annotation Types e.g.  EntityType, ActionType
             <pre><code class="php">
 use Drupal\Component\Annotation\Plugin; /* required */
 
@@ -930,14 +935,13 @@ use Drupal\Component\Annotation\Plugin; /* required */
 */
             </code></pre>
             <p>Appears just above your plugin class</p>
-            <p>key-value data structures with nesting support</p>
-            <p>what key-value pairs?</p>
+          </section>
+          <section>
+            <h2>Annotations</h2>
             <ul>
-              <li>Not well documented</li>
-              <li>Depends on the pluginbase e.g. BlockBase uses admin_label as the default value for the block's title</li>
+              <li>key-value data structures with nesting support</li>
             </ul>
-            <p>
-            <pre><code class="php fragment rollin">
+            <pre><code class="php">
 /**
 * Provides a Drupalgotchi hello block.
 *
@@ -948,16 +952,38 @@ use Drupal\Component\Annotation\Plugin; /* required */
 * )
 */
             </code></pre>
+            <ul>
+              <li>what key-value pairs? check the  annotation type class:</li>
+            </ul>
+            <p style="font-size:.5em"><code>core/lib/Drupal/core/Entity/Annotations/EntityType.php</code></p>
+            <ul>
+              <li>Plugins Depend on PluginBase e.g. BlockBase uses admin_label as the default value for the block's title</li>
+            </ul>
+            <aside class="notes">
+              a bit about annotations in general<br/>
           </section>
           <section>
             <h2>Annotation Tips</h2>
-            <p>id = machine_name</p>
-            <p>Always use double quotes</p>
-            <p>Strings must use quotes</p>
-            <p>Numbers and Booleans must NOT use quotes</p>
-            <p>Nested lists use {}</p>
-            <p>No trailing commas!</p>
-            <p>Doctrine:  http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</p>
+            <ul>
+              <li>id = machine_name</li>
+              <li>Always use double quotes</li>
+              <li>Strings must use quotes</li>
+              <li>Numbers and Booleans must NOT use quotes</li>
+              <li>Nested lists use { }</li>
+              <li>No trailing commas!</li>
+              <li>Doctrine:  http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</li>
+            </ul>
+            <pre><code class="php">
+/**
+* Provides a Drupalgotchi hello block.
+*
+* @Plugin(
+*  id = "drupalgotchi_hello",
+*  admin_label = @Translation("Hello World"),
+*  module = "drupalgotchi"
+* )
+*/
+            </code></pre>
             <aside class="notes">
               annotations are inherently key-value data structures, with support for nesting.<br/>
               Single quotes throw an exception.<br/>
@@ -965,10 +991,12 @@ use Drupal\Component\Annotation\Plugin; /* required */
           </section>
           <section>
             <h2>Drupal 7 to Drupal 8</h2>
-            <p>plugin types replace D7 hooks (info hooks)</p>
-            <p><strike>switch statement in hook_block_view</strike></p>
-            <p>Each block is its own class in D8</p>
-            <p>hook_block_view is now BlockBase::blockBuild</p>
+            <ul>
+              <li>plugin types replace D7 hooks (info hooks)</li>
+              <li><strike>switch statement in hook_block_view</strike></li>
+              <li>a block is its own class in D8</li>
+              <li>hook_block_view is now BlockBase::blockBuild</li>
+            </ul>
             <aside class="notes">
               plugin types replace old hooks especially info hooks.<br/>
               see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
@@ -977,28 +1005,34 @@ use Drupal\Component\Annotation\Plugin; /* required */
             </aside>
           </section>
           <section>
-            <h2>Now you try!</h2>
-            <p>HelloBlock.php</p>
-            <p>pull in settings</p>
-            <pre class="fragment rollin">
+            <h4>Now you try!</h4>
+            <ul>
+              <li>HelloBlock.php</li>
+              <li>pull in settings</li>
+            <pre class="fragment"><code class="php">
 public function settings() {
-    return array(
-      'person' => 'World',
-    );
-  }
-            </pre>
-            <p>alter the block form</p>
-            <pre class="fragment rollin">
-  public function blockSubmit($form, &$form_state) {
-    $this->configuration['person'] = $form_state['values']['person'];
-  }
-            </pre>
-            <p>alter submit so that the custom configuration is saved</p>
-            <pre class="fragment rollin">
-  public function blockSubmit($form, &$form_state) {
-    $this->configuration['person'] = $form_state['values']['person'];
-  }
-            </pre>
+  return array(
+    'person' => 'World',
+  );
+}
+            </code></pre>
+            <li>alter the block form</li>
+            <pre class="fragment"><code class="php">
+public function blockSubmit($form, &$form_state) {
+  $this->configuration['person'] = $form_state['values']['person'];
+}
+            </code></pre>
+            <li>alter submit to save</li></ul>
+            <pre class="fragment"><code class="php">
+public function blockSubmit($form, &$form_state) {
+  $this->configuration['person'] = $form_state['values']['person'];
+}
+            </code></pre>
+            <aside class="notes">
+              enable drupalgotchi module<br/>
+              place HelloBlock<br/>
+              then back to this slide<br/>
+            </aside>
           </section>
         </section>
 <!-- Robin's Plugins Slides End -->
@@ -1018,17 +1052,20 @@ public function settings() {
             <p>Create Admin Settings</p>
             <p>Here's how</p>
             <aside class="notes">
-              Let�s get into it right away<br/>
+              LetÔøΩs get into it right away<br/>
+              show the admin setting in your site<br/>
               i need config settings for my module...<br/>
               something an admin can maniuplate via the UI.<br/>
             </aside>
           </section>
           <section>
-            <h2>What You Need for a Settings Form</h2>
-            <p>a route</p>
-            <p>config schema</p>
-            <p>default settings values</p>
-            <p>a form that extends SystemConfigFormBase</p>
+            <h2>Settings Form Need</h2>
+            <ul>
+              <li>a route</li>
+              <li>config schema</li>
+              <li>default values</li>
+              <li>a form that extends SystemConfigFormBase</li>
+            </ul>
             <aside class="notes">
             you need a route<br/>
             you need a settings schema<br/>
@@ -1086,7 +1123,7 @@ name: ''
             </code></pre>
           </section>
           <section>
-            <h2>Form extends SystemConfigFormBase</h2>
+            <h2>SystemConfigFormBase</h2>
             <p>Note how the __construct() uses ConfigFactory</p>
             <pre><code class="php">
 drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
@@ -1107,54 +1144,48 @@ class SettingsForm extends SystemConfigFormBase {
       $container->get('config.factory')
     );
   }
+
+  public function getFormID() {
+    return 'drupalgotchi_settings';
+  }
+
             </code></pre>
             <aside class="notes">
+              Form extends SystemConfigFormBAse
               ConfigFactory lets us have a schema and default values<br/>
               create() comes from the ControllerInterface<br/>
               create() is our factory method!  makes a new instance of this object?
             </aside>
           </section>
           <section>
-            <h2>Form extends SystemConfigFormBase</h2>
-            <p> (continued)</p>
+            <h3>SettingsForm (continued)</h3>
             <pre><code class="php">
-public function getFormID() {
-  return 'drupalgotchi_settings';
-}
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
 
-public function buildForm(array $form, array &$form_state) {
-  $config = $this->configFactory->get('drupalgotchi.settings');
+---
 
-  $form['name'] = array(
-    '#title' => t('Name'),
-    '#description' => t('What is your site animal\'s name?'),
-    '#type' => 'textfield',
-    '#default_value' => $config->get('name'),
-  );
+  public function buildForm(array $form, array &$form_state) {
+    $config = $this->configFactory->get('drupalgotchi.settings');
 
-  $form['needy'] = array(
-    '#title' => t('Neediness'),
-    '#description' => t('How needy the site is for attention. Range is from 1-10.'),
-    '#type' => 'range',
-    '#step' => 1,
-    '#min' => 1,
-    '#max' => 10,
-    '#default_value' => $config->get('needy'),
-  );
+    $form['name'] = array(
+      '#title' => t('Name'),
+      '#description' => t('What is your site animal\'s name?'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('name'),
+    );
 
-  return parent::buildForm($form, $form_state);
-}
+    $form['needy'] = array(
+      '#title' => t('Neediness'),
+      '#description' => t('How needy the site is for attention. Range is from 1-10.'),
+      '#type' => 'range',
+      '#step' => 1,
+      '#min' => 1,
+      '#max' => 10,
+      '#default_value' => $config->get('needy'),
+    );
 
-public function submitForm(array &$form, array &$form_state) {
-  parent::submitForm($form, $form_state);
-  $config = $this->configFactory->get('drupalgotchi.settings');
-
-  $config->set('name', $form_state['values']['name']);
-  $config->set('needy', $form_state['values']['needy']);
-
-  $config->save();
-}
-
+    return parent::buildForm($form, $form_state);
+  }
             </code></pre>
             <aside class="notes">
               machine name in getFormID() - easy enough<br/>
@@ -1165,18 +1196,40 @@ public function submitForm(array &$form, array &$form_state) {
             </aside>
           </section>
           <section>
+            <h3>SettingsForm</h3>
+            <pre><code class="php">
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
+
+---
+
+  public function submitForm(array &$form, array &$form_state) {
+    parent::submitForm($form, $form_state);
+    $config = $this->configFactory->get('drupalgotchi.settings');
+
+    $config->set('name', $form_state['values']['name']);
+    $config->set('needy', $form_state['values']['needy']);
+
+    $config->save();
+  }
+} // end of class
+            </code></pre>
+
+          </section>
+          <section>
             <h2>now, you try!</h2>
           </section>
           <section>
             <h2>Forms and Config</h2>
-            <p>FormInterface</p>
             <ul>
-              <li>build</li>
-              <li>validate</li>
-              <li>submit</li>
+              <li>FormInterface</li>
+              <ul>
+                <li>build</li>
+                <li>validate</li>
+                <li>submit</li>
+              </ul>
+              <li>System settings use case</li>
+              <li>create() - gets schema and default values for settings</li>
             </ul>
-            <p>System settings use case</p>
-            <p>create() - gets schema and default values for settings</p>
             <aside class="notes">
               forms now rely in the FormInterface<br/>
               build, validate, submit -
@@ -1195,23 +1248,28 @@ public function submitForm(array &$form, array &$form_state) {
           </section>
           <section>
             <h2>Configuration Management (CMI)</h2>
-            <p>Configuration is everything users and editors do not write</p>
-            <p>It's translatable</p>
-            <p>Usual Suspects:</p>
             <ul>
-              <li>views</li>
-              <li>view modes</li>
-              <li>image styles</li>
-              <li>perms</li>
-              <li>content types</li>
-              <li>settings</li>
+              <li>Configuration is everything users and editors do not write</li>
+              <li>It's translatable</li>
+              <li>Usual Suspects:</li>
+
+              <ul>
+                <li>views</li>
+                <li>view modes</li>
+                <li>image styles</li>
+                <li>perms</li>
+                <li>content types</li>
+                <li>settings</li>
+              </ul>
             </ul>
           </section>
           <section>
             <h2>Config:  It's in the Files!</h2>
-            <p>elminated 50 tables from the drupal db</p>
-            <p>writes directly to files not the db</p>
-            <p>written in yml, not too hard to write/read and maps to arrays</p>
+            <ul>
+              <li>elminated 50 tables from the drupal db</li>
+              <li>writes directly to files not the db</li>
+              <li>written in yml, not too hard to write/read and maps to arrays</li>
+            </ul>
             <pre><code class="php">
 base_field: nid
 base_table: node
@@ -1236,14 +1294,7 @@ display:
           reset_button: '0'
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: '1'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: full
-        options:
-          items_per_page: '50'
-            </code></pre>
+              </code></pre>
             <aside class="notes">
               what does this yml snippet look like to you?<br/>
               new line characters denote end of value<br/>
@@ -1254,11 +1305,13 @@ display:
           </section>
           <section>
             <h2>Configuration Schema</h2>
-            <p>Defines the configuration structure for the yml files</p>
-            <p>the very first item in the yml file is its key or unique ID</p>
-            <p>mapping is in the...you guessed it <em>mapping:</em></p>
-            <p>'label' and 'text' are two built-in types which are translatable</p>
-            <p>Learn more:  <a href="https://drupal.org/node/1905070">https://drupal.org/node/1905070</a></p>
+            <ul>
+              <li>Defines structure for config yml files</li>
+              <li>first line is the ID of the config</li>
+              <li>mapping:  define key-value pairs for your config</li>
+              <li>'label' and 'text' are two built-in types which are translatable</li>
+              <li>Learn more:  <a href="https://drupal.org/node/1905070">https://drupal.org/node/1905070</a></li>
+            </ul>
             <pre><code class="php">
 drupalgotchi.settings:  # config ID
   type: mapping
@@ -1280,16 +1333,18 @@ drupalgotchi.settings:  # config ID
           </section>
           <section>
             <h2>Settings and Configuration</h2>
-            <p>Replaces the variable table</p>
-            <p>now each module's <em>status</em> is in yml!</p>
-            <p>System table is gone</p>
-            <p>Configuration and state</p>
-            <p>pluggable storage:  config could be in memcache</p>
+            <ul>
+              <li>Replaces the variable table</li>
+              <li>now each module's <em>status</em> is in yml!</li>
+              <li>System table is gone</li>
+              <li>Configuration and state</li>
+              <li>pluggable storage:  config could be in memcache</li>
+            </ul>
             <aside class="notes">
               replaces variable table
               enabled status of modules is in config
               system table is gone
-              split between configruation and state
+              split between configuration and state
               Larry will talk more about this?(or did he already?)
               has pluggable storage
               even cmi so if you want to put your config in memcache you can do that
@@ -1297,7 +1352,7 @@ drupalgotchi.settings:  # config ID
           </section>
           <section>
             <h2>Configuration and Multiple Environments</h2>
-            <p>Storage></p>
+            <p>Storage</p>
             <pre><code class="php">
 sites/default/files/config_[hash]
 
@@ -1306,8 +1361,9 @@ e.g.
 config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/
 
 ---
-config_[hash]/active/
-config_[hash/staging/
+sites/default/files/config_[hash]/
+  active/
+  staging/
 
 ---
 settings.php
@@ -1319,19 +1375,19 @@ $config_directories['staging']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-Ac
               my slipper slope slide!<br/>
             Configuration Storage and Multiple Environments<br/>
 a directory is created in sites/default/files/config_[randomized_hash] <br/>
-hash �protects� the files (obfuscation)<br/>
+hash ÔøΩprotectsÔøΩ the files (obfuscation)<br/>
 different per instance e.g. different for each person who installs<br/>
 best practice:  store outside of your web root<br/>
-active - what�s live on the site<br/>
-staging - config that�s new that you want to import into the site<br/>
+active - whatÔøΩs live on the site<br/>
+staging - config thatÔøΩs new that you want to import into the site<br/>
 deployment from source active dir to your destination staging dir<br/>
-set which is directory is �active� in settings.php<br/>
+set which is directory is ÔøΩactiveÔøΩ in settings.php<br/>
 so you point to the opposite directories between the dev environment and production environments<br/>
-production �active� dir is staging<br/>
-dev �active� dir is active<br/>
+production ÔøΩactiveÔøΩ dir is staging<br/>
+dev ÔøΩactiveÔøΩ dir is active<br/>
 make changes to active dir on dev<br/>
 no rollback<br/>
-can�t move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
+canÔøΩt move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
             </aside>
           </section>
         </section>
@@ -1435,10 +1491,10 @@ returns term id e.g.
             </code></pre>
             <aside class="notes">
               entity API has been revamped in D8<br/>
-              All properties on an entity is a �field� not configurable otherwise treaed like other fields<br/>
+              All properties on an entity is a ÔøΩfieldÔøΩ not configurable otherwise treaed like other fields<br/>
               Accessing fields occurs the same way for all properties<br/>
               e.g. get first value in field_tags
-              can access primitives using ->get(�value�) or use $node->title[$delta]->value<br/>
+              can access primitives using ->get(ÔøΩvalueÔøΩ) or use $node->title[$delta]->value<br/>
               Review EntityInterface<br/>
               entityNG - for existing entities like node and comment (temporary)<br/>
               entity - one example:  MenuLink.php (plus MenuLinkInterface)<br/>
