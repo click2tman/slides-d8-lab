@@ -796,6 +796,7 @@ public function createRouter() {
   $router->setContext($this->createRouterRequestContext());
   $router->add($router_dynamic);
   $router->add($legacy_router);
+  return $router;
 }
 </code></pre>
             <aside class="notes">
