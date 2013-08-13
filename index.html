@@ -1037,9 +1037,16 @@ public function settings() {
             </code></pre>
             <li>alter the block form</li>
             <pre class="fragment"><code class="php">
-public function blockSubmit($form, &$form_state) {
-  $this->configuration['person'] = $form_state['values']['person'];
-}
+  public function blockForm($form, &$form_state) {
+    $form['person'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Person'),
+      '#maxlength' => 50,
+      '#default_value' => $this->configuration['person'],
+      '#required' => TRUE,
+    );
+    return $form;
+  }
             </code></pre>
             <li>alter submit to save</li></ul>
             <pre class="fragment"><code class="php">
