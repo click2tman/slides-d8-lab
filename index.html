@@ -354,7 +354,7 @@ mymodule/
             <img src="img/architecture-httpkernelinterface.svg" class="graphic"/>
           </section>
           <section>
-            <pre><code class="long_code php">interface HttpKernelInterface {
+            <pre class="long_code"><code class="php">interface HttpKernelInterface {
   const MASTER_REQUEST = 1;
   const SUB_REQUEST = 2;
 
@@ -426,6 +426,9 @@ class MyControllers {
   }
 }
 </code></pre>
+            <aside class="notes">
+              Segue: The most common example is just returning a file off disk...
+            </aside>
           </section>
           <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -443,6 +446,10 @@ class MyControllers {
   }
 }
 </code></pre>
+            <aside class="notes">
+              Drupalers wrote that. :-)
+            </aside>
+
           </section>
           <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
@@ -649,7 +656,7 @@ class MyControllers {
 
           <section>
             <h2>Permission check</h2>
-            <pre><code class="long_code php">class PermissionAccessCheck implements StaticAccessCheckInterface {
+            <pre class="long_code"><code class="php">class PermissionAccessCheck implements StaticAccessCheckInterface {
   public function appliesTo() {
     return array('_permission');
   }
@@ -708,7 +715,33 @@ print $status->show();
 class Status {
   protected $db;
 
-  pubic function __construct(Database $db) {
+  pubic function __construct(DatabaseInterface $db) {
+    $this->db = $db;
+  }
+
+  public function show() {
+    $status = $this->db->query('SELECT status from {table}')->fetchOne();
+    return $status;
+  }
+}
+
+$db = new Database();
+$status = new Status($db);
+print $status->show();
+</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Depend on interfaces, not concrete classes.</li>
+                <li>Concrete class = still tightly coupled.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <pre><code class="php">
+class Status {
+  protected $db;
+
+  pubic function __construct(DatabaseInterface $db) {
     $this->db = $db;
   }
 
@@ -781,11 +814,11 @@ print $status->show();
               <li class="fragment">You'll <em>almost</em> never interact with it directly</li>
               <li class="fragment">Configure via... YAML</li>
               <li class="fragment">Your classes <em>should not</em> know about it</li>
-              <li class="fragment">Focus on testability.</li>
+              <li class="fragment">Focus on testability and swappability</li>
             </ul>
           </section>
           <section>
-            <h3>mymodule.services.yml</h3>
+            <h3>core.services.yml</h3>
              <pre class="fragment long_code"><code class="yaml">services:
   router.dynamic:
     class: Symfony\Cmf\Component\Routing\DynamicRouter
@@ -1480,7 +1513,7 @@ canÔøΩt move the files as is, becuase you could clash with a change coming fr
         <section>
           <section>
             <h2>Events</h2>
-            <p class="fragment">Not the kind with dates</p>
+            <p class="fragment roll-in">Not the kind with dates</p>
           </section>
           <section>
             <h2>Events</h2>
