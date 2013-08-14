@@ -1660,10 +1660,10 @@ drupal 8
             <h2>Theming Basics</h2>
             <p>It's twig!</p>
             <ul>
-              <li>{...} for printing a variable:  { variable_name }</li>
-              <li>drill down using '.':  { node.title }</li>
+              <li>{...} for printing a variable: {{ variable_name }}</li>
+              <li>drill down using '.': {{ node.title }}</li>
               <li>comments:  {# comments #}</li>
-              <li>php code:  {% hide(content.field_example) %}</li>
+              <li>php code (whitelisted):  {% hide(content.field_example) %}</li>
               <li>inheritance:  {% block twig_block_name %}</li>
             </ul>
           </section>
