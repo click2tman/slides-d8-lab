@@ -877,10 +877,6 @@ public function createRouter() {
             </ul>
             <hr/>
             <p>In Drupal 7?</p>
-            <ul>
-              <li>ctools plugins</li>
-              <li>others?</li>
-            </ul>
             <aside class="notes">
             in general plugins provide a narrow set of functionality<br/>
             a plugin framework or system allows customization and extension of the original system
@@ -888,7 +884,7 @@ public function createRouter() {
             graphics software use plugins to apply filters and other processes to an image (photoshop) file<br/>
             web browsers use plugins for playing video and java apps<br/>
             in d7 we have most notably ctools plugins<br/>
-            who knows of any other plugin ‚Äúsystems‚Äù in D7? jquery plugins? others?<br/>
+            who knows of any other plugin systems in D7? jquery plugins? others?<br/>
             </aside>
           </section>
           <section>
@@ -901,7 +897,7 @@ public function createRouter() {
             </ol>
             <p>Managers define and manage</p>
             <aside class="notes">
-            <h2>Drupal 8 One plugin system to rule them all!</h2>
+            <p>Drupal 8 One plugin system to rule them all!</p>
               <p>in d8, we have a new universal plugin system available via core.
                 This system has three base elements:</p>
               <ol>
@@ -909,7 +905,8 @@ public function createRouter() {
                 <li>plugin discovery - finds plugins in the code base to apply</li>
                 <li>plugin factory - instantiates specific plugins as needed</li>
               </ol>
-              each type of plugin has a manager that takes care of all three of these things
+              each type of plugin has a manager that defines and controls three of these things<br/>
+              e.g. BlockManager, ArchiverManager, EditorManager
               <p>(maybe) other components that could be useful:
               plugin derivatives, discovery decorators and plugin mappers.</p>
             </aside>
@@ -923,20 +920,24 @@ public function createRouter() {
               <li>[field]Formatters</li>
             </ul>
             <p>Example of a block plugin</p>
-            <pre><code class="php fragment rollin">
+            <pre><code class="php fragment">
+/* Annotation */
 class HelloBlock extends BlockBase {
 
-  public function settings() {...}
-  public function blockForm($form, &$form_state) {...}
-  public function blockSubmit($form, &$form_state) {...}
+  public function settings() {  }
+
+  public function blockForm($form, &$form_state) {  }
+
+  public function blockSubmit($form, &$form_state) {  }
+
+  public function build() {  }
 }
             </code></pre>
 
             <aside class="notes">
         plugin types<br/>
         Some examples:  blocks, actions, views (field)Formatters.  Sound familiar?<br/>
-        There are new types too:<br/>
-        e.g. constraints, resource plugins, conditions<br/>
+        let's see an example
             </aside>
           </section>
           <section>
@@ -963,14 +964,14 @@ action/
             EmailAction.php
             </code></pre>
             <aside class="notes">
-              designed to replace info hooks
-              finds plugins, finds metadata and parses it
-              takes returned metadata and
-              Three types of discovery
-              discovery - uses module_invoke_all (don't use this, support for legacy code)
-              static discovery - mostly used for tests, not intelligent
-              annotated class discovery - use this one
-              plugins are all located in the same place no matter if it's a core module or contrib
+              designed to replace info hooks<br/>
+              finds plugins, finds metadata and parses it<br/>
+              takes returned metadata and instantiates objects(factory)<br/>
+              annotated class discovery - use this one<br/>
+              plugins are all located in the same place no matter if it's a core module or contrib<br/>
+              other types of discovery:<br/>
+              discovery - uses module_invoke_all (don't use this, support for legacy code)<br/>
+              static discovery - mostly used for tests, not intelligent<br/>
             </aside>
           </section>
           <section>
@@ -995,12 +996,12 @@ use Drupal\Component\Annotation\Plugin; /* required */
             </ul>
             <pre><code class="php">
 /**
-* Provides a Drupalgotchi hello block.
+* Provides a  hello block.
 *
 * @Plugin(
-*  id = "drupalgotchi_hello",
+*  id = "hellodrupal_hello",
 *  admin_label = @Translation("Hello World"),
-*  module = "drupalgotchi"
+*  module = "hellodrupal"
 * )
 */
             </code></pre>
@@ -1018,18 +1019,17 @@ use Drupal\Component\Annotation\Plugin; /* required */
               <li>Always use double quotes</li>
               <li>Strings must use quotes</li>
               <li>Numbers and Booleans must NOT use quotes</li>
-              <li>Nested lists use { }</li>
               <li>No trailing commas!</li>
               <li>Doctrine:  http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</li>
             </ul>
             <pre><code class="php">
 /**
-* Provides a Drupalgotchi hello block.
+* Provides a  hello block.
 *
 * @Plugin(
-*  id = "drupalgotchi_hello",
+*  id = "hellodrupal_hello",
 *  admin_label = @Translation("Hello World"),
-*  module = "drupalgotchi"
+*  module = "hellodrupal"
 * )
 */
             </code></pre>
@@ -1050,7 +1050,9 @@ use Drupal\Component\Annotation\Plugin; /* required */
               plugin types replace old hooks especially info hooks.<br/>
               see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
               no more switch statements like you used to do in hook_block_view  <br/>
-              hook_block_view is now BlockBase::blockBuild and each custom block is its own class extending BlockBase.<br/>
+              hook_block_view is now the build()<br/>
+              and each custom block is its own class extending BlockBase.<br/>
+              see BlockPluginInterface to find all of the methods you might use.<br/>
             </aside>
           </section>
           <section>
@@ -1078,6 +1080,17 @@ public function settings() {
   );
 }
             </code></pre>
+            <aside class="notes">
+              introduce HelloBlock from the UI<br/>
+              find HelloBlock.php<br/>
+              add metadata via Annotations<br/>
+              allow settings<br/>
+              alter the block form<br/>
+              alter the submit<br/>
+              create a render array<br/>
+              create a template file<br/>
+              notify theme layer about our new template<br/>
+            </aside>
           </section>
           <section>
             <h4>Now you try! HelloBlock.php</h4>
@@ -1113,11 +1126,12 @@ public function blockSubmit($form, &$form_state) {
               <li>create the render array</li>
 
             <pre class="fragment"><code class="php">
-    return array(
-      '#theme' => 'hellodrupal_hello_block',
-      '#person' => $this->configuration['person'],
-    );
-  }
+public function build() {
+  return array(
+    '#theme' => 'hellodrupal_hello_block',
+    '#person' => $this->configuration['person'],
+  );
+}
             </code></pre>
             <li>create the template file</li>
 
@@ -1152,12 +1166,8 @@ function hellodrupal_theme() {
           </section>
         </section>
 <!-- Robin's Plugins Slides End -->
-
-        <section>
-          <h1>End Day 1</h1>
-        </section>
-
 <!-- Robin's Forms -->
+        <section><h2>Drupalgotchi!</h2></section>
         <section>
           <section>
             <h2>Forms</h2>
@@ -1248,10 +1258,10 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
 
 class SettingsForm extends SystemConfigFormBase {
 
-  protected $configFactory;
+  protected $config;
 
-  public function __construct(ConfigFactory $config_factory, ContextInterface $context) {
-    $this->configFactory = $config_factory;
+  public function __construct(Config $config) {
+    $this->config = $config;
   }
 
   public static function create(ContainerInterface $container) {
@@ -1268,8 +1278,6 @@ class SettingsForm extends SystemConfigFormBase {
             <aside class="notes">
               Form extends SystemConfigFormBase
               ConfigFactory lets us have a schema and default values<br/>
-              create() comes from the ControllerInterface<br/>
-              create() is our factory method!  makes a new instance of this object?
             </aside>
           </section>
           <section>
@@ -1280,7 +1288,6 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
 ---
 
   public function buildForm(array $form, array &$form_state) {
-    $config = $this->configFactory->get('drupalgotchi.settings');
 
     $form['name'] = array(
       '#title' => t('Name'),
@@ -1341,8 +1348,7 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
                 <li>validate</li>
                 <li>submit</li>
               </ul>
-              <li>System settings use case</li>
-              <li>create() - gets schema and default values for settings</li>
+              <li>Admin settings use case</li>
             </ul>
             <aside class="notes">
               forms now rely in the FormInterface<br/>
@@ -1350,7 +1356,6 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
               pretty straightforward and all in one place!  easy to read!<br/>
               system settings have a special use case where the form can rely on module configuration<br/>
               switch to netbeans and click through classes and interfaces
-              create method grabs your settings schema and default values
             </aside>
           </section>
         </section>
@@ -1455,13 +1460,13 @@ drupalgotchi.settings:  # config ID
               <li>pluggable storage:  config could be in memcache</li>
             </ul>
             <aside class="notes">
-              replaces variable table
-              enabled status of modules is in config
-              system table is gone
-              split between configuration and state
-              Larry will talk more about this?(or did he already?)
-              has pluggable storage
-              even cmi so if you want to put your config in memcache you can do that
+              replaces variable table<br/>
+              enabled status of modules is in config<br/>
+              system table is gone<br/>
+              split between configuration and state<br/>
+              Larry will talk more about this?(or did he already?)<br/>
+              has pluggable storage<br/>
+              even cmi so if you want to put your config in memcache you can do that<br/>
             </aside>
           </section>
           <section>
@@ -1482,32 +1487,30 @@ sites/default/files/config_[hash]/
 ---
 settings.php
 
-$config_directories['active']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/active';
-$config_directories['staging']['path'] = 'config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/staging';
+$config_directories['active']['path'] = 'config_[hash]/active';
+$config_directories['staging']['path'] = 'config_[hash]/staging';
             </code></pre>
             <aside class="notes">
               my slipper slope slide!<br/>
             Configuration Storage and Multiple Environments<br/>
 a directory is created in sites/default/files/config_[randomized_hash] <br/>
-hash ÔøΩprotectsÔøΩ the files (obfuscation)<br/>
+hash protects the files (obfuscation)<br/>
 different per instance e.g. different for each person who installs<br/>
 best practice:  store outside of your web root<br/>
-active - whatÔøΩs live on the site<br/>
-staging - config thatÔøΩs new that you want to import into the site<br/>
+active - what's live on the site<br/>
+staging - config thats new that you want to import into the site<br/>
 deployment from source active dir to your destination staging dir<br/>
-set which is directory is ÔøΩactiveÔøΩ in settings.php<br/>
+set which is directory is active in settings.php<br/>
 so you point to the opposite directories between the dev environment and production environments<br/>
-production ÔøΩactiveÔøΩ dir is staging<br/>
-dev ÔøΩactiveÔøΩ dir is active<br/>
+production active dir is staging<br/>
+dev active dir is active<br/>
 make changes to active dir on dev<br/>
 no rollback<br/>
-canÔøΩt move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
+can't move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
             </aside>
           </section>
         </section>
 <!-- Robin's Config Slides End -->
-
-
         <section>
           <section>
             <h2>Events</h2>
