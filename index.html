@@ -1751,14 +1751,12 @@ class HelloBlock extends BlockBase {
           </section>
           <section>
             <h3>Simpletest: HelloBlock.php</h3>
-            <pre class="long_code"><code class="php">
-/**
+            <pre class="long_code"><code class="php">/**
  * @file
  * Contains \Drupal\drupalgotchi\Tests\HelloBlockTest.
  */
 
 namespace Drupal\drupalgotchi\Tests;
-
 use Drupal\drupalgotchi\Plugin\Block\HelloBlock;
 use Drupal\simpletest\WebTestBase;
 
@@ -1766,7 +1764,7 @@ use Drupal\simpletest\WebTestBase;
  * Tests the Drupalgotchi Hello block.
  */
 class HelloBlockTest extends WebTestBase {
-
+  // Enable dependencies.
   public static $modules = array('drupalgotchi', 'block');
 
   public static function getInfo() {
@@ -1776,9 +1774,7 @@ class HelloBlockTest extends WebTestBase {
       'group' => 'Drupalgotchi',
     );
   }
-
-}
-            </code></pre>
+}           </code></pre>
           </section>
           <section>
             <h3>Simpletest: HelloBlock.php</h3>
@@ -1841,7 +1837,8 @@ class HelloBlockTest extends UnitTestCase {
     parent::setUp();
     // Autoloading is not working for contrib. Load our class to test.
     // See https://drupal.org/node/2025883
-    include_once DRUPAL_ROOT . '/modules/drupalgotchi/lib/Drupal/drupalgotchi/Plugin/Block/HelloBlock.php';
+    include_once DRUPAL_ROOT . '/modules/drupalgotchi/lib/Drupal/
+      drupalgotchi/Plugin/Block/HelloBlock.php';
   }
 
   public function testBlock() {
@@ -1964,12 +1961,12 @@ class SetDrupalgotchiTest extends UnitTestCase {
             <pre class="long_code"><code class="php">
   public function testSet() {
 
-    // Set a mock class for the state container.
+    // Set a mock class (a "stub") for the state container.
     // See http://phpunit.de/manual/current/en/test-doubles.html
     $state = $this
       ->getMockBuilder('Drupal\Core\KeyValueStore\KeyValueStoreInterface')
       ->getMock();
-    // Configure the stub to get the values passed by exexute().
+    // Configure the stub to get the values passed by execute().
     $state->expects($this->once())
       ->method('set')
       ->with($this->equalTo('drupalgotchi.attention', 10));
@@ -2009,12 +2006,14 @@ class SetDrupalgotchiTest extends UnitTestCase {
                   <li class="fragment"><code>->getMock();</code></li>
                 </ul>
               </li>
-              <li class="fragment"><code>$mock->expects($this->CONDITION())</code></li>
-              <li class="fragment"><code>->method('myMethod')</code>
+              <li class="fragment"><code>$mock->expects($this->CONDITION())</code>
                 <ul>
-                  <li class="fragment"><code>->will($this->DOSOMETHING())</code></li>
-                  <li class="fragment"><code>->with($this->ASSERTION())</code></li>
-                </ul>
+                  <li class="fragment"><code>->method('myMethod')</code>
+                    <ul>
+                      <li class="fragment"><code>->will($this->DOSOMETHING())</code></li>
+                      <li class="fragment"><code>->with($this->ASSERTION())</code></li>
+                    </ul>
+                </li>
               </li>
             </ul>
           </section>
@@ -2068,8 +2067,8 @@ class SetDrupalgotchiTest extends UnitTestCase {
           <section>
             <h2>Your Turn!</h2>
             <ul>
-              <li class="fragment">SimpleTest: DrupalgotchiBlock.php</li>
-              <li class="fragment">PHPUnit: DrupalgotchiBlock.php</li>
+              <li class="fragment">SimpleTest: DrupalgotchiBlockTest.php</li>
+              <li class="fragment">PHPUnit: DrupalgotchiBlockTest.php</li>
             </ul>
           </section>
           <section>
@@ -2115,7 +2114,7 @@ class DrupalgotchiBlockTest extends WebTestBase {
    */
   public static $modules = array('drupalgotchi', 'block');
 
-  public function setup();
+  public function getinfo();
   public function testDrupalgotchiBlock();
 
 }
@@ -2124,7 +2123,7 @@ class DrupalgotchiBlockTest extends WebTestBase {
           </section>
           <section>
             <h3>Hints</h3>
-            <pre><code class="php">/**
+            <pre class="long_code"><code class="php">/**
  * @file
  * Contains \Drupal\drupalgotchi\Tests\Plugin\Block\DrupalgotchiBlockTest.
  */
@@ -2139,6 +2138,7 @@ use Drupal\Tests\UnitTestCase;
  */
 class DrupalgotchiBlockTest extends UnitTestCase {
 
+  public function getinfo();
   public function setup();
   public function testDrupalgotchiBlock();
 
