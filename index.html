@@ -1252,12 +1252,11 @@ class SettingsForm extends SystemConfigFormBase {
 
   public function __construct(ConfigFactory $config_factory, ContextInterface $context) {
     $this->configFactory = $config_factory;
-    $this->configFactory->enterContext($context);
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory')->get('drupalgotchi.settings')
     );
   }
 
@@ -1267,7 +1266,7 @@ class SettingsForm extends SystemConfigFormBase {
 
             </code></pre>
             <aside class="notes">
-              Form extends SystemConfigFormBAse
+              Form extends SystemConfigFormBase
               ConfigFactory lets us have a schema and default values<br/>
               create() comes from the ControllerInterface<br/>
               create() is our factory method!  makes a new instance of this object?
@@ -1320,7 +1319,6 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
 
   public function submitForm(array &$form, array &$form_state) {
     parent::submitForm($form, $form_state);
-    $config = $this->configFactory->get('drupalgotchi.settings');
 
     $config->set('name', $form_state['values']['name']);
     $config->set('needy', $form_state['values']['needy']);
@@ -1664,6 +1662,15 @@ drupal 8
               <li>inheritance:  {% block twig_block_name %}</li>
             </ul>
           </section>
+          <section>
+            <h2>Twig Filters</h2>
+            <ul>
+              <li>a function for manipulating values</li>
+              <li>escape - safe strings:  {{ varname|escape('html') }}</li>
+              <li>upper - all uppercase:  {{ 'welcome'|upper }}</li>
+              <li>Built-in filters are availble</li>
+              <li><a href="http://twig.sensiolabs.org/doc/filters/index.html">http://twig.sensiolabs.org/doc/filters/index.html</a></li>
+            </ul>
           <section>
             <h2>Theme Setup</h2>
             <p>Custom themes go in themes/ directory (Drupal root)</p>
