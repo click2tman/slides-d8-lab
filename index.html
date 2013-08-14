@@ -1192,6 +1192,7 @@ function hellodrupal_theme() {
               <li>config schema</li>
               <li>default values</li>
               <li>a form that extends SystemConfigFormBase</li>
+              <li>hook_menu() so it can be visible in navigation</li>
             </ul>
             <aside class="notes">
             you need a route<br/>
@@ -1693,6 +1694,7 @@ drupal 8
         <section>
           <section>
           <h1>Testing</h1>
+          <p class="fragment"><code>git checkout 06-tests</code></p>
           </section>
           <section>
             <h2>Why test?</h2>
@@ -1749,6 +1751,11 @@ class HelloBlock extends BlockBase {
 
 }
             </code></pre>
+            <ul>
+              <li class="fragment"><code>lib/Drupal/drupalgotchi/Plugin/Block/HelloBlock.php</code></li>
+              <li class="fragment"><code>lib/Drupal/drupalgotchi/Tests/HelloBlockTest.php</code></li>
+              <li class="fragment"><code>tests/Drupal/drupalgotchi/Tests/Plugin/Block/HelloBlockTest.php</code></li>
+            </ul>
           </section>
           <section>
             <h3>Simpletest: HelloBlock.php</h3>
@@ -1868,6 +1875,12 @@ class HelloBlockTest extends UnitTestCase {
             <h2>Dependency injection</h2>
               <p class="fragment"><small>In under two minutes</small></p>
               <p class="fragment">Remember: An object on which your object depends</p>
+              <br /><br />
+              <p class="fragment"><code>git checkout 07-di-tests</code></p>
+              <ul>
+                <li class="fragment"><code>lib/Drupal/drupalgotchi/Plugin/Action/SetDrupalgotchi.php</code></li>
+                <li class="fragment"><code>tests/Drupal/drupalgotchi/Tests/Plugin/Action/SetDrupalgotchiTest.php</code></li>
+              </ul>
           </section>
           <section>
             <h3>SetDrupalgotchi.php</h3>
@@ -1905,7 +1918,8 @@ class SetDrupalgotchi extends ActionBase implements ContainerFactoryPluginInterf
     $configuration,
     $plugin_id,
     $plugin_definition,
-    $state);
+    $state
+  );
             </code></pre>
           </section>
 
@@ -1940,7 +1954,8 @@ class SetDrupalgotchiTest extends UnitTestCase {
       $config,
       'drupalgotchi_set_attention',
       array(),
-      $state);
+      $state
+    );
 
     $set->execute(10);
 
@@ -1956,6 +1971,8 @@ class SetDrupalgotchiTest extends UnitTestCase {
               <li class="fragment">Define expected <strong style="color: #fff;">external</strong> behaviors</li>
               <li class="fragment">See <a href="http://phpunit.de/manual/current/en/test-doubles.html">http://phpunit.de/manual/current/en/test-doubles.html</a></li>
             </ul>
+            <br /><br />
+            <p class="fragment"><code>git checkout 06-tests</code></p>
           </section>
           <section>
             <h3>PHPUnit: SetDrupalgotchi.php</h3>
@@ -1977,7 +1994,8 @@ class SetDrupalgotchiTest extends UnitTestCase {
       $config,
       'drupalgotchi_set_attention',
       array(),
-      $state);
+      $state
+    );
 
     $set->execute(10);
 
@@ -1987,12 +2005,13 @@ class SetDrupalgotchiTest extends UnitTestCase {
           <section>
             <h2>Using Mocks</h2>
             <ul>
-              <li class="fragment">Import your dependencies as mocks.</strong></li>
-              <li class="fragment">Set expectations for method calls.</li>
+              <li class="fragment">Import your dependencies as mocks</strong></li>
+              <li class="fragment">Set expectations for method calls</li>
+              <li class="fragment">Can mock classes or interfaces</li>
               <li class="fragment"><code>disableOriginalConstructor()</code>
                 <uL>
-                  <li class="fragment">Will not call <code>__construct() on the mocked object.</code></li>
-                  <li class="fragment">Useful for reducing complexity.</li>
+                  <li class="fragment">Will not call <code>__construct() on the mocked object</code></li>
+                  <li class="fragment">Useful for reducing complexity</li>
                 </ul>
               </li>
 
