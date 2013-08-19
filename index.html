@@ -716,7 +716,7 @@ print $status->show();
 class Status {
   protected $db;
 
-  pubic function __construct(DatabaseInterface $db) {
+  pubic function __construct(Database $db) {
     $this->db = $db;
   }
 
