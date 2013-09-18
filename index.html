@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Drupal 8 Essentials by Palantir.net</title>
+    <title>Your First Drupal 8 Module</title>
 
-    <meta name="author" content="Larry Garfield, Ken Rickard, Robin Barre">
+    <meta name="author" content="Larry Garfield, Robin Barre">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -35,281 +35,61 @@
       <div class="slides">
 
 
-        <!-- KEN'S INTRODUCTORY SLIDES -->
+        <!-- INTRODUCTORY SLIDES -->
         <section>
           <section>
             <h1>Welcome</h1>
-            <h2>Palantir.net</h2>
-            <h2>Drupal 8 Development</h2>
+            <h2>Your First Drupal 8 Module</h2>
           </section>
 
           <section>
             <h1>Trainers</h1>
             <h2>Robin Barre</h2>
             <h2>Larry Garfield</h2>
-            <h2>Ken Rickard</h2>
           </section>
           <section>
-            <h1>Introductions</h1>
+            <h1>Lab Format</h1>
             <ul>
-              <li class="fragment">Your name</li>
-              <li class="fragment">Where you're from</li>
-              <li class="fragment">What one thing do you want to accomplish?</li>
+              <li class="">Short lecture</li>
+              <li class="">Lab exercise</li>
+              <li class="">Pair programming</li>
+              <li class="">Assuming basic understanding of:</li>
+              <ul>
+                <li>namespaces</li>
+                <li>interfaces</li>
+                <li>PSR0</li>
+                <li>CMI</li>
+              </ul>
             </ul>
+            <aside class="notes">
+            </aside>
           </section>
           <section>
             <h1>Goals</h1>
             <h3>SWBAT*</h3>
             <ul>
-              <li class="fragment">Trace the path of a Drupal request and response</li>
               <li class="fragment">Create routes and controllers for requests</li>
               <li class="fragment">Define common module plugins</li>
               <li class="fragment">Store default module settings</li>
-              <li class="fragment">Create forms and pages</li>
-              <li class="fragment">Create tests with SimpleTest and PHPUnit</li>
+              <li class="fragment">Create pages and blocks</li>
+              <li class="fragment">Work with events and state</li>
+              <li class="fragment">Inspire you to learn more about Drupal 8</li>
             </ul>
           </section>
 
           <section>
             <h1>Outline</h1>
             <ul>
-              <li class="fragment">Drupal 8 for site builders</li>
-              <li class="fragment">New concepts from PHP</li>
-              <li class="fragment">Architecture overview</li>
-              <li class="fragment">Drupal 8 building blocks</li>
-              <li class="fragment">Testing</li>
+              <li class="fragment">HttpKernel</li>
+              <li class="fragment">Routing/Controller</li>
+              <li class="fragment">Theming Basics</li>
+              <li class="fragment">Dependency Injection</li>
+              <li class="fragment">Plugins/Annotations</li>
+              <li class="fragment">EventListener and State</li>
             </ul>
           </section>
-
           <section>
-            <h1>Process</h1>
-            <ul>
-              <li class="fragment">Introduction to concepts</li>
-              <li class="fragment">Examples in code</li>
-              <li class="fragment">Practical activity</li>
-              <li class="fragment">Peer review</li>
-            </ul>
-          </section>
-
-          <section>
-            <h1>Demo time!</h1>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h1>Understanding Drupal 8</h1>
-          </section>
-          <section>
-            <h2>Drupal 7</h2>
-            <h3>PHP 4 application</h3>
-          </section>
-
-          <section>
-            <h2>Drupal 8</h2>
-            <h3>PHP 5.3 application</h3>
-            <p class="fragment">We ported Drupal to a new language</p>
-          </section>
-
-          <section>
-            <h2>What does that mean?</h2>
-            <ul>
-              <li class="fragment">The end of "Not Invented Here"</li>
-              <li class="fragment">We have catching up to do</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>Playing nice with others</h2>
-            <ul>
-              <li class="fragment">Namespacing</li>
-              <li class="fragment">Interfaces</li>
-              <li class="fragment">Annotations</li>
-              <li class="fragment">Plugins</li>
-              <li class="fragment">YAML</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>Namespacing</h2>
-            <ul>
-              <li class="fragment">PSR-0
-              <li class="fragment">A fully-qualified namespace and class must have the following structure:<br />
-              <code>\&lt;Vendor Name&gt;\(&lt;Namespace&gt;)*\&lt;Class Name&gt;</code></li>
-              <li class="fragment">Allows standard autoloading</li>
-              <li class="fragment">See <a href="https://github.com/php-fig/fig-standards">https://github.com/php-fig/fig-standards</a></li>
-            </ul>
-          </section>
-
-          <section>
-            <pre><code class="php">/**
- * @file
- * Definition of Drupal\domain\Plugin\Core\Entity\Domain.
- */
-
-namespace Drupal\domain\Plugin\Core\Entity;
-
-use Drupal\domain\DomainInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\Entity;
-use Drupal\Core\Entity\Annotation\EntityType;
-use Drupal\Core\Entity\EntityStorageControllerInterface;
-use Drupal\Core\Annotation\Translation;
-use Guzzle\Http\Exception\HttpException</code></pre>
-          </section>
-
-          <section>
-            <h2>Interfaces</h2>
-            <ul>
-              <li class="fragment">Separate design from implementation</li>
-              <li class="fragment">Allow objects to be mocked (testable)</li>
-              <li class="fragment">Allow implementations to be swapped</li>
-              <li class="fragment">Separate your library code from your Drupal code</li>
-            </ul>
-          </section>
-
-          <section>
-            <pre><code class="php">/**
- * @file
- * Definition of Drupal\domain\DomainInterface.
- */
-
-namespace Drupal\domain;
-use Drupal\Core\Entity\ContentEntityInterface;
-
-interface DomainInterface extends ContentEntityInterface {
-
-  public function validate();
-  public function checkResponse();
-  public function isActive();
-  public function isDefault();
-
-}</code></pre>
-          </section>
-
-          <section>
-            <h2>Annotations</h2>
-            <ul>
-              <li class="fragment">Docblocks as class definitions</li>
-              <li class="fragment">Self-documenting</li>
-              <li class="fragment">Replaces custom <code>hook_*_info()</code></li>
-            </ul>
-          </section>
-
-          <section>
-            <pre><code class="php">namespace Drupal\domain\Plugin\Block;
-use Drupal\block\BlockBase;
-use Drupal\Component\Annotation\Plugin;
-use Drupal\Core\Annotation\Translation;
-
-/**
- * Provides a server information block for a domain request.
- *
- * @Plugin(
- *   id = "domain_server_block",
- *   admin_label = @Translation("Domain server information"),
- *   module = "domain"
- * )
- */
-class DomainServerBlock extends BlockBase {
-
-}</code></pre>
-          </section>
-
-          <section>
-            <h2>Plugins</h2>
-            <ul>
-              <li class="fragment">Generic term for a code model</li>
-              <li class="fragment">Separation of concerns</li>
-              <li class="fragment">Autoloading</li>
-              <li class="fragment">Encourages libraries</li>
-              <li class="fragment">See Views module in Drupal 7</li>
-            </ul>
-          </section>
-
-          <section>
-            <pre><code class="php">class DomainServerBlock extends BlockBase {
-  /**
-   * Overrides \Drupal\block\BlockBase::access().
-   */
-  public function access() {
-    Drupal::request()->attributes->get('_account')
-      ->hasPermission('access content');
-  }
-
-  /**
-   * Build the output.
-   */
-  public function build() {
-    return 'foo';
-  }
-}</code></pre>
-          </section>
-
-          <section>
-            <h2>YAML*</h2>
-            <p><small>* Yes, this isn't a PHP thing</small></p>
-            <ul>
-              <li class="fragment">Generic syntax for complex data</li>
-              <li class="fragment">Portable</li>
-              <li class="fragment">Core of the CMI</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>module.info.yml</h2>
-           <pre><code class="yaml">name: Domain
-description: 'Creates domain records within a Drupal installation.'
-type: module
-package: Domain
-version: VERSION
-core: 8.x
-dependencies:
-  - options
-  - entity_reference
-configure: admin/structure/domain</code></pre>
-          </section>
-
-          <section>
-          <h2>module.routing.yml</h2>
-          <pre><code class="yaml long_code">domain_admin:
-  pattern: 'admin/structure/domain'
-  defaults:
-    _content: '\Drupal\domain\Controller\DomainController::adminOverview'
-  requirements:
-    _permission: 'administer domains'</code></pre>
-          </section>
-
-          <section>
-            <h2>views.view.module.<br />view_name.yml</h2>
-            <pre><code class="yaml">base_field: domain_id
-base_table: domain
-core: 8.x
-description: ''
-status: '1'
-display:
-  default:
-    display_plugin: default
-    id: default
-    display_title: Master
-    position: ''
-    display_options:
-      access:
-        type: perm
-        options:
-          perm: 'administer domains'
-      cache:
-        type: none
-      query:
-        type: views_query</code></pre>
-          </section>
-
-          <section>
-            <h1>Lots of changes</h1>
-          </section>
-
-          <section>
-            <h2>Module structure</h2>
+            <h2>Module structure (PSR0)</h2>
             <pre><code>
 mymodule/
   mymodule.info.yml
@@ -327,13 +107,12 @@ mymodule/
             MyModuleHelloWorldBlock.php
             MyModuleGoodbyeCruelWorldBlock.php</code></pre>
           </section>
-
           <section>
-            <h2 style="color: #a31; font-size: 256px; text-shadow: 1px 1px 1px #800;">Don't Panic</h2>
+            <h2>Drupalgotchi Introduction</h2>
           </section>
-
         </section>
-        <!-- // KEN'S INTRODUCTORY SLIDES -->
+
+        <!-- // END INTRODUCTORY SLIDES -->
 
         <section>
           <section>
@@ -1026,7 +805,7 @@ use Drupal\Component\Annotation\Plugin; /* required */
 * Provides a  hello block.
 *
 * @Plugin(
-*  id = "hellodrupal_hello",
+*  id = "drupalgotchi_hello",
 *  admin_label = @Translation("Hello World"),
 *  module = "hellodrupal"
 * )
@@ -1038,24 +817,18 @@ use Drupal\Component\Annotation\Plugin; /* required */
             </aside>
           </section>
           <section>
-            <h2>Drupal 7 to Drupal 8</h2>
+            <h2>Exercise:  Create a block</h2>
             <ul>
-              <li>plugin types replace D7 hooks (info hooks)</li>
-              <li><strike>switch statement in hook_block_view</strike></li>
-              <li>a block is its own class in D8</li>
-              <li>hook_block_view is now BlockBase::blockBuild</li>
+              <li>Set metadata (annotations) to HelloBlock.php</li>
+              <li>create the render array</li>
+              <li>create a template file</li>
+              <li>notify theme layer about our new template</li>
+              <li>enable drupalgotchi module</li>
+              <li>place HelloBlock</li>
             </ul>
-            <aside class="notes">
-              plugin types replace old hooks especially info hooks.<br/>
-              see hook_block_info, hook_bloc_save, hook_block_view are enacpsulated in one plugin<br/>
-              no more switch statements like you used to do in hook_block_view  <br/>
-              hook_block_view is now the build()<br/>
-              and each custom block is its own class extending BlockBase.<br/>
-              see BlockPluginInterface to find all of the methods you might use.<br/>
-            </aside>
           </section>
           <section>
-            <h4>Now you try!</h4>
+            <h4>Create a block (hint)</h4>
             <ul>
               <li>HelloBlock.php</li>
               <li>Set the metadata (in Annotations)</li>
@@ -1064,7 +837,7 @@ use Drupal\Component\Annotation\Plugin; /* required */
 * Provides a hello block.
 *
 * @Plugin(
-*  id = "hellodrupal_hello",
+*  id = "drupalgotchi_hello",
 *  admin_label = @Translation("Hello World"),
 *  module = "hellodrupal"
 * )
@@ -1080,47 +853,19 @@ public function settings() {
 }
             </code></pre>
             <aside class="notes">
-              introduce HelloBlock from the UI<br/>
               find HelloBlock.php<br/>
               add metadata via Annotations<br/>
               allow settings<br/>
-              alter the block form<br/>
-              alter the submit<br/>
               create a render array<br/>
               create a template file<br/>
               notify theme layer about our new template<br/>
-            </aside>
-          </section>
-          <section>
-            <h4>Now you try! HelloBlock.php</h4>
-            <ul>
-              <li>alter the block form</li>
-              <pre class="fragment"><code class="php">
-public function blockForm($form, &$form_state) {
-  $form['person'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Person'),
-    '#maxlength' => 50,
-    '#default_value' => $this->configuration['person'],
-    '#required' => TRUE,
-  );
-  return $form;
-}
-              </code></pre>
-              <li>alter submit to save</li></ul>
-            <pre class="fragment"><code class="php">
-public function blockSubmit($form, &$form_state) {
-  $this->configuration['person'] = $form_state['values']['person'];
-}
-            </code></pre>
-            <aside class="notes">
               enable drupalgotchi module<br/>
               place HelloBlock<br/>
               then back to this slide<br/>
             </aside>
           </section>
           <section>
-            <h4>now you try!  HelloBlock.php</h4>
+            <h4>Create a block (hint)</h4>
             <ul>
               <li>create the render array</li>
 
@@ -1141,14 +886,14 @@ hellodrupal/templates/hellodrupal-hello-block.html.twig
 
 <p>
 {% trans %}
-  Hello there {{ person }}!
+  Hello there. My name is {{ name }}!
 {% endtrans %}
 </p>
             </code></pre>
             </ul>
           </section>
           <section>
-            <h4>Now you try! HelloBlock</h4>
+            <h4>Create a block (hint)</h4>
             <ul>
             <li>notify the theme about your new template file</li>
             <pre class="fragment"><code class="php">
@@ -1166,7 +911,6 @@ function hellodrupal_theme() {
         </section>
 <!-- Robin's Plugins Slides End -->
 <!-- Robin's Forms -->
-        <section><h2>Drupalgotchi!</h2></section>
         <section>
           <section>
             <h2>Forms</h2>
@@ -1422,95 +1166,9 @@ display:
               more to add here!!! @todo
             </aside>
           </section>
-          <section>
-            <h2>Configuration Schema</h2>
-            <ul>
-              <li>Defines structure for config yml files</li>
-              <li>first line is the ID of the config</li>
-              <li>mapping:  define key-value pairs for your config</li>
-              <li>'label' and 'text' are two built-in types which are translatable</li>
-              <li>Learn more:  <a href="https://drupal.org/node/1905070">https://drupal.org/node/1905070</a></li>
-            </ul>
-            <pre><code class="php">
-drupalgotchi.settings:  # config ID
-  type: mapping
-  label: 'Drupalgotchi settings'
-  mapping:
-    name:
-      type: string
-      label: "The name of your site's persona"
-    needy:
-      type: integer
-      label: 'How needy your site is'
-            </code></pre>
-            <aside class="notes">
-              primary use case:  for translation<br/>
-              The built-in translatable types are 'label' for one-line text input and 'text' for multiline text input.<br/>
-              but also for forms<br/>
-              forms make the types more important in the mapping seciton<br/>
-            </aside>
-          </section>
-          <section>
-            <h2>Settings and Configuration</h2>
-            <ul>
-              <li>Replaces the variable table</li>
-              <li>now each module's <em>status</em> is in yml!</li>
-              <li>System table is gone</li>
-              <li>Configuration and state</li>
-              <li>pluggable storage:  config could be in memcache</li>
-            </ul>
-            <aside class="notes">
-              replaces variable table<br/>
-              enabled status of modules is in config<br/>
-              system table is gone<br/>
-              split between configuration and state<br/>
-              Larry will talk more about this?(or did he already?)<br/>
-              has pluggable storage<br/>
-              even cmi so if you want to put your config in memcache you can do that<br/>
-            </aside>
-          </section>
-          <section>
-            <h2>Configuration and Multiple Environments</h2>
-            <p>Storage</p>
-            <pre><code class="php">
-sites/default/files/config_[hash]
-
-e.g.
-
-config_MUJZBWAhPUGAfz9XAEdGOc0Lk-zG-AcMKG8iOZwRUZE/
-
----
-sites/default/files/config_[hash]/
-  active/
-  staging/
-
----
-settings.php
-
-$config_directories['active']['path'] = 'config_[hash]/active';
-$config_directories['staging']['path'] = 'config_[hash]/staging';
-            </code></pre>
-            <aside class="notes">
-              my slipper slope slide!<br/>
-            Configuration Storage and Multiple Environments<br/>
-a directory is created in sites/default/files/config_[randomized_hash] <br/>
-hash protects the files (obfuscation)<br/>
-different per instance e.g. different for each person who installs<br/>
-best practice:  store outside of your web root<br/>
-active - what's live on the site<br/>
-staging - config thats new that you want to import into the site<br/>
-deployment from source active dir to your destination staging dir<br/>
-set which is directory is active in settings.php<br/>
-so you point to the opposite directories between the dev environment and production environments<br/>
-production active dir is staging<br/>
-dev active dir is active<br/>
-make changes to active dir on dev<br/>
-no rollback<br/>
-can't move the files as is, becuase you could clash with a change coming from a user via the UI<br/>
-            </aside>
-          </section>
         </section>
 <!-- Robin's Config Slides End -->
+<!-- Events Slides Start -->
         <section>
           <section>
             <h2>Events</h2>
@@ -1586,586 +1244,8 @@ class DrupalgotchiSubscriber implements EventSubscriberInterface {
             </aside>
           </section>
         </section>
+<!-- End Event Slides -->
 
-
-<!-- Robin's Entity Slides -->
-        <section>
-          <section>
-           <h2>Entities</h2>
-          </section>
-          <section>
-            <h2>New and Improved Entity API</h2>
-            <p>properties and fields are all &quot;fields&quot;</p>
-            <p>fields are handled the same way. </p>
-            <pre><code class="php">
-$node->get('field_tags')->value
-
----
-
-returns term id e.g.
-
-1
-            </code></pre>
-            <aside class="notes">
-              entity API has been revamped in D8<br/>
-              All properties on an entity is a ÔøΩfieldÔøΩ not configurable otherwise treaed like other fields<br/>
-              Accessing fields occurs the same way for all properties<br/>
-              e.g. get first value in field_tags
-              can access primitives using ->get(ÔøΩvalueÔøΩ) or use $node->title[$delta]->value<br/>
-              Review EntityInterface<br/>
-              entityNG - for existing entities like node and comment (temporary)<br/>
-              entity - one example:  MenuLink.php (plus MenuLinkInterface)<br/>
-            </aside>
-          </section>
-          <section>
-            <h2>Entity References:  Lazy load</h2>
-            <p>Get the first item in the refence field:</p>
-            <pre><code class="php">
-$node->get('field_tags')->entity->name->value
-
----
-
-returns term name e.g.
-
-drupal 8
-            </code></pre>
-            <aside class="notes">
-              Lazy load entity references<br/>
-                $entity->user_ref->entity->name->value<br/>
-                references the first value in the ref field<br/>
-            </aside>
-          </section>
-          <section>
-            <h2>Entities and Fields</h2>
-            <p>Introspection:  you call a method to get the &quot;field&quot; definitions</p>
-            <p>Computed fields:  lookup or calculate value (instead of store)</p>
-            <p>EntityInterface</p>
-            <aside class="notes">
-              and $delta supports multi-value<br/>
-              Introspection capabilities are built in the Entity and Property objects: call a method to get
-                the definitions of the contained properties.<br/>
-              Computed fields:  ability to lookup or otherwise calculate a value rather than returning a stored value<br/>
-            </aside>
-          </section>
-        </section>
-<!-- Robin's Entity Slides End -->
-<!-- Robin's Theming Slides -->
-        <section>
-          <section>
-            <h2>Theming in D8</h2>
-          </section>
-          <section>
-            <h2>Theming Basics</h2>
-            <p>It's twig!</p>
-            <ul>
-              <li>{...} for printing a variable: {{ variable_name }}</li>
-              <li>drill down using '.': {{ node.title }}</li>
-              <li>comments:  {# comments #}</li>
-              <li>php code (whitelisted):  {% hide(content.field_example) %}</li>
-              <li>inheritance:  {% block twig_block_name %}</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Twig Filters</h2>
-            <ul>
-              <li>a function for manipulating values</li>
-              <li>escape - safe strings:  {{ varname|escape('html') }}</li>
-              <li>upper - all uppercase:  {{ 'welcome'|upper }}</li>
-              <li>Built-in filters are availble</li>
-              <li><a href="http://twig.sensiolabs.org/doc/filters/index.html">http://twig.sensiolabs.org/doc/filters/index.html</a></li>
-            </ul>
-          </section>
-          <section>
-            <h2>Theme Setup</h2>
-            <p>Custom themes go in themes/ directory (Drupal root)</p>
-            <p>Jen Lampton's twiggy:</p>
-            <p><a href="https://github.com/jenlampton/twiggy">https://github.com/jenlampton/twiggy</a></p>
-            <p>Enable, then Set default</p>
-            <aside class="notes">
-              Enable and Set as Default - was failing for me<br/>
-              Inheritance (infoblock):  show node.html.twig and node--article.html.twig<br/>
-            </aside>
-          </section>
-        </section>
-<!-- Robin's Theming Slides End -->
-<!-- Ken's testing slides -->
-        <section>
-          <section>
-          <h1>Testing</h1>
-          <p class="fragment"><code>git checkout 06-tests</code></p>
-          </section>
-          <section>
-            <h2>Why test?</h2>
-            <ul>
-              <li class="fragment">Ensure functionality</li>
-              <li class="fragment">Code planning and refactoring</li>
-              <li class="fragment">Continuous integration</li>
-              <li class="fragment">Get better sleep!</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Test methods</h2>
-            <ul>
-              <li class="fragment">Drupal 7: SimpleTest</li>
-              <li class="fragment">Drupal 8: SimpleTest</li>
-              <li class="fragment">Drupal 8: PHPUnit</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Test standards</h2>
-            <ul>
-              <li class="fragment">Unit testing
-                <ul>
-                  <li class="fragment">Does the code behave as expected?</li>
-                  <li class="fragment">Does the code work in isolation?</li>
-                  <li class="fragment">Does the code do too much?</li>
-                  <li class="fragment">PHP Unit</li>
-                </ul>
-              </li>
-              <li class="fragment">Integration testing
-                <ul>
-                  <li class="fragment">Is the output as expected?</li>
-                  <li class="fragment">Does it play well with others?</li>
-                  <li class="fragment">What does it do in the browser?</li>
-                  <li class="fragment">SimpleTest</li>
-                </ul>
-              </li>
-            </ul>
-
-          </section>
-          <section>
-            <h2>Test cases</h2>
-            <pre><code class="php">class HelloBlock extends BlockBase {
-
-  public function build() {
-    return array(
-      '#theme' => 'drupalgotchi_hello_block',
-      '#person' => $this->configuration['person'],
-    );
-  }
-
-}            </code></pre>
-            <ul>
-              <li class="fragment"><code>lib/Drupal/drupalgotchi/Plugin/Block/HelloBlock.php</code></li>
-              <li class="fragment"><code>lib/Drupal/drupalgotchi/Tests/HelloBlockTest.php</code></li>
-              <li class="fragment"><code>tests/Drupal/drupalgotchi/Tests/Plugin/Block/HelloBlockTest.php</code></li>
-            </ul>
-          </section>
-          <section>
-            <h3>Simpletest: HelloBlock.php</h3>
-            <pre class="long_code"><code class="php">/**
- * @file
- * Contains \Drupal\drupalgotchi\Tests\HelloBlockTest.
- */
-
-namespace Drupal\drupalgotchi\Tests;
-use Drupal\drupalgotchi\Plugin\Block\HelloBlock;
-use Drupal\simpletest\WebTestBase;
-
-/**
- * Tests the Drupalgotchi Hello block.
- */
-class HelloBlockTest extends WebTestBase {
-  // Enable dependencies.
-  public static $modules = array('drupalgotchi', 'block');
-
-  public static function getInfo() {
-    return array(
-      'name' => 'Drupalgotchi hello block',
-      'description' => 'Interface test for the hello block',
-      'group' => 'Drupalgotchi',
-    );
-  }
-}           </code></pre>
-          </section>
-          <section>
-            <h3>Simpletest: HelloBlock.php</h3>
-            <pre class="long_code"><code class="php">
-
-  public function testHelloBlock() {
-    // Go to the home page.
-    $this->drupalGet('');
-
-    // Block text should not be present.
-    $this->assertNoText('Drupalgotchi Hello', 'Block title not found.');
-    $this->assertNoText('Hello there World!', 'Block text not found.');
-
-    // Place the block.
-    $settings = array('label' => 'Drupalgotchi Hello');
-    $this->drupalPlaceBlock('drupalgotchi_hello', $settings);
-
-    // Go to the home page.
-    $this->drupalGet('');
-
-    // Block text should be present.
-    $this->assertText('Drupalgotchi Hello', 'Block title found.');
-    $this->assertText('Hello there World!', 'Block text found.');
-
-  }
-
-            </code></pre>
-          </section>
-          <section>
-            <h3>PHPUnit: HelloBlock.php</h3>
-            <pre class="long_code"><code class="php">
-/**
- * @file
- * Contains \Drupal\drupalgotchi\Tests\Plugin\Block\HelloBlockTest.
- */
-
-namespace Drupal\drupalgotchi\Tests\Plugin\Block;
-
-use Drupal\Tests\UnitTestCase;
-use Drupal\drupalgotchi\Plugin\Block\HelloBlock;
-
-/**
- * Tests the Drupalgotchi hello block.
- */
-class HelloBlockTest extends UnitTestCase {
-
-  public static function getInfo() {
-    return array(
-      'name' => 'Drupalgotchi hello block plugin',
-      'description' => 'Tests the Drupalgotchi hello block',
-      'group' => 'Drupalgotchi',
-    );
-  }
-            </code></pre>
-          </section>
-          <section>
-            <h3>PHPUnit: HelloBlock.php</h3>
-            <pre class="long_code"><code class="php">
-  protected function setUp() {
-    parent::setUp();
-    // Autoloading is not working for contrib. Load our class to test.
-    // See https://drupal.org/node/2025883
-    include_once DRUPAL_ROOT . '/modules/drupalgotchi/lib/Drupal/
-      drupalgotchi/Plugin/Block/HelloBlock.php';
-  }
-
-  public function testBlock() {
-    $config = array();
-    $plugin = array('module' => 'drupalgotchi', 'id' => 'drupalgotchi_hello');
-    $block_plugin = new HelloBlock($config, 'drupalgotchi_hello', $plugin);
-
-    $build = $block_plugin->build();
-    $this->assertEquals('drupalgotchi_hello_block', $build['#theme']);
-    $this->assertEquals('World', $build['#person']);
-  }
-            </code></pre>
-          </section>
-          <section>
-            <h2>Differences in approach</h2>
-              <ul>
-                <li class="fragment">SimpleTest requires the whole system</li>
-                <li class="fragment">PHPUnit only tests our class</li>
-                <li class="fragment">SimpleTest assesses the result</li>
-                <li class="fragment">PHPUnit introspects the behavior</li>
-                <li class="fragment">Simpletest declares dependencies</li>
-                <li class="fragment">PHPUnit injects dependencies</li>
-              </ul>
-          </section>
-          <section>
-            <h2>Dependency injection</h2>
-              <p class="fragment"><small>In under two minutes</small></p>
-              <p class="fragment">Remember: An object on which your object depends</p>
-              <br /><br />
-              <p class="fragment"><code>git checkout 07-di-tests</code></p>
-              <ul>
-                <li class="fragment"><code>lib/Drupal/drupalgotchi/Plugin/Action/SetDrupalgotchi.php</code></li>
-                <li class="fragment"><code>tests/Drupal/drupalgotchi/Tests/Plugin/Action/SetDrupalgotchiTest.php</code></li>
-              </ul>
-          </section>
-          <section>
-            <h3>SetDrupalgotchi.php</h3>
-            <pre class="long_code"><code class="php">
-class SetDrupalgotchi extends ActionBase implements ContainerFactoryPluginInterface {
-
-  protected $state;
-
-  public function __construct(array $configuration, $plugin_id,
-    array $plugin_definition, KeyValueStoreInterface $state) {
-
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->state = $state;
-  }
-
-  public function execute($attention = 0) {
-    $this->state->set('drupalgotchi.attention', $attention);
-  }
-}           </code></pre>
-          </section>
-          <section>
-            <h3>SetDrupalgotchi.php</h3>
-            <pre class="long_code"><code class="php">
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    array $plugin_definition,
-    KeyValueStoreInterface $state) {
-  }
-
-  ...
-
-  $state = new KeyValueStore();
-  $gotch = new SetDrupalgotchi(
-    $configuration,
-    $plugin_id,
-    $plugin_definition,
-    $state
-  );
-            </code></pre>
-          </section>
-
-          <section>
-            <h3>PHPUnit: SetDrupalgotchi.php</h3>
-            <pre class="long_code"><code class="php">
-namespace Drupal\drupalgotchi\Tests\Plugin\Action;
-
-use Drupal\Tests\UnitTestCase;
-use Drupal\drupalgotchi\Plugin\Action\SetDrupalgotchi;
-
-class SetDrupalgotchiTest extends UnitTestCase {
-
-  protected $state;
-
-  public static function getInfo() {
-    return array(
-      'name' => 'Drupalgotchi action plugin',
-      'description' => 'Tests the set Drupalgotchi plugin',
-      'group' => 'Drupalgotchi',
-    );
-  }
-            </code></pre>
-          </section>
-          <section>
-            <h3>PHPUnit: SetDrupalgotchi.php</h3>
-            <pre class="long_code"><code class="php">
-  public function testSet() {
-
-    $config = array('name' => 'foo', 'needy' => 10);
-    $set = new SetDrupalgotchi(
-      $config,
-      'drupalgotchi_set_attention',
-      array(),
-      $state
-    );
-
-    $set->execute(10);
-
-  }
-            </code></pre>
-          </section>
-          <section>
-            <h2>Mocks</h2>
-            <ul>
-              <li class="fragment">Mock objects that your code is <strong style="color:#fff;">not testing</strong></li>
-              <li class="fragment">PHPUnit syntax and code support.</li>
-              <li class="fragment">Inject dependencies</li>
-              <li class="fragment">Define expected <strong style="color: #fff;">external</strong> behaviors</li>
-              <li class="fragment">See <a href="http://phpunit.de/manual/current/en/test-doubles.html">http://phpunit.de/manual/current/en/test-doubles.html</a></li>
-            </ul>
-            <br /><br />
-            <p class="fragment"><code>git checkout 06-tests</code></p>
-          </section>
-          <section>
-            <h3>PHPUnit: SetDrupalgotchi.php</h3>
-            <pre class="long_code"><code class="php">
-  public function testSet() {
-
-    // Set a mock class (a "stub") for the state container.
-    // See http://phpunit.de/manual/current/en/test-doubles.html
-    $state = $this
-      ->getMockBuilder('Drupal\Core\KeyValueStore\KeyValueStoreInterface')
-      ->getMock();
-    // Configure the stub to get the values passed by execute().
-    $stub->expects($this->once())
-      ->method('set')
-      ->with(
-        $this->equalTo('drupalgotchi.attention'),
-        $this->equalTo(10)
-    );
-
-    $config = array('name' => 'foo', 'needy' => 10);
-    $set = new SetDrupalgotchi(
-      $config,
-      'drupalgotchi_set_attention',
-      array(),
-      $state
-    );
-
-    $set->execute(10);
-
-  }
-            </code></pre>
-          </section>
-          <section>
-            <h2>Using Mocks</h2>
-            <ul>
-              <li class="fragment">Import your dependencies as mocks</strong></li>
-              <li class="fragment">Set expectations for method calls</li>
-              <li class="fragment">Can mock classes or interfaces</li>
-              <li class="fragment"><code>disableOriginalConstructor()</code>
-                <uL>
-                  <li class="fragment">Will not call <code>__construct() on the mocked object</code></li>
-                  <li class="fragment">Useful for reducing complexity</li>
-                </ul>
-              </li>
-
-            </ul>
-          </section>
-          <section>
-            <h2>Mock pattern</h2>
-            <ul>
-              <li class="fragment"><code>$mock = $this->getMockBuilder('MyClass')</code>
-                <ul>
-                  <li class="fragment">->disableOriginalConstructor()</li>
-                  <li class="fragment"><code>->getMock();</code></li>
-                </ul>
-              </li>
-              <li class="fragment"><code>$mock->expects($this->CONDITION())</code>
-                <ul>
-                  <li class="fragment"><code>->method('myMethod')</code>
-                    <ul>
-                      <li class="fragment"><code>->will($this->DOSOMETHING())</code></li>
-                      <li class="fragment"><code>->with($this->ASSERTION())</code></li>
-                    </ul>
-                </li>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h2>Common <code>will()</code> methods</h2>
-            <ul>
-              <li class="fragment"><code>will($this->returnValue('foo'))</code>
-                <uL>
-                  <li>Returns expected value from declared method.</li>
-                </ul>
-              </li>
-              <li class="fragment"><code>will($this->returnArgument(1))</code>
-                <uL>
-                  <li>Returns passed argument without change.</li>
-                </ul>
-              </li>
-              <li class="fragment"><code>will($this->returnSelf())</code>
-                <uL>
-                  <li>Returns the mocked object.</li>
-                </ul>
-              </li>
-              <li class="fragment"><code>will(returnCallback('str_rot13'))</code>
-                <uL>
-                  <li>Returns a value after processing through a callback function.</li>
-                </ul>
-              </li>
-            </ul>
-          </section>
-          <section>
-            <h2>Common <code>with()</code> methods</h2>
-            <ul>
-              <li class="fragment"><code>with($this->equalTo('foo'))</code>
-                <uL>
-                  <li>Checks method argument is 'foo'.</li>
-                </ul>
-              </li>
-              <li class="fragment"><code>with($this->equalTo('foo', 'bar'))</code>
-                <uL>
-                  <li>Checks method arguments are 'foo' and 'bar'.</li>
-                </ul>
-              </li>
-              <li class="fragment"><code>with($this->greaterThan(5))</code>
-                <uL>
-                  <li>Checks assertion against passed argument.</li>
-                </ul>
-              </li>
-              <li class="fragment">You can pass any PHPUnit assertion.</li>
-              <li class="fragment">You can assert against each argument for the method.</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Your Turn!</h2>
-            <ul>
-              <li class="fragment">SimpleTest: DrupalgotchiBlockTest.php</li>
-              <li class="fragment">PHPUnit: DrupalgotchiBlockTest.php</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Hints</h2>
-            <pre><code>
-drupalgotchi/
-  lib/
-    Drupal/
-      drupalgotchi/
-        Tests/
-          DrupalgotchiBlockTest.php
-
-drupalgotchi/
-  tests/
-    Drupal/
-      drupalgotchi/
-        Tests/
-          Plugin/
-            Block/
-              DrupalgotchiBlockTest.php
-            </code></pre>
-          </section>
-          <section>
-            <h3>Hints</h3>
-            <pre><code class="php">/**
- * @file
- * Contains \Drupal\drupalgotchi\Tests\DrupalgotchiBlockTest.
- */
-
-namespace Drupal\drupalgotchi\Tests;
-
-use Drupal\drupalgotchi\Plugin\Block\DrupalgotchiBlock;
-use Drupal\simpletest\WebTestBase;
-
-/**
- * Tests the Drupalgotchi block.
- */
-class DrupalgotchiBlockTest extends WebTestBase {
-
-  /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = array('drupalgotchi', 'block');
-
-  public function getinfo();
-  public function testDrupalgotchiBlock();
-
-}
-
-            </code></pre>
-          </section>
-          <section>
-            <h3>Hints</h3>
-            <pre class="long_code"><code class="php">/**
- * @file
- * Contains \Drupal\drupalgotchi\Tests\Plugin\Block\DrupalgotchiBlockTest.
- */
-
-namespace Drupal\drupalgotchi\Tests;
-
-use Drupal\drupalgotchi\Plugin\Block\DrupalgotchiBlock;
-use Drupal\Tests\UnitTestCase;
-
-/**
- * Tests the Drupalgotchi block.
- */
-class DrupalgotchiBlockTest extends UnitTestCase {
-
-  public function getinfo();
-  public function setup();
-  public function testDrupalgotchiBlock();
-
-}
-
-            </code></pre>
-          </section>
-        </section>
-<!-- Ken's testing slides end -->
 <!-- Wrap up slides -->
         <section>
           <section>
@@ -2182,14 +1262,6 @@ class DrupalgotchiBlockTest extends UnitTestCase {
           </section>
           <section>
             <h3>Separate business logic from glue code</h3>
-            <aside class="notes">
-              <ul>
-                <li></li>
-              </ul>
-            </aside>
-          </section>
-          <section>
-              <h3>Unit Tests or it didn't happen</h3>
             <aside class="notes">
               <ul>
                 <li></li>
@@ -2220,17 +1292,11 @@ class DrupalgotchiBlockTest extends UnitTestCase {
           </section>
           <section>
             <h2>Survey</h2>
-            <ul>
-              <li class="fragment">How did we do?</li>
-              <li class="fragment">Check your email, please.</li>
-              <li class="fragment">$10 Amazon gift cards upon completion!</li>
-            </ul>
           </section>
           <section>
             <h2>Thank you!</h2>
             <p>See you online!</p>
             <ul>
-              <li><a href="http://www.twitter.com/agentrickard">@agentrickard</a></li>
               <li><a href="http://www.twitter.com/Crell">@Crell</a></li>
               <li><a href="http://www.twitter.com/robinbarre">@RobinBarre</a></li>
             </ul>
@@ -2238,7 +1304,7 @@ class DrupalgotchiBlockTest extends UnitTestCase {
         </section>
         <section>
           <h2>Credits</h2>
-          <p>Slides: Larry Garfield, Robin Barre, Ken Rickard</p>
+          <p>Slides: Larry Garfield, Robin Barre</p>
           <p>Graphics: Larry Garfield, Ashley Cyborski</p>
           <p>©2013 <a href="http://www.palantir.net/">Palantir.net</a></p>
           <p style="margin-top: 1em;">Interested in website development or training?<br /><a href="http://palantir.net/contact">Drop us a line!</a></p>
