@@ -633,7 +633,264 @@ public function createRouter() {
             </aside>
           </section>
         </section>
+<!-- Robin's Config Slides -->
+        <section>
+          <section>
+            <h2>Configuration Management</h2>
+          </section>
+          <section>
+            <h2>Configuration Management (CMI)</h2>
+            <ul>
+              <li>Configuration is everything users and editors do not write</li>
+              <li>It's translatable</li>
+              <li>Usual Suspects:</li>
 
+              <ul>
+                <li>views</li>
+                <li>view modes</li>
+                <li>image styles</li>
+                <li>perms</li>
+                <li>content types</li>
+                <li>settings</li>
+              </ul>
+            </ul>
+          </section>
+          <section>
+            <h2>Config:  It's in the Files!</h2>
+            <ul>
+              <li>elminated 50 tables from the drupal db</li>
+              <li>writes directly to files not the db</li>
+              <li>written in yml, not too hard to write/read and maps to arrays</li>
+            </ul>
+            <pre><code class="php">
+base_field: nid
+base_table: node
+core: 8.x
+description: 'Find and manage content.'
+status: '1'
+display:
+  default:
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content overview'
+      cache:
+        type: none
+      query:
+        type: views_query
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: '0'
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+              </code></pre>
+            <aside class="notes">
+              what does this yml snippet look like to you?<br/>
+              new line characters denote end of value<br/>
+              indenting allows for more complex data structures<br/>
+              note the use of single quotes!  different from Annotations<br/>
+              more to add here!!! @todo
+            </aside>
+          </section>
+        </section>
+<!-- Robin's Config Slides End -->
+<!-- Robin's Forms -->
+        <section>
+          <section>
+            <h2>Forms</h2>
+          </section>
+          <section>
+            <h2>Forms</h2>
+            <p>Let's go!</p>
+            <p>Create Admin Settings</p>
+            <p>Here's how</p>
+            <aside class="notes">
+              LetÔøΩs get into it right away<br/>
+              show the admin setting in your site<br/>
+              i need config settings for my module...<br/>
+              something an admin can maniuplate via the UI.<br/>
+            </aside>
+          </section>
+          <section>
+            <h2>Settings Form Need</h2>
+            <ul>
+              <li>a route</li>
+              <li>config schema</li>
+              <li>default values</li>
+              <li>a form that extends SystemConfigFormBase</li>
+              <li>hook_menu() so it can be visible in navigation</li>
+            </ul>
+            <aside class="notes">
+            you need a route<br/>
+            you need a settings schema<br/>
+            you probably want default setting values<br/>
+            you need form that extends SystemConfigFormBase<br/>
+          </section>
+          <section>
+            <h2>Route to the form</h2>
+            <pre><code class="yml">
+drupalgotchi/drupalgotchi.routing.yml
+
+---
+
+drupalgotchi_settings:
+  pattern: '/admin/config/system/drupalgotchi'
+  defaults:
+    _form: '\Drupal\drupalgotchi\Form\SettingsForm'
+  requirements:
+    _permission: 'administer drupalgotchi'
+
+            </code></pre>
+          </section>
+          <section>
+            <h2>Configuration Schema</h2>
+            <pre><code class="php">
+drupalgotchi/config/schema/drupalgotchi.settings.yml
+
+---
+
+# Schema for the configuration files of the Action module.
+
+drupalgotchi.settings:
+  type: mapping
+  label: 'Drupalgotchi settings'
+  mapping:
+    name:
+      type: string
+      label: "The name of your site's persona"
+    needy:
+      type: integer
+      label: 'How needy your site is'
+            </code></pre>
+          </section>
+          <section>
+            <h2>Default Values for Settings</h2>
+            <p>same file name, different location</p>
+            <pre><code class="php">
+drupalgotchi/config/drupalgotchi.settings.yml
+
+---
+
+needy: 10
+name: ''
+
+            </code></pre>
+          </section>
+          <section>
+            <h2>SystemConfigFormBase</h2>
+            <p>Note how the __construct() uses ConfigFactory</p>
+            <pre><code class="php">
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
+
+---
+
+class SettingsForm extends SystemConfigFormBase {
+
+  protected $config;
+
+  public function __construct(Config $config) {
+    $this->config = $config;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory')->get('drupalgotchi.settings')
+    );
+  }
+
+  public function getFormID() {
+    return 'drupalgotchi_settings';
+  }
+
+            </code></pre>
+            <aside class="notes">
+              Form extends SystemConfigFormBase
+              ConfigFactory lets us have a schema and default values<br/>
+            </aside>
+          </section>
+          <section>
+            <h3>SettingsForm (continued)</h3>
+            <pre><code class="php">
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
+
+---
+
+  public function buildForm(array $form, array &$form_state) {
+
+    $form['name'] = array(
+      '#title' => t('Name'),
+      '#description' => t('What is your site animal\'s name?'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('name'),
+    );
+
+    $form['needy'] = array(
+      '#title' => t('Neediness'),
+      '#description' => t('How needy the site is for attention. Range is from 1-10.'),
+      '#type' => 'range',
+      '#step' => 1,
+      '#min' => 1,
+      '#max' => 10,
+      '#default_value' => $config->get('needy'),
+    );
+
+    return parent::buildForm($form, $form_state);
+  }
+            </code></pre>
+            <aside class="notes">
+              machine name in getFormID() - easy enough<br/>
+              buildForm (don't those args look familiar?!)<br/>
+              and look at that $form array...we can handle that!<br/>
+              now we see the power of the configFactory in submitForm<br/>
+              set the values and call save()<br/>
+            </aside>
+          </section>
+          <section>
+            <h3>SettingsForm</h3>
+            <pre><code class="php">
+drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
+
+---
+
+  public function submitForm(array &$form, array &$form_state) {
+    parent::submitForm($form, $form_state);
+
+    $config->set('name', $form_state['values']['name']);
+    $config->set('needy', $form_state['values']['needy']);
+
+    $config->save();
+  }
+} // end of class
+            </code></pre>
+
+          </section>
+          <section>
+            <h2>now, you try!</h2>
+          </section>
+          <section>
+            <h2>Forms and Config</h2>
+            <ul>
+              <li>FormInterface</li>
+              <ul>
+                <li>build</li>
+                <li>validate</li>
+                <li>submit</li>
+              </ul>
+              <li>Admin settings use case</li>
+            </ul>
+            <aside class="notes">
+              forms now rely in the FormInterface<br/>
+              build, validate, submit -
+              pretty straightforward and all in one place!  easy to read!<br/>
+              system settings have a special use case where the form can rely on module configuration<br/>
+              switch to netbeans and click through classes and interfaces
+            </aside>
+          </section>
+        </section>
+<!-- Robin's Form Slides End -->
 <!-- Robin's Plugins Slides -->
         <section>
           <section>
@@ -909,264 +1166,6 @@ function hellodrupal_theme() {
           </section>
         </section>
 <!-- Robin's Plugins Slides End -->
-<!-- Robin's Forms -->
-        <section>
-          <section>
-            <h2>Forms</h2>
-          </section>
-          <section>
-            <h2>Forms</h2>
-            <p>Let's go!</p>
-            <p>Create Admin Settings</p>
-            <p>Here's how</p>
-            <aside class="notes">
-              LetÔøΩs get into it right away<br/>
-              show the admin setting in your site<br/>
-              i need config settings for my module...<br/>
-              something an admin can maniuplate via the UI.<br/>
-            </aside>
-          </section>
-          <section>
-            <h2>Settings Form Need</h2>
-            <ul>
-              <li>a route</li>
-              <li>config schema</li>
-              <li>default values</li>
-              <li>a form that extends SystemConfigFormBase</li>
-              <li>hook_menu() so it can be visible in navigation</li>
-            </ul>
-            <aside class="notes">
-            you need a route<br/>
-            you need a settings schema<br/>
-            you probably want default setting values<br/>
-            you need form that extends SystemConfigFormBase<br/>
-          </section>
-          <section>
-            <h2>Route to the form</h2>
-            <pre><code class="yml">
-drupalgotchi/drupalgotchi.routing.yml
-
----
-
-drupalgotchi_settings:
-  pattern: '/admin/config/system/drupalgotchi'
-  defaults:
-    _form: '\Drupal\drupalgotchi\Form\SettingsForm'
-  requirements:
-    _permission: 'administer drupalgotchi'
-
-            </code></pre>
-          </section>
-          <section>
-            <h2>Configuration Schema</h2>
-            <pre><code class="php">
-drupalgotchi/config/schema/drupalgotchi.settings.yml
-
----
-
-# Schema for the configuration files of the Action module.
-
-drupalgotchi.settings:
-  type: mapping
-  label: 'Drupalgotchi settings'
-  mapping:
-    name:
-      type: string
-      label: "The name of your site's persona"
-    needy:
-      type: integer
-      label: 'How needy your site is'
-            </code></pre>
-          </section>
-          <section>
-            <h2>Default Values for Settings</h2>
-            <p>same file name, different location</p>
-            <pre><code class="php">
-drupalgotchi/config/drupalgotchi.settings.yml
-
----
-
-needy: 10
-name: ''
-
-            </code></pre>
-          </section>
-          <section>
-            <h2>SystemConfigFormBase</h2>
-            <p>Note how the __construct() uses ConfigFactory</p>
-            <pre><code class="php">
-drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
-class SettingsForm extends SystemConfigFormBase {
-
-  protected $config;
-
-  public function __construct(Config $config) {
-    $this->config = $config;
-  }
-
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory')->get('drupalgotchi.settings')
-    );
-  }
-
-  public function getFormID() {
-    return 'drupalgotchi_settings';
-  }
-
-            </code></pre>
-            <aside class="notes">
-              Form extends SystemConfigFormBase
-              ConfigFactory lets us have a schema and default values<br/>
-            </aside>
-          </section>
-          <section>
-            <h3>SettingsForm (continued)</h3>
-            <pre><code class="php">
-drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
-  public function buildForm(array $form, array &$form_state) {
-
-    $form['name'] = array(
-      '#title' => t('Name'),
-      '#description' => t('What is your site animal\'s name?'),
-      '#type' => 'textfield',
-      '#default_value' => $config->get('name'),
-    );
-
-    $form['needy'] = array(
-      '#title' => t('Neediness'),
-      '#description' => t('How needy the site is for attention. Range is from 1-10.'),
-      '#type' => 'range',
-      '#step' => 1,
-      '#min' => 1,
-      '#max' => 10,
-      '#default_value' => $config->get('needy'),
-    );
-
-    return parent::buildForm($form, $form_state);
-  }
-            </code></pre>
-            <aside class="notes">
-              machine name in getFormID() - easy enough<br/>
-              buildForm (don't those args look familiar?!)<br/>
-              and look at that $form array...we can handle that!<br/>
-              now we see the power of the configFactory in submitForm<br/>
-              set the values and call save()<br/>
-            </aside>
-          </section>
-          <section>
-            <h3>SettingsForm</h3>
-            <pre><code class="php">
-drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
-  public function submitForm(array &$form, array &$form_state) {
-    parent::submitForm($form, $form_state);
-
-    $config->set('name', $form_state['values']['name']);
-    $config->set('needy', $form_state['values']['needy']);
-
-    $config->save();
-  }
-} // end of class
-            </code></pre>
-
-          </section>
-          <section>
-            <h2>now, you try!</h2>
-          </section>
-          <section>
-            <h2>Forms and Config</h2>
-            <ul>
-              <li>FormInterface</li>
-              <ul>
-                <li>build</li>
-                <li>validate</li>
-                <li>submit</li>
-              </ul>
-              <li>Admin settings use case</li>
-            </ul>
-            <aside class="notes">
-              forms now rely in the FormInterface<br/>
-              build, validate, submit -
-              pretty straightforward and all in one place!  easy to read!<br/>
-              system settings have a special use case where the form can rely on module configuration<br/>
-              switch to netbeans and click through classes and interfaces
-            </aside>
-          </section>
-        </section>
-<!-- Robin's Form Slides End -->
-<!-- Robin's Config Slides -->
-        <section>
-          <section>
-            <h2>Configuration Management</h2>
-          </section>
-          <section>
-            <h2>Configuration Management (CMI)</h2>
-            <ul>
-              <li>Configuration is everything users and editors do not write</li>
-              <li>It's translatable</li>
-              <li>Usual Suspects:</li>
-
-              <ul>
-                <li>views</li>
-                <li>view modes</li>
-                <li>image styles</li>
-                <li>perms</li>
-                <li>content types</li>
-                <li>settings</li>
-              </ul>
-            </ul>
-          </section>
-          <section>
-            <h2>Config:  It's in the Files!</h2>
-            <ul>
-              <li>elminated 50 tables from the drupal db</li>
-              <li>writes directly to files not the db</li>
-              <li>written in yml, not too hard to write/read and maps to arrays</li>
-            </ul>
-            <pre><code class="php">
-base_field: nid
-base_table: node
-core: 8.x
-description: 'Find and manage content.'
-status: '1'
-display:
-  default:
-    display_options:
-      access:
-        type: perm
-        options:
-          perm: 'access content overview'
-      cache:
-        type: none
-      query:
-        type: views_query
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Filter
-          reset_button: '0'
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-              </code></pre>
-            <aside class="notes">
-              what does this yml snippet look like to you?<br/>
-              new line characters denote end of value<br/>
-              indenting allows for more complex data structures<br/>
-              note the use of single quotes!  different from Annotations<br/>
-              more to add here!!! @todo
-            </aside>
-          </section>
-        </section>
-<!-- Robin's Config Slides End -->
 <!-- Wrap up slides -->
         <section>
           <section>
