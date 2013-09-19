@@ -71,8 +71,7 @@
               <li class="fragment">Create routes and controllers for requests</li>
               <li class="fragment">Define common module plugins</li>
               <li class="fragment">Store default module settings</li>
-              <li class="fragment">Create pages and blocks</li>
-              <li class="fragment">Work with events and state</li>
+              <li class="fragment">Create pages and blocks and state</li>
               <li class="fragment">Inspire you to learn more about Drupal 8</li>
             </ul>
           </section>
@@ -84,8 +83,8 @@
               <li class="fragment">Routing/Controller</li>
               <li class="fragment">Theming Basics</li>
               <li class="fragment">Dependency Injection</li>
+              <li class="fragment">Forms and Configuration</li>
               <li class="fragment">Plugins/Annotations</li>
-              <li class="fragment">EventListener and State</li>
             </ul>
           </section>
           <section>
@@ -1168,84 +1167,6 @@ display:
           </section>
         </section>
 <!-- Robin's Config Slides End -->
-<!-- Events Slides Start -->
-        <section>
-          <section>
-            <h2>Events</h2>
-            <p class="fragment roll-in">Not the kind with dates</p>
-          </section>
-          <section>
-            <h2>Events</h2>
-            <ul>
-              <li class="fragment">Like hooks, but OO</li>
-              <li class="fragment">Less magic, more explicit</li>
-              <li class="fragment">Should also be simple bridge code, mostly</li>
-            </ul>
-          </section>
-          <section>
-            <h2>Events</h2>
-            <ul>
-              <li class="fragment"><em>Event</em>: thing that happens</li>
-              <li class="fragment"><em>Listener</em>: Code that responds to an event</li>
-              <li class="fragment"><em>Dispatcher</em>: Mediator of all event responding</li>
-              <li class="fragment"><em>Subscriber</em>: A class/service containing listeners</li>
-            </ul>
-          </section>
-
-          <section>
-            <pre><code class="php">
-class DrupalgotchiSubscriber implements EventSubscriberInterface {
-
-  public function onKernelRequestSetHappiness(GetResponseEvent $event) {
-    if ($event->getRequestType() != KernelInterface::MASTER_REQUEST) {
-      return;
-    }
-
-    $request = $event->getRequest();
-    // Do stuff.
-  }
-
-  public function onKernelRequestShowHappiness(GetResponseEvent $event) {
-  }
-
-  public static function getSubscribedEvents() {
-    $events[KernelEvents::REQUEST][] = array('onKernelRequestSetHappiness', 5);
-    $events[KernelEvents::REQUEST][] = array('onKernelRequestShowHappiness', 2);
-    return $events;
-  }
-
-}
-</code></pre>
-            <aside class="notes">
-              <ul>
-                <li>Multiple listener methods in one subscriber</li>
-                <li>Could be any callable, but we use entirely subscribers</li>
-                <li>Could be any events; we have a few outside of the kernel, not many</li>
-                <li>stopPropagation() (also triggered by some other methods, like setResponse())</li>
-                <li>Contrib SHOULD start defining events, not hooks.</li>
-              </ul>
-            </aside>
-          </section>
-          <section>
-            <h2>mymodule.services.yml</h2>
-            <pre class="long_code"><code class="yaml">services:
-  drupalgotchi.subscriber:
-    class: Drupal\drupalgotchi\EventSubscriber\DrupalgotchiSubscriber
-    arguments: ['@config.factory', '@state', '@string_translation']
-    tags:
-      - { name: event_subscriber }
-</code></pre>
-          </section>
-          <section>
-            <h2>Your turn</h2>
-            <aside class="notes">
-              Add a listener that increments or decrements the happiness state
-              on every page request, depending on who the user is.
-            </aside>
-          </section>
-        </section>
-<!-- End Event Slides -->
-
 <!-- Wrap up slides -->
         <section>
           <section>
