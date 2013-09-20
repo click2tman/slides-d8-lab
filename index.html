@@ -317,13 +317,46 @@ class MyControllers {
 
           <section>
             <h1>Your turn!</h1>
-            <p><a href="https://github.com/palantirnet/hellodrupal">https://github.com/palantirnet/hellodrupal</a></p>
+            <p><a href="https://github.com/palantirnet/drupalgotchi">https://github.com/palantirnet/drupalgotchi</a></p>
+            <p>Write the following controllers:</p>
+            <ul class="fragment">
+              <li>Returns the string "Hello world", as a Drupal page.</li>
+              <li>Returns a JSON string that says "hello world".</li>
+            </ul>
+          </section>
+          <section>
+            <h2>And now, with templates!</h2>
+            <ul>
+              <li class="fragment">Templates are now Twig files</li>
+              <li class="fragment">More secure, more powerful, more awesome</li>
+              <li class="fragment">(And fewer divs, but that's a separate matter)</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Example</h3>
+            <pre><code class="twig">
+<p>
+{% trans %}
+  Hello {{ person }}! My name is {{ name }}
+{% endtrans %}
+</p>
+</code></pre>
+            <div class="fragment">
+              <p>Text in {% trans %} is safely escaped. Outside of that, use:</p>
+              <pre><code class="twig">{{ foo|escape('html') }}</code></pre>
+            </div>
             <aside class="notes">
-              Your task is to write 3 simple controllers.
-              One returns the string "hello world", as a Drupal page.
-              One returns a JSON string that says hello world.
-              One accepts a name from the path and says "Hello $name", using
-              a template.
+              <ul>
+                <li>No PHP code!  (And so no SQL.)</li>
+                <li>You can translate strings sanely in the template!</li>
+                <li>Logic uses {% %}, variables use {{ }}, comments use {# #}</li>
+                <li>You can push a LOT more logic to the template now. Do so.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h2>New controller</h2>
+            <p>Accepts a name as a path parameter, and uses a template to say "Hello $name".</p>
           </section>
         </section>
         <section>
