@@ -84,18 +84,20 @@
               <li class="fragment">HttpKernel</li>
               <li class="fragment">Routing/Controller</li>
               <li class="fragment">Theming Basics</li>
+              <li class="fragment">Forms and configuration</li>
               <li class="fragment">Dependency Injection</li>
               <li class="fragment">Forms and Configuration</li>
               <li class="fragment">Plugins/Annotations</li>
             </ul>
           </section>
           <section>
-            <h2>Module structure (PSR0)</h2>
+            <h2>Module structure (PSR-0)</h2>
             <pre><code>
 mymodule/
   mymodule.info.yml
   mymodule.module
   mymodule.routing.yml
+  mymodule.services.yml
     lib/
       Drupal/
         Controller/
@@ -188,23 +190,49 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
+            <pre><code class="php">class MyControllers {
+
+  public function helloString() {
+    return "The view event will turn this into a response.";
+  }
+}
+</code></pre>
+          </section>
+          <section>
+            <pre><code class="php">class MyControllers {
+
+  public function helloDrupal() {
+    return array(
+      '#theme' => 'a_drupal_render_array',
+      '#description' => 'Those still exist.',
+    );
+  }
+}
+</code></pre>
+          </section>
+          <section>
             <pre><code class="php">use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class MyControllers {
 
-  public function helloStream() {
+  public function helloCsvStream() {
+
+    $some_data = $this->getFromSomewhere();
+
     $response = new StreamedResponse();
-    $response->setCallback(function () {
-      echo 'Hello World';
-      flush();
-      sleep(2);
-      echo 'Hello Universe';
-      flush();
+    $response->headers->set('Content-Type', 'text/csv');
+
+    $response->setCallback(function () use ($some_data) {
+      foreach ($some_data as $record) {
+        print implode(', ', $record);
+      }
     });
   }
 }
 </code></pre>
             <aside class="notes">
+              This is how you send CSV data LIKE A BOSS.
+
               Segue: The most common example is just returning a file off disk...
             </aside>
           </section>
@@ -249,28 +277,6 @@ class MyControllers {
 
 class MyControllers {
 
-  public function helloCsv() {
-    foreach ($some_data as $record) {
-      $lines[] = implode(', ', $record);
-    }
-
-    $response = new Response(implode("\n", $lines));
-    $response->headers->set('Content-Type', 'text/csv');
-    return $response;
-  }
-}
-</code></pre>
-            <aside class="notes">
-              <ul>
-                <li>Tip: Could we combine this with a StreamedResponse to send records on the fly? How?</li>
-              </ul>
-            </aside>
-          </section>
-          <section>
-            <pre><code class="php">use Symfony\Component\HttpFoundation\Response;
-
-class MyControllers {
-
   public function helloCoffee() {
     if ($this->isTeapot()) {
       $response = new Response("Don't put coffee in me", 418);
@@ -278,27 +284,6 @@ class MyControllers {
     }
 
     // ...
-  }
-}
-</code></pre>
-          </section>
-          <section>
-            <pre><code class="php">class MyControllers {
-
-  public function helloString() {
-    return "The view event will turn this into a response.";
-  }
-}
-</code></pre>
-          </section>
-          <section>
-            <pre><code class="php">class MyControllers {
-
-  public function helloDrupal() {
-    return array(
-      '#theme' => 'a_drupal_render_array',
-      '#description' => 'Those still exist.',
-    );
   }
 }
 </code></pre>
@@ -318,9 +303,9 @@ class MyControllers {
 </code></pre>
           </section>
           <section>
-          <h3>module.routing.yml</h3>
-          <pre><code class="yaml long_code">hello.world:
-  pattern: '/hello/world/{from}/{to}'
+          <h3>mymodule.routing.yml</h3>
+          <pre><code class="yaml long_code">mymodule.hello_world:
+  path: '/hello/world/{from}/{to}'
   defaults:
     _content: '\Drupal\mymodule\Controller\HelloController::helloWorld'
   requirements:
