@@ -382,16 +382,12 @@ class MyControllers {
             </aside>
           </section>
           <section>
-            <h3>Routing</h3>
-            <img src="img/routing.svg" />
-          </section>
-          <section>
             <h3>Dynamic Router</h3>
             <img src="img/dynamic-router.svg" />
           </section>
           <section>
             <h2>Route Enhancers</h2>
-            <pre><code class="php">class ContentControllerEnhancer implements RouteEnhancerInterface {
+            <pre class="long_code"><code class="php">class ContentControllerEnhancer implements RouteEnhancerInterface {
   protected $types = array(
     'drupal_dialog' => 'controller.dialog:dialog',
     'drupal_modal' => 'controller.dialog:modal',
@@ -425,7 +421,7 @@ class MyControllers {
           <section>
             <h3>Authentication</h3>
             <p class="fragment">global $user is dead</p>
-            <p class="fragment">Long live<br /><code>$request->attributes->get('_account')</code></p>
+            <p class="fragment">Long live the <code>current_user</code> service!</p>
           </section>
           <section>
             <h3>Access control</h3>
@@ -438,7 +434,7 @@ class MyControllers {
           </section>
           <section>
             <h2>Route with access</h2>
-            <pre><code class="yaml">comment_edit_page:
+            <pre><code class="yaml">comment.edit_page:
   pattern: '/comment/{comment}/edit'
   defaults:
     _entity_form: 'comment.default'
@@ -453,14 +449,19 @@ class MyControllers {
           <section>
             <h2>Permission check</h2>
             <pre class="long_code"><code class="php">class PermissionAccessCheck implements StaticAccessCheckInterface {
+  protected $currentUser;
+
+  public function __construct(AccountInterface $user) {
+    $this->currentUser = $user;
+  }
+
   public function appliesTo() {
     return array('_permission');
   }
 
   public function access(Route $route, Request $request) {
     $permission = $route->getRequirement('_permission');
-    $account = $request->attributes->get('_account');
-    return $account->hasPermission($permission) ? static::ALLOW : static::DENY;
+    return $this->currentUser->hasPermission($permission) ? static::ALLOW : static::DENY;
   }
 }
 </code></pre>
