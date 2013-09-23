@@ -48,22 +48,25 @@
             <h2>Larry Garfield</h2>
           </section>
           <section>
-            <h1>Lab Format</h1>
+            <h2>Lab Format</h2>
             <ul>
               <li class="">Short lecture</li>
               <li class="">Lab exercise</li>
-              <li class="">Pair programming</li>
-              <li class="">Assuming basic understanding of:
-                <ul>
-                  <li>namespaces</li>
-                  <li>interfaces</li>
-                  <li>PSR-0</li>
-                  <li>CMI</li>
-                </ul>
-              </li>
+              <li class="">Pair programming recommended</li>
+            </ul>
+            <br/>
+            <br/>
+              <p class="reveal">Assuming basic understanding of:</p>
+              <ul>
+                <li>PHP 5:  namespaces and interfaces</li>
+                <li>PSR-0, future to be PSR-4</li>
+              </ul>
+              <p><a href="<p>https://github.com/php-fig">https://github.com/php-fig</a></p>
 
             </ul>
             <aside class="notes">
+              PSR-4 removes Drupal/[module-name]/ from the path of<br/>
+              sites/all/modules/modulename/lib/Drupal/[module-name]/Controller/ (etc.)<br/>
             </aside>
           </section>
           <section>
@@ -77,41 +80,60 @@
               <li class="fragment">Inspire you to learn more about Drupal 8</li>
             </ul>
           </section>
-
           <section>
-            <h1>Outline</h1>
+            <h1>Subjects</h1>
             <ul>
               <li class="fragment">HttpKernel</li>
               <li class="fragment">Routing/Controller</li>
               <li class="fragment">Theming Basics</li>
-              <li class="fragment">Forms and configuration</li>
               <li class="fragment">Dependency Injection</li>
               <li class="fragment">Forms and Configuration</li>
               <li class="fragment">Plugins/Annotations</li>
             </ul>
           </section>
           <section>
-            <h2>Module structure (PSR-0)</h2>
-            <pre><code>
-mymodule/
-  mymodule.info.yml
-  mymodule.module
-  mymodule.routing.yml
-  mymodule.services.yml
-    lib/
-      Drupal/
-        Controller/
-          MyModuleController.php
-        Plugin/
-          Action/
-            MyModuleCreateRainbows.php
-            MyModuleGetPuppies.php
-          Block/
-            MyModuleHelloWorldBlock.php
-            MyModuleGoodbyeCruelWorldBlock.php</code></pre>
+            <h2>Your Setup</h2>
+            <ul>
+              <li>drupal 8 (master branch)</li>
+              <li>stuffed animal</li>
+              <li>drupalgotchi module</li>
+            </ul>
+            <pre style="font-size:.75em"><code>
+cd sites/all/modules/
+git clone git@github.com:palantirnet/drupalgotchi.git
+git checkout 01-initial-lab
+            </code></pre>
           </section>
           <section>
-            <h2>Drupalgotchi Introduction</h2>
+            <h3>Drupalgotchi Introduction</h3>
+            <p>Tamagotchi:  <a href="http://en.wikipedia.org/wiki/Tamagotchi">http://en.wikipedia.org/wiki/Tamagotchi</a></p>
+            <ul>
+              <li>hand-held digital device</li>
+              <li>alien species!</li>
+              <li>Care:  feed, play, discipline</li>
+            </ul>
+            <hr/>
+            <p>Drupalgotchi</p>
+            <ul>
+              <li>Give it a name</li>
+              <li>Visit your site as admin user to increase "happiness"</li>
+            </ul>
+            <pre ><code>
+cd sites/all/modules/
+git clone git@github.com:palantirnet/drupalgotchi.git
+git checkout 01-initial-lab
+            </code></pre>
+
+            <aside class="notes">
+              In the 1990s, tamagotchi were released to the public.<br/>
+              Small, hand-held digital device<br/>
+              colorful and simplistically designed creatures<br/>
+              Tamagotchis are a small alien species that deposited an egg
+              on Earth to see what life was like, and it is up to the
+              player to raise the egg into an adult creature.
+              better care resulting in an adult creature that is smarter, happier, and requires less attention.<br/>
+              You would feed it, play with it, and discipline it<br/>
+            </aside>
           </section>
         </section>
 
@@ -662,25 +684,26 @@ public function createRouter() {
             <h2>Configuration Management (CMI)</h2>
             <ul>
               <li>Configuration is everything users and editors do not write</li>
-              <li>It's translatable</li>
+
               <li>Usual Suspects:</li>
 
               <ul>
                 <li>views</li>
+                <li>content types</li>
                 <li>view modes</li>
                 <li>image styles</li>
-                <li>perms</li>
-                <li>content types</li>
+                <li>permissions</li>
                 <li>settings</li>
               </ul>
             </ul>
           </section>
           <section>
-            <h2>Config:  It's in the Files!</h2>
+            <h2>Config:  In the Files!</h2>
             <ul>
               <li>elminated 50 tables from the drupal db</li>
               <li>writes directly to files not the db</li>
-              <li>written in yml, not too hard to write/read and maps to arrays</li>
+              <li>written in YAML (.yml):  <a href="http://en.wikipedia.org/wiki/YAML">http://en.wikipedia.org/wiki/YAML</a></li>
+              <li>translatable</li>
             </ul>
             <pre><code class="php">
 base_field: nid
@@ -701,18 +724,13 @@ display:
         type: views_query
       exposed_form:
         type: basic
-        options:
-          submit_button: Filter
-          reset_button: '0'
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
               </code></pre>
             <aside class="notes">
-              what does this yml snippet look like to you?<br/>
+              not too hard to write/read and maps to arrays<br/>
+              what does this snippet look like to you?<br/>
               new line characters denote end of value<br/>
               indenting allows for more complex data structures<br/>
               note the use of single quotes!  different from Annotations<br/>
-              more to add here!!! @todo
             </aside>
           </section>
         </section>
@@ -720,15 +738,34 @@ display:
 <!-- Robin's Forms -->
         <section>
           <section>
-            <h2>Forms</h2>
+            <h2>Forms and Configuration</h2>
+            <ul>
+              <li>FormInterface</li>
+              <ul>
+                <li>buildForm</li>
+                <li>validateForm</li>
+                <li>submitForm</li>
+              </ul>
+              <li>Admin settings use case</li>
+            </ul>
+            <aside class="notes">
+              forms now rely on the FormInterface<br/>
+              build, validate, submit - methods<br/>
+              each form is its own class<br/>
+              pretty straightforward and all in one place!  easy to read!<br/>
+              system settings have a special use case where the form can rely on module configuration<br/>
+              switch to netbeans and click through classes and interfaces
+            </aside>
           </section>
           <section>
             <h2>Forms</h2>
-            <p>Let's go!</p>
-            <p>Create Admin Settings</p>
-            <p>Here's how</p>
+            <p>Create Admin Settings for Drupalgotchi</p>
+            <p>Allow administrator to set values:</p>
+            <ul>
+              <li>drupalgotchi name</li>
+              <li>attention setting</li>
+            </ul>
             <aside class="notes">
-              LetÔøΩs get into it right away<br/>
               show the admin setting in your site<br/>
               i need config settings for my module...<br/>
               something an admin can maniuplate via the UI.<br/>
@@ -738,24 +775,24 @@ display:
             <h2>Settings Form Need</h2>
             <ul>
               <li>a route</li>
-              <li>config schema</li>
+              <li>a menut item </li>
+              <li>configuration schema</li>
               <li>default values</li>
-              <li>a form that extends SystemConfigFormBase</li>
-              <li>hook_menu() so it can be visible in navigation</li>
+              <li>a form that extends ConfigFormBase</li>
             </ul>
             <aside class="notes">
             you need a route<br/>
+            a menu item so it appears in Configuration<br/>
             you need a settings schema<br/>
             you probably want default setting values<br/>
             you need form that extends SystemConfigFormBase<br/>
           </section>
           <section>
             <h2>Route to the form</h2>
-            <pre><code class="yml">
+            <pre><code>
 drupalgotchi/drupalgotchi.routing.yml
-
----
-
+            </code></pre>
+             <pre><code class="yml">
 drupalgotchi_settings:
   pattern: '/admin/config/system/drupalgotchi'
   defaults:
@@ -766,13 +803,30 @@ drupalgotchi_settings:
             </code></pre>
           </section>
           <section>
+            <h3>Menu item for a link to the form</h3>
+            <pre><code class="php">
+drupalgotchi/drupalgotchi.module
+            </code></pre>
+            <pre><code class="php">
+function drupalgotchi_menu() {
+  $items['admin/config/system/drupalgotchi'] = array(
+    'title' => 'Configure Drupalgotchi',
+    'description' => 'Setup the Drupalgotchi for your site.',
+    'route_name' => 'drupalgotchi.settings',
+  );
+
+  return $items;
+}
+
+            </code></pre>
+          </section>
+          <section>
             <h2>Configuration Schema</h2>
             <pre><code class="php">
 drupalgotchi/config/schema/drupalgotchi.settings.yml
-
----
-
-# Schema for the configuration files of the Action module.
+            </code></pre>
+            <pre><code class="php">
+# Schema for the configuration files of the Drupalgotchi module.
 
 drupalgotchi.settings:
   type: mapping
@@ -791,23 +845,20 @@ drupalgotchi.settings:
             <p>same file name, different location</p>
             <pre><code class="php">
 drupalgotchi/config/drupalgotchi.settings.yml
-
----
-
+            </code></pre>
+            <pre><code class="yml">
 needy: 10
 name: ''
-
             </code></pre>
           </section>
           <section>
-            <h2>SystemConfigFormBase</h2>
+            <h2>ConfigFormBase</h2>
             <p>Note how the __construct() uses ConfigFactory</p>
             <pre><code class="php">
 drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
-class SettingsForm extends SystemConfigFormBase {
+            </code></pre>
+            <pre><code class="php">
+class SettingsForm extends ConfigFormBase {
 
   protected $config;
 
@@ -827,24 +878,24 @@ class SettingsForm extends SystemConfigFormBase {
 
             </code></pre>
             <aside class="notes">
-              Form extends SystemConfigFormBase
+              Form extends ConfigFormBase<br/>
+              which implements FormInterface<br/>
               ConfigFactory lets us have a schema and default values<br/>
             </aside>
           </section>
           <section>
-            <h3>SettingsForm (continued)</h3>
+            <h3>Drupalgotchi Settings Form (buildForm)</h3>
             <pre><code class="php">
 drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
+            </code></pre>
+            <pre><code class="php">
   public function buildForm(array $form, array &$form_state) {
 
     $form['name'] = array(
       '#title' => t('Name'),
       '#description' => t('What is your site animal\'s name?'),
       '#type' => 'textfield',
-      '#default_value' => $config->get('name'),
+      '#default_value' => $this->config->get('name'),
     );
 
     $form['needy'] = array(
@@ -854,7 +905,7 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
       '#step' => 1,
       '#min' => 1,
       '#max' => 10,
-      '#default_value' => $config->get('needy'),
+      '#default_value' => $this->config->get('needy'),
     );
 
     return parent::buildForm($form, $form_state);
@@ -869,12 +920,12 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
             </aside>
           </section>
           <section>
-            <h3>SettingsForm</h3>
+            <h3>Drupalgotchi Settings Form</h3>
+            <h4>(submitForm)</h4>
             <pre><code class="php">
 drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
-
----
-
+            </code></pre>
+            <pre><code class="php">
   public function submitForm(array &$form, array &$form_state) {
     parent::submitForm($form, $form_state);
 
@@ -889,25 +940,11 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
           </section>
           <section>
             <h2>now, you try!</h2>
-          </section>
-          <section>
-            <h2>Forms and Config</h2>
             <ul>
-              <li>FormInterface</li>
-              <ul>
-                <li>build</li>
-                <li>validate</li>
-                <li>submit</li>
-              </ul>
-              <li>Admin settings use case</li>
+              <li>Create a configuration schema</li>
+              <li>Provide default values for the schema</li>
+              <li>Create a Settings Form for Drupalgotchi</li>
             </ul>
-            <aside class="notes">
-              forms now rely in the FormInterface<br/>
-              build, validate, submit -
-              pretty straightforward and all in one place!  easy to read!<br/>
-              system settings have a special use case where the form can rely on module configuration<br/>
-              switch to netbeans and click through classes and interfaces
-            </aside>
           </section>
         </section>
 <!-- Robin's Form Slides End -->
@@ -942,25 +979,27 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
             </aside>
           </section>
           <section>
-            <h2>One plugin system<br/>to rule them all!</h2>
+            <h2>One plugin system for all</h2>
             <p>a new universal plugin system supports:</p>
             <ol>
               <li>plugin types</li>
               <li>plugin discovery</li>
               <li>plugin factory</li>
             </ol>
-            <p>Managers define and manage</p>
+            <br/><br/>
+            <p>Managers define and manage plugin types</p>
+            <ul>
+              <li>BlockManager</li>
+              <li>ArchiverManager</li>
+              <li>EditorManager</li>
             <aside class="notes">
-            <p>Drupal 8 One plugin system to rule them all!</p>
-              <p>in d8, we have a new universal plugin system available via core.
-                This system has three base elements:</p>
-              <ol>
-                <li>plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.</li>
-                <li>plugin discovery - finds plugins in the code base to apply</li>
-                <li>plugin factory - instantiates specific plugins as needed</li>
-              </ol>
-              each type of plugin has a manager that defines and controls three of these things<br/>
-              e.g. BlockManager, ArchiverManager, EditorManager
+              in d8, we have a new universal plugin system available via core.
+              This system has three base elements:</p>
+                plugin types - a controlling class that defines how plugins will be discovered and instantiated. plugin types are the OO solution for info hooks.<br/>
+                plugin discovery - finds plugins in the code base to apply<br/>
+                plugin factory - instantiates specific plugins as needed<br/>
+              each type of plugin has a manager that defines and controls these things<br/>
+              e.g. BlockManager, ArchiverManager, EditorManager<br/>
               <p>(maybe) other components that could be useful:
               plugin derivatives, discovery decorators and plugin mappers.</p>
             </aside>
@@ -991,14 +1030,15 @@ class HelloBlock extends BlockBase {
             <aside class="notes">
         plugin types<br/>
         Some examples:  blocks, actions, views (field)Formatters.  Sound familiar?<br/>
-        let's see an example
+        let's see an example<br/>
+        blockForm, blockSubmit, build - let us extend the block config form<br/>
             </aside>
           </section>
           <section>
             <h2>What is Plugin &quot;Discovery&quot;?</h2>
             <p>find plugins, metadata</p>
             <p>parse plugin metadata</p>
-            <p>use annotated class discovery<p>
+            <p>use annotations<p>
             <pre><code class="php fragment rollin">
 modulename/
   lib/
@@ -1023,9 +1063,6 @@ action/
               takes returned metadata and instantiates objects(factory)<br/>
               annotated class discovery - use this one<br/>
               plugins are all located in the same place no matter if it's a core module or contrib<br/>
-              other types of discovery:<br/>
-              discovery - uses module_invoke_all (don't use this, support for legacy code)<br/>
-              static discovery - mostly used for tests, not intelligent<br/>
             </aside>
           </section>
           <section>
@@ -1052,38 +1089,36 @@ use Drupal\Component\Annotation\Plugin; /* required */
 /**
 * Provides a  hello block.
 *
-* @Plugin(
-*  id = "hellodrupal_hello",
+* @Block(
+*  id = "drupalgotchi_hello",
 *  admin_label = @Translation("Hello World"),
-*  module = "hellodrupal"
 * )
 */
             </code></pre>
             <ul>
               <li>what key-value pairs? check the  annotation type class:</li>
             </ul>
-            <p style="font-size:.5em"><code>core/lib/Drupal/core/Entity/Annotations/EntityType.php</code></p>
+            <pre style="font-size:.5em"><code>core/lib/Drupal/core/Entity/Annotations/EntityType.php</code></pre>
             <aside class="notes">
               a bit about annotations in general<br/>
           </section>
           <section>
-            <h2>Annotation Tips</h2>
+            <h2>Annotation Guidelines</h2>
             <ul>
               <li>id = machine_name</li>
               <li>Always use double quotes</li>
               <li>Strings must use quotes</li>
               <li>Numbers and Booleans must NOT use quotes</li>
               <li>No trailing commas!</li>
-              <li>Doctrine:  http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</li>
+              <li>Doctrine:  <a href="http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html">http://docs.doctrine-project.org/en/2.0.x/reference/annotations-reference.html</a></li>
             </ul>
             <pre><code class="php">
 /**
 * Provides a  hello block.
 *
-* @Plugin(
+* @Block(
 *  id = "drupalgotchi_hello",
 *  admin_label = @Translation("Hello World"),
-*  module = "hellodrupal"
 * )
 */
             </code></pre>
@@ -1095,11 +1130,10 @@ use Drupal\Component\Annotation\Plugin; /* required */
           <section>
             <h2>Exercise:  Create a block</h2>
             <ul>
-              <li>Set metadata (annotations) to HelloBlock.php</li>
+              <li>Set metadata (annotations) for HelloBlock.php</li>
               <li>create the render array</li>
               <li>create a template file</li>
               <li>notify theme layer about our new template</li>
-              <li>enable drupalgotchi module</li>
               <li>place HelloBlock</li>
             </ul>
           </section>
@@ -1108,17 +1142,18 @@ use Drupal\Component\Annotation\Plugin; /* required */
             <ul>
               <li>HelloBlock.php</li>
               <li>Set the metadata (in Annotations)</li>
+            </ul>
             <pre class="fragment"><code class="php">
 /**
-* Provides a hello block.
+* Provides a  hello block.
 *
-* @Plugin(
+* @Block(
 *  id = "drupalgotchi_hello",
 *  admin_label = @Translation("Hello World"),
-*  module = "hellodrupal"
 * )
 */
             </code></pre>
+            <ul>
               <li>pull in settings</li>
             </ul>
             <pre class="fragment"><code class="php">
@@ -1148,7 +1183,7 @@ public function settings() {
             <pre class="fragment"><code class="php">
 public function build() {
   return array(
-    '#theme' => 'hellodrupal_hello_block',
+    '#theme' => 'drupalgotchi_hello_block',
     '#person' => $this->configuration['person'],
   );
 }
@@ -1156,7 +1191,7 @@ public function build() {
             <li>create the template file</li>
 
             <pre class="fragment"><code class="php">
-hellodrupal/templates/hellodrupal-hello-block.html.twig
+drupalgotchi/templates/drupalgotchi-hello-block.html.twig
 
 ---
 
@@ -1173,11 +1208,11 @@ hellodrupal/templates/hellodrupal-hello-block.html.twig
             <ul>
             <li>notify the theme about your new template file</li>
             <pre class="fragment"><code class="php">
-function hellodrupal_theme() {
+function drupalgotchi_theme() {
   return array(
-    'hellodrupal_hello_block' => array(
+    'drupalgotchi_hello_block' => array(
       'variables' => array('person' => NULL),
-      'template' => 'hellodrupal-hello-block',
+      'template' => 'drupalgotchi-hello-block',
     )
   );
 }
@@ -1218,9 +1253,6 @@ function hellodrupal_theme() {
             </aside>
           </section>
           <section>
-            <h2 style="color: #a31; font-size: 256px; text-shadow: 1px 1px 1px #800;">Don't Panic</h2>
-          </section>
-          <section>
             <h3>The future is a very different place</h3>
             <h3 class="fragment roll-in">But a really cool one</h3>
             <h3 class="fragment roll-in">(Always bring your towel)</h3>
@@ -1231,7 +1263,12 @@ function hellodrupal_theme() {
             </aside>
           </section>
           <section>
-            <h2>Survey</h2>
+            <h2>Drupal 8 Essentials</h2>
+            <p>Upcoming training events in Chicago, IL</p>
+            <ul>
+              <li>December 3 - 4</li>
+              <li>February 25 - 26</li>
+            </ul>
           </section>
           <section>
             <h2>Thank you!</h2>
@@ -1240,6 +1277,10 @@ function hellodrupal_theme() {
               <li><a href="http://www.twitter.com/Crell">@Crell</a></li>
               <li><a href="http://www.twitter.com/robinbarre">@RobinBarre</a></li>
             </ul>
+          </section>
+          <section>
+            <h2>Evaluation</h2>
+            <img src="img/dcon-prague-survey.jpg" alt="survey information"/>
           </section>
         </section>
         <section>
