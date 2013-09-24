@@ -101,7 +101,7 @@
             <pre style="font-size:.75em"><code>
 cd sites/all/modules/
 git clone git@github.com:palantirnet/drupalgotchi.git
-git checkout 01-initial-lab
+git checkout lab-01-initial
             </code></pre>
           </section>
           <section>
@@ -121,7 +121,7 @@ git checkout 01-initial-lab
             <pre ><code>
 cd sites/all/modules/
 git clone git@github.com:palantirnet/drupalgotchi.git
-git checkout 01-initial-lab
+git checkout lab-01-initial
             </code></pre>
 
             <aside class="notes">
@@ -340,6 +340,7 @@ class MyControllers {
           <section>
             <h1>Your turn!</h1>
             <p><a href="https://github.com/palantirnet/drupalgotchi">https://github.com/palantirnet/drupalgotchi</a></p>
+            <code >git checkout lab-01-initial</code>
             <p>Write the following controllers:</p>
             <ul class="fragment">
               <li>Returns the string "Hello world", as a Drupal page.</li>
@@ -379,6 +380,8 @@ class MyControllers {
           <section>
             <h2>New controller</h2>
             <p>Accepts a name as a path parameter, and uses a template to say "Hello $name".</p>
+            <p>Complete controller code:</p>
+            <code>git checkout lab-02-controller-complete</code>
           </section>
         </section>
         <section>
@@ -780,6 +783,8 @@ display:
               <li>default values</li>
               <li>a form that extends ConfigFormBase</li>
             </ul>
+            <p>Start with branch:</p>
+             <code>git checkout lab-02-controller-complete</code>
             <aside class="notes">
             you need a route<br/>
             a menu item so it appears in Configuration<br/>
@@ -1129,12 +1134,20 @@ use Drupal\Component\Annotation\Plugin; /* required */
           </section>
           <section>
             <h2>Exercise:  Create a block</h2>
+             <code>git checkout lab-03-forms-complete</code>
             <ul>
               <li>Set metadata (annotations) for HelloBlock.php</li>
               <li>create the render array</li>
               <li>create a template file</li>
               <li>notify theme layer about our new template</li>
-              <li>place HelloBlock</li>
+              <li>place HelloBlock in a region</li>
+              <li>Extra credit:  DrupalgotchiBlock.php</li>
+                <ul>
+                  <li>Get Drupalgotchi name</li>
+                  <li>Get Drupalgotchi state:  neediness</li>
+                  <li>Display name and state in the block</li>
+                  <li>place Drupalgotchi block in a region</li>
+                </ul>
             </ul>
           </section>
           <section>
@@ -1206,8 +1219,9 @@ drupalgotchi/templates/drupalgotchi-hello-block.html.twig
           <section>
             <h4>Create a block (hint)</h4>
             <ul>
-            <li>notify the theme about your new template file</li>
-            <pre class="fragment"><code class="php">
+              <li>notify the theme about your new template file</li>
+            </ul>
+            <pre><code class="php">
 function drupalgotchi_theme() {
   return array(
     'drupalgotchi_hello_block' => array(
@@ -1217,7 +1231,9 @@ function drupalgotchi_theme() {
   );
 }
             </code></pre>
-</ul>
+            <p>Complete code:  <pre><code>git checkout lab-04-blocks-complete</code></pre></p>
+            <p>All code in master branch:  <pre><code>git checkout master</code></pre></p>
+
           </section>
         </section>
 <!-- Robin's Plugins Slides End -->
