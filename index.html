@@ -40,6 +40,11 @@
           <section>
             <h1>Welcome</h1>
             <h2>Your First Drupal 8 Module</h2>
+            <aside class="notes">
+              starts: 1:00 pm<br/>
+              5 minutes!!!<br/>
+              stops: 1:05 pm
+            </aside>
           </section>
 
           <section>
@@ -142,6 +147,10 @@ git checkout lab-01-initial
         <section>
           <section>
             <h1>Understanding the web</h1>
+            <aside class="notes">starts: 1:05 pm<br/>
+              15 minutes for lecture!<br/>
+              stops: 1:20 pm for exercise<br/>
+            </aside>
           </section>
           <section>
             <h3>PHP 4 architecture</h3>
@@ -346,6 +355,11 @@ class MyControllers {
               <li>Returns the string "Hello world", as a Drupal page.</li>
               <li>Returns a JSON string that says "hello world".</li>
             </ul>
+            <aside class="notes">
+              starts:  1:20 pm<br/>
+              25 minutes for exercise!<br/>
+              stop at 1:45 pm for DI
+            </aside>
           </section>
           <section>
             <h2>And now, with templates!</h2>
@@ -638,6 +652,10 @@ print $status->show();
               <li class="fragment">Your classes <em>should not</em> know about it</li>
               <li class="fragment">Focus on testability and swappability</li>
             </ul>
+            <aside class="notes">
+              stop time:  1:50 pm<br/>
+              CMI and forms are next
+            </aside>
           </section>
           <section>
             <h3>core.services.yml</h3>
@@ -699,11 +717,17 @@ public function createRouter() {
                 <li>settings</li>
               </ul>
             </ul>
+            <aside class="notes">
+              starts:  1:50 pm<br/>
+              10 minutes!<br/>
+              stops: 2:00 pm<br/>
+              for form exercise
+            </aside>
           </section>
           <section>
             <h2>Config:  In the Files!</h2>
             <ul>
-              <li>elminated 50 tables from the drupal db</li>
+              <li>eliminated 50 tables from the drupal db</li>
               <li>writes directly to files not the db</li>
               <li>written in YAML (.yml):  <a href="http://en.wikipedia.org/wiki/YAML">http://en.wikipedia.org/wiki/YAML</a></li>
               <li>translatable</li>
@@ -950,6 +974,13 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
               <li>Provide default values for the schema</li>
               <li>Create a Settings Form for Drupalgotchi</li>
             </ul>
+            <p>Complete code in branch:</p>
+            <code class="fragment">git checkout lab-03-forms-complete</code>
+            <aside class="notes">
+              starts: 2:00 pm<br/>
+              30 minutes<br/>
+              stops: 2:30 pm<br/>
+            </aside>
           </section>
         </section>
 <!-- Robin's Form Slides End -->
@@ -958,8 +989,12 @@ drupalgotchi/lib/Drupal/drupalgotchi/Form/SettingsForm.php
           <section>
             <h2>Plugins</h2>
             <aside class="notes">
-                (hit 's' on your keyboard to see me.)
-                What is a plugin?
+              starts: 2:30 pm<br/>
+              10 minutes<br/>
+              stops: 2:40 pm<br/>
+              exercise is next<br/>
+              (hit 's' on your keyboard to see me.)<br/>
+              What is a plugin?
             </aside>
           </section>
           <section>
@@ -1149,6 +1184,11 @@ use Drupal\Component\Annotation\Plugin; /* required */
                   <li>place Drupalgotchi block in a region</li>
                 </ul>
             </ul>
+            <aside class="notes">
+              starts: 2:40 pm<br/>
+              30 minutes<br/>
+              stops: 3:10 pm<br/>
+              wrap-up is next<br/>
           </section>
           <section>
             <h4>Create a block (hint)</h4>
@@ -1242,6 +1282,11 @@ function drupalgotchi_theme() {
           <section>
             <h1>Review and wrap-up</h1>
             <h2 style="margin-top: 1em;">Key take-aways</h2>
+            <aside class="notes">
+              starts: 3:10 pm<br/>
+              5 minutes<br/>
+              stops: 3:15 pm<br/>
+            </aside>
           </section>
           <section>
             <h3>Think in loosely coupled objects,<br />not just loosely coupled modules</h3>
